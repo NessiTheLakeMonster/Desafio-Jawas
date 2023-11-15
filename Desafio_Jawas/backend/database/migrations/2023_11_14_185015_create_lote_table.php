@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('lote', function (Blueprint $table) {
             $table->id();
-            $table->foreign('id_usuario')->references('id')->on('users');
+            $table->unsignedBigInteger('id_usuario');
+            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->string('lugar_recogida');
             $table->boolean('entregado');
             $table->boolean('cancelado');
@@ -27,5 +28,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('lote');
+
+        Schema::table('lote', function (Blueprint $table) {
+            $table->dropForeign(['id_usuario']);
+            $table->dropColumn('id_usuario');
+        });
     }
 };
