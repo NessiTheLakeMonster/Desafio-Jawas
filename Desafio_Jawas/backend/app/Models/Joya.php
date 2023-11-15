@@ -9,5 +9,5 @@ class Joya extends Model
 {
     use HasFactory;
 
-
+    protected $table = 'joya';
 }
