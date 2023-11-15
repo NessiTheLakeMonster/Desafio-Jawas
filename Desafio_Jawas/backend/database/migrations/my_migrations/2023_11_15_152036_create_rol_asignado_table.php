@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('receta', function (Blueprint $table) {
+        Schema::create('rol_asignado', function (Blueprint $table) {
             $table->id();
-            $table->foreign('idUsuario')->references('id')->on('users');
+            $table->foreign('id_usuario')->references('id')->on('users');
+            $table->foreign('id_rol')->references('id')->on('rol');
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('receta');
+        Schema::dropIfExists('rol_asignado');
     }
 };
