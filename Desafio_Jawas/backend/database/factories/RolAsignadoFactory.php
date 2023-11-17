@@ -20,17 +20,6 @@ class RolAsignadoFactory extends Factory
      */
     public function definition(): array
     {
-        /* $usuario = User::factory()->create();
-        $rol = Rol::factory()->create();
-
-        return [
-            'id_usuario' => $usuario->id,
-            'id_rol' => $rol->id,
-        ]; */
-
-        return [
-            'id_usuario' => User::all()->random()->id,
-            'id_rol' => Rol::all()->random()->id,
-        ];
+        return [];
     }
 }
