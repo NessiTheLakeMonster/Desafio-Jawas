@@ -21,7 +21,7 @@ class IngredienteAsignadoFactory extends Factory
         return [
             'id_receta' => Receta::all()->random()->id,
             'id_componente' => Componente::all()->random()->id,
-            'cantidad' => $this->faker->randomNumber(1,10),
+            'cantidad' => $this->faker->numberBetween(1, 100),
         ];
     }
 }

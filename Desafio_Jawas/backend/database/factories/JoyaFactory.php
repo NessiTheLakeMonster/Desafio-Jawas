@@ -20,8 +20,8 @@ class JoyaFactory extends Factory
     {
         return [
             'foto' => $this->faker->imageUrl(),
-            'idTipoJoya' => TipoJoya::factory(),
-            'idReceta' => Receta::factory(),
+            'idTipoJoya' => TipoJoya::all()->random()->id,
+            'idReceta' => Receta::all()->random()->id,
         ];
     }
 }
