@@ -20,9 +20,6 @@ class RolAsignadoFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'id_usuario' => User::factory(),
-            'id_rol' => Rol::factory(),
-        ];
+        return [];
     }
 }

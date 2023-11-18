@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Rol;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -16,16 +17,7 @@ class RolFactory extends Factory
      */
     public function definition(): array
     {
-        //TODO: ROL MIRAR ID DE ROLES
-        $roles = [
-            1 => 'administrador',
-            2 => 'clasificador',
-            3 => 'diseñador',
-            4 => 'colaborador'
-        ];
-    
-        return [
-            'nombre' => $this->faker->randomElement($roles),
-        ];
+        return [];
     }
+
 }

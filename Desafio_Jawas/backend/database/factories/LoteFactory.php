@@ -23,11 +23,10 @@ class LoteFactory extends Factory
         $cancelado = $entregado ? 0 : $this->faker->boolean;
 
         return [
-            'id_usuario' => User::factory(),
+            'id_usuario' => User::all()->random()->id,
             'lugar_recogida' => $this->faker->latitude . ', ' . $this->faker->longitude,
             'entregado' => $entregado,
             'cancelado' => $cancelado,
-            'remember_token' => Str::random(10),
         ];
     }
 }

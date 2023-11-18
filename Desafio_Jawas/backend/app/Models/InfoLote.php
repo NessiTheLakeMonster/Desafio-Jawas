@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class InfoLote extends Model
 {
     use HasFactory;
+    protected $table = 'info_lote';
 }

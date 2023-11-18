@@ -18,10 +18,9 @@ class InfoLoteFactory extends Factory
      */
     public function definition(): array
     {
-        //TODO:hacer modelos de lote y componente
         return [
-            'idLote' => Lote::factory(),
-            'idComponente' =>Componente::factory(),
+            'idLote' => Lote::all()->random()->id,
+            'idComponente' => Componente::all()->random()->id,
             'descripcion' => $this->faker->sentence,
             'cantidad' => $this->faker->numberBetween(1, 100),
         ];

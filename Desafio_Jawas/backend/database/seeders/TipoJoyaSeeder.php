@@ -13,6 +13,10 @@ class TipoJoyaSeeder extends Seeder
      */
     public function run(): void
     {
-        TipoJoya::factory(10)->create();
+        $tiposDeJoyas = ['Anillo', 'Collar', 'Pulsera', 'Pendiente', 'Broche', 'Colgante', 'Gemelos', 'Tobillera'];
+
+        foreach ($tiposDeJoyas as $tipo) {
+            TipoJoya::factory()->create(['nombre' => $tipo]);
+        }
     }
 }

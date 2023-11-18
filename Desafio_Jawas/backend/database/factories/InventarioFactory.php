@@ -17,7 +17,7 @@ class InventarioFactory extends Factory
     public function definition(): array
     {
         return [
-            'idComponente' => Componente::factory(),
+            'idComponente' => Componente::all()->random()->id,
             'cantidad' => $this->faker->numberBetween(1, 100),
         ];
     }

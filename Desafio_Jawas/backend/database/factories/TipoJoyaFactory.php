@@ -16,10 +16,8 @@ class TipoJoyaFactory extends Factory
      */
     public function definition(): array
     {
-        $nombresDeJoyas = ['Anillo', 'Collar', 'Pulsera', 'Pendiente', 'Broche', 'Colgante', 'Gemelos', 'Tobillera'];
-
         return [
-            'nombre' => $this->faker->randomElement($nombresDeJoyas),
+            
         ];
     }
 }
