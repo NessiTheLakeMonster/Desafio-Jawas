@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Database\Factories\ComponenteFactory;
 use App\Models\Componente;
-
+use App\Models\RolAsignado;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -21,7 +21,7 @@ class RecetaFactory extends Factory
     public function definition(): array
     {
         return [
-            'idUsuario' => User::all()->random()->id,
+            'idUsuario' => RolAsignado::where('id_rol', 3)->get('id_usuario')->random()->id_usuario,
         ];
     }
 }
