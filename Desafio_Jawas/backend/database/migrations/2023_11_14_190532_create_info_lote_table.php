@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('info_lote', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idLote');
-            $table->foreign('idLote')->references('id')->on('lote');
+            $table->foreign('idLote')->references('id')->on('lote')->onDelete('cascade');
             $table->unsignedBigInteger('idComponente');
             $table->foreign('idComponente')->references('id')->on('componente');
             $table->string('descripcion');
