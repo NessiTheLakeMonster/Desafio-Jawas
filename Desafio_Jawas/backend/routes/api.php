@@ -17,3 +17,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::prefix('colaborador')->group(function () {
+        Route::delete('/eliminar/{id}', [UserController::class, 'usuarioEliminar']);
+    });
+
+    Route::prefix('administrador')->group(function () {
+    });
+
+    Route::prefix('clasificador')->group(function () {
+    });
+
+    Route::prefix('diseñador')->group(function () {
+    });
+});
