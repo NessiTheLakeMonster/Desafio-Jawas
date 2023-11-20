@@ -9,4 +9,11 @@ class Lote extends Model
 {
     use HasFactory;
     protected $table = 'lote';
+
+    protected $fillable = [
+        'id_usuario',
+        'lugar_recogida',
+        'entregado',
+        'cancelado',
+    ];
 }
