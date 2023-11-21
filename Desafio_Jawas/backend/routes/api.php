@@ -50,3 +50,26 @@ Route::prefix('lote')->group(function () {
     //CANCELAR LOTES
     Route::put('/cancelar/{id}', [LoteController::class, 'cancelarLote']);
 });
+
+//RUTAS CLASIFICADOR
+
+Route::prefix('info_lote')->group(function () {
+    
+    //DESGUAZARÁ Y CLASIFICARÁ EL LOTE
+    Route::post('/desguazar', [App\Http\Controllers\Info_LoteController::class, 'crear']);
+    Route::get('/mostrar/{id}', [App\Http\Controllers\Info_LoteController::class, 'mostrar']);
+    Route::get('/listar', [App\Http\Controllers\Info_LoteController::class, 'listar']);
+});
+
+Route::prefix('componentes')->group(function () {
+
+    //TENDRÁ ACCESO A LOS COMPONENTES
+    Route::get('/listar', [App\Http\Controllers\ComponenteController::class, 'listar']);
+    Route::get('/mostrar/{id}', [App\Http\Controllers\ComponenteController::class, 'mostrar']);
+    Route::post('/crear', [App\Http\Controllers\ComponenteController::class, 'crear']);
+    Route::put('/modificar/{id}', [App\Http\Controllers\ComponenteController::class, 'modificar']);
+    Route::delete('/eliminar/{id}', [App\Http\Controllers\ComponenteController::class, 'eliminar']);
+    Route::get('/esHardware/{id}', [App\Http\Controllers\ComponenteController::class, 'esHardware']);
+});
+
+
