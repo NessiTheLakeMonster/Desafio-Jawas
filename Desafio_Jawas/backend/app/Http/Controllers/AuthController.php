@@ -40,11 +40,7 @@ class AuthController extends Controller
                 ], 401);
             } else {
 
-                if ($usuario->rol == 1) {
-                    $success['token'] =  $usuario->createToken('access_token', ["admin"])->plainTextToken;
-                } else {
-                    $success['token'] =  $usuario->createToken('access_token', ["user"])->plainTextToken;
-                }
+                $success['token'] =  $usuario->createToken('access_token', ["user"])->plainTextToken; // crear token
 
                 return response()->json([
                     'usuario' => $success,
@@ -80,13 +76,14 @@ class AuthController extends Controller
         }
     }
 
-    public function registrarse(Request $request)
+    public function registro(Request $request)
     {
 
         try {
 
             $message = [
                 'nombre.required' => 'El campo nombre es obligatorio',
+                'apellido.required' => 'El campo apellido es obligatorio',
                 'email.required' => 'El campo email es obligatorio',
                 'password.required' => 'El campo contraseña es obligatorio',
                 'email' => 'El campo :email debe ser un email',
@@ -98,8 +95,10 @@ class AuthController extends Controller
             ];
 
             $validator = Validator::make($request->all(), [ // validacion de los campos
-                'nombre' => 'required|string|max:55',
-                'email' => 'required|string|email|max:55|unique:usuarios',
+                'fotoPerfil' => 'string',
+                'nombre' => 'required|string|min:2|max:55',
+                'apellido' => 'required|string|min:2|max:55',
+                'email' => 'required|string|email|max:55|unique:users',
                 'password' => 'required|string|min:8|confirmed',
 
             ], $message);
@@ -108,18 +107,14 @@ class AuthController extends Controller
                 return response()->json($validator->errors(), 422);
             } else {
                 $usuario = new User();
+                $usuario->fotoPerfil = $request->fotoPerfil;
                 $usuario->nombre = $request->nombre;
+                $usuario->apellido = $request->apellido;
                 $usuario->email = $request->email;
                 $usuario->password = Hash::make($request->password);
-                $usuario->rol = $request->rol;
                 $usuario->save();
 
-                // crearemos un token para el usuario segun su rol
-                if ($usuario->rol == 1) {
-                    $success['token'] =  $usuario->createToken('access_token', ["admin"])->plainTextToken;
-                } else {
-                    $success['token'] =  $usuario->createToken('access_token', ["user"])->plainTextToken;
-                }
+                $success['token'] =  $usuario->createToken('access_token', ["user"])->plainTextToken;
 
                 return response()->json([
                     'usuario' => $success,

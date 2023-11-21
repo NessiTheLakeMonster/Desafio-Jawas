@@ -2,6 +2,7 @@ import { Usuario } from "./utils/clases.js";
 import { validarNombre, validarApellido, validarEmail, validarPasswd } from "./utils/validaciones.js";
 
 // Campos del formulario de registro
+let fotoPerfil = document.getElementById("fotoPerfilRegistro");
 let nombre = document.getElementById("nombreRegistro");
 let apellido = document.getElementById("apellidoRegistro");
 let email = document.getElementById("mailRegistro");
@@ -37,8 +38,9 @@ function _Init() {
 
 }
 
-function guardarUsuario() {
+async function guardarUsuario() {
     let usuario = new Usuario(
+        fotoPerfil.value,
         nombre.value,
         apellido.value,
         email.value,
@@ -53,9 +55,16 @@ function guardarUsuario() {
         body: JSON.stringify(usuario)
     };
 
-    fetch("http://localhost:3000/usuarios", options) // TODO cambia URL de guardar usuarios
-        .then(response => response.json())
-        .then(data => console.log(data));
+    try {
+        const response = await fetch("http://localhost:800/api/registro", options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error('There was a problem with the fetch operation: ', error);
+    }
 }
 
 function validar() {
