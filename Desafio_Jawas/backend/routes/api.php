@@ -36,8 +36,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 //RUTAS COLABORADOR 
 Route::prefix('lote')->group(function () {
     Route::get('/listar', [LoteController::class, 'listar']);
+    Route::get('/entregados', [LoteController::class, 'comprobarEntregas']);
     Route::post('/guardar', [LoteController::class, 'guardar']);
     Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
     Route::put('/modificar/{id}', [LoteController::class, 'modificar']);
+    Route::put('/cancelar/{id}', [LoteController::class, 'cancelarLote']);
     Route::delete('/eliminar/{id}', [LoteController::class, 'eliminar']);
 });
