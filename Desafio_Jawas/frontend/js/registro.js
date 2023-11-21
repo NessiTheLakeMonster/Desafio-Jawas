@@ -22,8 +22,10 @@ let msgCuentaCreada = document.getElementById("msgExito");
 // Botón de registro
 const btnRegistro = document.getElementById("btnRegistro");
 
+let usuario = [];
+
 // Eventos
-btnRegistro.addEventListener("click", function () {
+/* btnRegistro.addEventListener("click", function () {
     if (validar()) {
         msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
         msgCuentaCreada.style.color = "green";
@@ -31,40 +33,66 @@ btnRegistro.addEventListener("click", function () {
         guardarUsuario();
         btnRegistro.disabled = true;
     }
-});
+}); */
 
 // Funciones
 function _Init() {
 
 }
 
-async function guardarUsuario() {
-    let usuario = new Usuario(
+async function guardarUsuario(datos) {
+    let body = JSON.stringify(
+        {
+            fotoPerfil: datos.fotoPerfil,
+            nombre: datos.nombre,
+            apellido: datos.apellido,
+            email: datos.email,
+            password: datos.passwd,
+            password_confirmation: datos.confPasswd
+        }
+    );
+
+    /* usuario = new Usuario(
         fotoPerfil.value,
         nombre.value,
         apellido.value,
         email.value,
-        passwd.value
-    );
+        passwd.value,
+        confPasswd.value
+    ); */
 
-    sessionStorage.setItem("usuario", JSON.stringify(usuario));
+    /* sessionStorage.setItem("usuario", JSON.stringify(usuario)); */
 
-    const options = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(usuario)
+    var options = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: body, /* JSON.stringify(usuario), */
+        redirect: "follow"
     };
 
-    try {
-        const response = await fetch("http://localhost:800/api/registro", options);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log(data);
-    } catch (error) {
-        console.error('There was a problem with the fetch operation: ', error);
-    }
+    const response = await fetch("http://127.0.0.1:8000/api/registro", options);
+    const data = await response.json();
+    return data;
+}
+
+
+function asignarRol() { // TODO cuando se cree el usuario debe ser colaborador
+
+}
+
+function cogerDatos() {
+    let datos = {
+        fotoPerfil: fotoPerfil.value,
+        nombre: nombre.value,
+        apellido: apellido.value,
+        email: email.value,
+        passwd: passwd.value,
+        confPasswd: confPasswd.value
+    };
+
+    return datos;
 }
 
 function validar() {
@@ -97,3 +125,21 @@ function limpiarErrores() {
     msgPasswd.textContent = "";
     msgConfPasswd.textContent = "";
 }
+
+btnRegistro.addEventListener("click", function (e) {
+    /* e.preventDefault(); */
+
+    guardarUsuario(cogerDatos())
+    .then(data => {
+        console.log(data);
+        if (data.status == 200) {
+            msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
+            msgCuentaCreada.style.color = "green";
+            btnRegistro.disabled = true;
+        } else {
+            msgCuentaCreada.innerHTML = "Error al crear la cuenta";
+            msgCuentaCreada.style.color = "red";
+        }
+    })
+    .catch (error => console.log(error));
+});
