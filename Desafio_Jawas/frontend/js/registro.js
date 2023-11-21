@@ -1,4 +1,5 @@
-import { validarNombre, validarApellido, validarEmail, validarPasswd } from "./validaciones.js";
+import { Usuario } from "./utils/clases.js";
+import { validarNombre, validarApellido, validarEmail, validarPasswd } from "./utils/validaciones.js";
 
 // Campos del formulario de registro
 let nombre = document.getElementById("nombreRegistro");
@@ -25,6 +26,9 @@ btnRegistro.addEventListener("click", function () {
     if (validar()) {
         msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
         msgCuentaCreada.style.color = "green";
+
+        guardarUsuario();
+        btnRegistro.disabled = true;
     }
 });
 
@@ -33,7 +37,26 @@ function _Init() {
 
 }
 
+function guardarUsuario() {
+    let usuario = new Usuario(
+        nombre.value,
+        apellido.value,
+        email.value,
+        passwd.value
+    );
 
+    sessionStorage.setItem("usuario", JSON.stringify(usuario));
+
+    const options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(usuario)
+    };
+
+    fetch("http://localhost:3000/usuarios", options) // TODO cambia URL de guardar usuarios
+        .then(response => response.json())
+        .then(data => console.log(data));
+}
 
 function validar() {
     limpiarErrores();
