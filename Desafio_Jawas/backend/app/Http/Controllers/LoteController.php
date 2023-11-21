@@ -108,5 +108,22 @@ class LoteController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function entregarLote($id){
+        try {
+            $lote = Lote::where('id', $id)->where('entregado', false)->where('cancelado', false)->first();
+    
+            if ($lote) {
+                $lote->update(['entregado' => true]);
+                return response()->json($lote);
+            } else {
+                return response()->json(['error' => 'Lote no encontrado o ya está entregado o está cancelado'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
 }
 
