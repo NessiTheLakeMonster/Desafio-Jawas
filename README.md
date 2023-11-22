@@ -1,3 +1,15 @@
+# Desafío Jawas :gem:
+Integrantes
+  - [Inés Mª Barrera Llerena](https://github.com/NessiTheLakeMonster)
+  - [Patricia Mota](https://github.com/patrimj)
+  - [Jaime](https://github.com/jornu99)
+
+-------
+# Manual de Servidor :closed_lock_with_key:
+## Registrar usuario
+
+## Iniciar sesión
+
 ## LOTE
 
 #### Listar lotes
