@@ -44,7 +44,9 @@ class AuthController extends Controller
 
                 return response()->json([
                     'usuario' => $success,
-                    'message' => 'Inicio de sesión'
+                    'message' => 'Inicio de sesión',
+                    'status' => 200,
+                    'ok' => true
                 ], 200);
             }
         } catch (\Exception $e) {

@@ -53,11 +53,14 @@ function cargarDatos() {
 
 function validar() {
     limpiarErrores();
-    esValido = true;
+
+    var esValido = true;
 
     if (!validarEmail(email, msgEmail)) {
         esValido = false;
     }
+
+    return esValido;
 }
 
 function limpiarErrores() {
@@ -73,9 +76,10 @@ btnLogin.addEventListener("click", function (e) {
     if (validar()) {
         loginUsuario(cargarDatos())
             .then(data => {
-                if (data.status == "success") {
+                console.log(data);
+                if (data.status == 200) {
                     // TODO guardar el token en el local storage
-                    /* localStorage.setItem("token", data.token); */
+                    /* localStorage.setItem("token", data.usuario.token); */
                     
                     msgInicioSesion.innerHTML = "Inicio de sesión correcto";
                     window.location.href = "home.html";
@@ -88,4 +92,26 @@ btnLogin.addEventListener("click", function (e) {
                 console.log(error);
             });
     }
+
+
+    /* if (validar()) {
+        loginUsuario(cargarDatos())
+            .then(response => {
+                console.log(response);
+                if (response.ok) {
+                    response.json().then(data => {
+                        // TODO guardar el token en el local storage
+                        localStorage.setItem("token", data.usuario.token);
+
+                        msgInicioSesion.innerHTML = "Inicio de sesión correcto";
+                        window.location.href = "home.html";
+                    });
+                } else {
+                    msgInicioSesion.innerHTML = "Inicio de sesión incorrecto";
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    } */
 });
