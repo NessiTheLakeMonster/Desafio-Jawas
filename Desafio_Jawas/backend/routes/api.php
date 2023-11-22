@@ -72,4 +72,14 @@ Route::prefix('componentes')->group(function () {
     Route::get('/esHardware/{id}', [App\Http\Controllers\ComponenteController::class, 'esHardware']);
 });
 
+//RUTAS DISEÑADOR
+
+Route::prefix('joya')->group(function () {
+    Route::get('/listar', [App\Http\Controllers\JoyaController::class, 'listar']);
+    Route::get('/mostrar/{id}', [App\Http\Controllers\JoyaController::class, 'mostrar']);
+    Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']);
+    Route::put('/modificar/{id}', [App\Http\Controllers\JoyaController::class, 'modificar']);
+    Route::delete('/eliminar/{id}', [App\Http\Controllers\JoyaController::class, 'eliminar']);
+});
+
 
