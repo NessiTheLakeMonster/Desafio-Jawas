@@ -165,3 +165,58 @@
 #### Verificar si un componente es hardware
 - URL: `http://127.0.0.1:8000/api/componentes/esHardware/{id}`
 - Método: `GET`
+
+## joyas
+
+#### Listar todas las joyas
+
+- URL: `http://127.0.0.1:8000/api/joya/listar`
+- Método: `GET`
+
+#### Mostrar una joya específica
+
+- URL: `http://127.0.0.1:8000/api/joya/mostrar/{id}`
+- Método: `GET`
+
+#### Crear una nueva joya
+
+- URL: `http://127.0.0.1:8000/api/joya/crear`
+- Método: `POST`
+- Datos requeridos:
+  - `foto`: foto de la joya (string, requerido)
+  - `idTipoJoya`: ID del tipo de joya (integer, requerido)
+  - `idReceta`: ID de la receta (integer, requerido)
+
+##### Ejemplo de solicitud para crear una joya
+
+```json
+{
+  "foto": "prueba",
+  "idTipoJoya": 5,
+  "idReceta": 6
+}
+```
+
+#### Modificar una joya existente
+
+- URL: `http://127.0.0.1:8000/api/joya/modificar/{id}`
+- Método: `PUT`
+- Datos requeridos:
+  - `foto`: foto de la joya (string, requerido)
+  - `idTipoJoya`: ID del tipo de joya (integer, requerido)
+  - `idReceta`: ID de la receta (integer, requerido)
+
+##### Ejemplo de solicitud para modificar una joya
+
+```json
+{
+  "foto": "prueba",
+  "idTipoJoya": 5,
+  "idReceta": 6
+}
+```
+
+#### Eliminar una joya
+
+- URL: `http://127.0.0.1:8000/api/joya/eliminar/{id}`
+- Método: `DELETE`
