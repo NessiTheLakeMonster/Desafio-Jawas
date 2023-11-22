@@ -233,6 +233,23 @@ Integrantes
 - URL: `http://127.0.0.1:8000/api/joya/eliminar/{id}`
 - Método: `DELETE`
 
+#### Generador de Joyas Aleatorios
+
+- URL: `http://127.0.0.1:8000/api/joya/generar`
+- Método: `POST`
+- Datos requeridos:
+  - `foto`: foto de la joya (string, requerido)
+  - `idTipoJoya`: ID del tipo de joya (integer, requerido)
+  - `idReceta`: ID de la receta (integer, requerido)
+ 
+##### Ejemplo de solicitud para generar una joya
+
+```json
+{
+  "idTipoJoya": 1
+}
+```
+
 ## RECETAS
 
 #### Listar todas las recetas
@@ -279,6 +296,33 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/receta/eliminar/{id}`
 - Método: `DELETE`
+
+#### Verificar si hay suficientes componentes en el inventario
+- URL: `http://127.0.0.1:8000/api/receta/componentes/{id}`
+- Método: `GET`
+- Datos requeridos:
+  - `id_receta`: ID de la receta (integer, requerido)
+
+##### Ejemplo de respuesta exitosa
+
+```json
+{
+    "message": "Hay suficientes componentes en el inventario",
+    "cantidad Necesaria": 10,
+    "cantidad Inventario": 20
+    "Cantidad de Joyas que puedes realizar": 23
+}
+```
+##### Ejemplo de respuesta de error
+
+```json
+{
+    "error": "No hay suficientes componentes en el inventario",
+    "cantidad Necesaria": 10,
+    "cantidad Inventario": 5,
+    "cantidad Faltante": 5
+}
+```
 
 ## INGREDIENTES
 
