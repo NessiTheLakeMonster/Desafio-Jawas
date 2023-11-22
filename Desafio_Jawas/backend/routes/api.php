@@ -83,6 +83,9 @@ Route::prefix('joya')->group(function () {
     Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']);
     Route::put('/modificar/{id}', [App\Http\Controllers\JoyaController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [App\Http\Controllers\JoyaController::class, 'eliminar']);
+
+    //GENERADOR DE JOYAS ALEATORIAS
+    Route::post('/generar', [App\Http\Controllers\JoyaController::class, 'generarJoyaAleatoria']);
 });
 
 Route::prefix('receta')->group(function () {
@@ -93,6 +96,9 @@ Route::prefix('receta')->group(function () {
     Route::post('/crear', [App\Http\Controllers\RecetaController::class, 'crear']);
     Route::put('/modificar/{id}', [App\Http\Controllers\RecetaController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [App\Http\Controllers\RecetaController::class, 'eliminar']);
+
+    //VERIFICAR SI HAY SUFICIENTES COMPONENTES EN EL INVENTARIO Y CUANTAS JOYAS PUEDE HACER
+    Route::get('/componentes/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'componenteSuficiente']);
 });
 
 Route::prefix('ingrediente')->group(function () {
