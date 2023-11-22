@@ -29,6 +29,19 @@ let usuario = [];
 
 } */
 
+function cogerDatos() {
+    let datos = {
+        fotoPerfil: fotoPerfil.value,
+        nombre: nombre.value,
+        apellido: apellido.value,
+        email: email.value,
+        passwd: passwd.value,
+        confPasswd: confPasswd.value
+    };
+
+    return datos;
+}
+
 async function guardarUsuario(datos) {
     let body = JSON.stringify(
         {
@@ -44,7 +57,8 @@ async function guardarUsuario(datos) {
     var options = {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         },
         body: body /* JSON.stringify(usuario), */
     };
@@ -58,19 +72,6 @@ async function guardarUsuario(datos) {
 /* function asignarRol() { // TODO cuando se cree el usuario debe ser colaborador
 
 } */
-
-function cogerDatos() {
-    let datos = {
-        fotoPerfil: fotoPerfil.value,
-        nombre: nombre.value,
-        apellido: apellido.value,
-        email: email.value,
-        passwd: passwd.value,
-        confPasswd: confPasswd.value
-    };
-
-    return datos;
-}
 
 function validar() {
     limpiarErrores();
