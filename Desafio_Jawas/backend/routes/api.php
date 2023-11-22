@@ -82,4 +82,12 @@ Route::prefix('joya')->group(function () {
     Route::delete('/eliminar/{id}', [App\Http\Controllers\JoyaController::class, 'eliminar']);
 });
 
+Route::prefix('receta')->group(function () {
+    Route::get('/listar', [App\Http\Controllers\RecetaController::class, 'listar']);
+    Route::get('/mostrar/{id}', [App\Http\Controllers\RecetaController::class, 'mostrar']);
+    Route::post('/crear', [App\Http\Controllers\RecetaController::class, 'crear']);
+    Route::put('/modificar/{id}', [App\Http\Controllers\RecetaController::class, 'modificar']);
+    Route::delete('/eliminar/{id}', [App\Http\Controllers\RecetaController::class, 'eliminar']);
+});
+
 
