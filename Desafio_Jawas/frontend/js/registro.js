@@ -24,21 +24,10 @@ const btnRegistro = document.getElementById("btnRegistro");
 
 let usuario = [];
 
-// Eventos
-/* btnRegistro.addEventListener("click", function () {
-    if (validar()) {
-        msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
-        msgCuentaCreada.style.color = "green";
-
-        guardarUsuario();
-        btnRegistro.disabled = true;
-    }
-}); */
-
 // Funciones
-function _Init() {
+/* function _Init() {
 
-}
+} */
 
 async function guardarUsuario(datos) {
     let body = JSON.stringify(
@@ -52,35 +41,23 @@ async function guardarUsuario(datos) {
         }
     );
 
-    /* usuario = new Usuario(
-        fotoPerfil.value,
-        nombre.value,
-        apellido.value,
-        email.value,
-        passwd.value,
-        confPasswd.value
-    ); */
-
-    /* sessionStorage.setItem("usuario", JSON.stringify(usuario)); */
-
     var options = {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
-        body: body, /* JSON.stringify(usuario), */
-        redirect: "follow"
+        body: body /* JSON.stringify(usuario), */
     };
 
     const response = await fetch("http://127.0.0.1:8000/api/registro", options);
-    const data = await response.json();
-    return data;
+        const data = await response.json();
+        return data;
 }
 
 
-function asignarRol() { // TODO cuando se cree el usuario debe ser colaborador
+/* function asignarRol() { // TODO cuando se cree el usuario debe ser colaborador
 
-}
+} */
 
 function cogerDatos() {
     let datos = {
@@ -126,20 +103,26 @@ function limpiarErrores() {
     msgConfPasswd.textContent = "";
 }
 
+// Eventos
 btnRegistro.addEventListener("click", function (e) {
-    /* e.preventDefault(); */
+    e.preventDefault();
 
-    guardarUsuario(cogerDatos())
-    .then(data => {
-        console.log(data);
-        if (data.status == 200) {
-            msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
-            msgCuentaCreada.style.color = "green";
-            btnRegistro.disabled = true;
-        } else {
-            msgCuentaCreada.innerHTML = "Error al crear la cuenta";
-            msgCuentaCreada.style.color = "red";
-        }
-    })
-    .catch (error => console.log(error));
+    if (validar()) {
+        guardarUsuario(cogerDatos())
+            .then(data => {
+                console.log(data);
+                console.log(data.status);
+                if (data.status == 200) {
+                    msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
+                    msgCuentaCreada.style.color = "green";
+                    window.location.href = "login.html";
+                    btnRegistro.disabled = true;
+                } else {
+                    msgCuentaCreada.innerHTML = "Error al crear la cuenta";
+                    msgCuentaCreada.style.color = "red";
+                }
+            })
+            .catch(error => console.log(error));
+    }
+
 });

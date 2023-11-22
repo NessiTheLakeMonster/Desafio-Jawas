@@ -33,15 +33,26 @@ function _Init() {
 
 }
 
-function buscarUsuario() { // FIXME mirar para que devuelva boolean
-    const options = {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
+async function buscarUsuario(datos) {
+    let body = JSON.stringify(
+        {
+            email: datos.email,
+            password: datos.passwd
+        }
+    );
+
+    var options = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: body, /* JSON.stringify(usuario), */
+        redirect: "follow"
     };
 
-    fetch("http://localhost:3000/usuarios", options) // TODO cambia URL de buscar usuarios
-        .then(response => response.json())
-        .then(data => console.log(data));
+    const response = await fetch("http://127.0.0.1:8000/api/login", options);
+    const data = await response.json();
+    return data;
 }
 
 function validar() {

@@ -119,7 +119,7 @@ class AuthController extends Controller
                 return response()->json([
                     'usuario' => $success,
                     'message' => 'usuario creado'
-                ], 201);
+                ], 200);
             }
         } catch (\Exception $e) {
             return response()->json([
