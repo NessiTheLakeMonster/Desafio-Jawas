@@ -106,7 +106,7 @@ class AuthController extends Controller
             ], $message);
 
             if ($validator->fails()) {
-                return response()->json($validator->errors(), 422);
+                return response()->json($validator->errors(), 304);
             } else {
                 $usuario = new User();
                 $usuario->fotoPerfil = $request->fotoPerfil;
@@ -120,7 +120,8 @@ class AuthController extends Controller
 
                 return response()->json([
                     'usuario' => $success,
-                    'message' => 'usuario creado'
+                    'message' => 'usuario creado',
+                    'status' => 200 // TODO mirar para demas controller el status
                 ], 200);
             }
         } catch (\Exception $e) {

@@ -33,12 +33,23 @@ async function loginUsuario(datos) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: body, /* JSON.stringify(usuario), */
-        redirect: "follow"
+        body: body
+        
     };
 
-    const response = await fetch("http://127.0.0.1:8000/api/login", options);
+    const response = await fetch("http://localhost:8000/api/login", options);
     const data = await response.json();
+    console.log(data);
+    if (data.status == 200) {
+        // TODO guardar el token en el local storage
+        /* localStorage.setItem("token", data.usuario.token); */
+        
+        msgInicioSesion.innerHTML = "Inicio de sesión correcto";
+        window.location.href = "home.html";
+    } else {
+        msgInicioSesion.innerHTML = "Inicio de sesión incorrecto";
+
+    }
     return data;
 }
 
