@@ -22,6 +22,11 @@ class ComponenteController extends Controller
 
     public function crear (Request $request){
         
+        $messages =['required' => 'Campo obligatorio',
+                    'string' => 'El campo :nombre debe ser un texto',
+                    'boolean' => 'El campo :hardware debe ser un booleano',
+        ];
+
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string',
             'hardware' => 'required|boolean',
@@ -51,10 +56,15 @@ class ComponenteController extends Controller
 
     public function modificar(Request $request, $id){
 
+        $messages =['required' => 'Campo obligatorio',
+                    'string' => 'El campo :nombre debe ser un texto',
+                    'boolean' => 'El campo :hardware debe ser un booleano',
+        ];
+
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string',
             'hardware' => 'required|boolean',
-        ]);
+        ],$messages);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
@@ -74,7 +84,7 @@ class ComponenteController extends Controller
         try {
             $componente = Componente::findOrFail($id);
             $componente->delete();
-            return response()->json(null, 204);
+            return response()->json(['message' => 'Componente eliminado correctamente']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

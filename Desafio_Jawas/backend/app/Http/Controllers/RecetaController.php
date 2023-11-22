@@ -21,7 +21,7 @@ class RecetaController extends Controller
     public function crear (Request $request){
         
         $validator = Validator::make($request->all(), [
-            'idUsuario' => 'required|integer',
+            'idUsuario' => 'required|integer|exists:users,id',
         ]);
     
         if ($validator->fails()) {
@@ -49,7 +49,7 @@ class RecetaController extends Controller
     public function modificar(Request $request, $id){
 
         $validator = Validator::make($request->all(), [
-            'idUsuario' => 'required|integer',
+            'idUsuario' => 'required|integer|exists:users,id',
         ]);
 
         if ($validator->fails()) {
@@ -70,7 +70,7 @@ class RecetaController extends Controller
         try {
             $receta = Receta::findOrFail($id);
             $receta->delete();
-            return response()->json(null, 204);
+            return response()->json(['message' => 'Receta eliminada correctamente']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

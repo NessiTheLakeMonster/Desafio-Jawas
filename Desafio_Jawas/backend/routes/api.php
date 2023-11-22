@@ -45,9 +45,10 @@ Route::post('/logout', [AuthController::class, 'logout']);
 Route::get('/usuario/listar', [UserController::class, 'listar']);
 
 //RUTAS COLABORADOR 
+
 Route::prefix('lote')->group(function () {
 
-    //CRUD LOTE
+    //GESTIONAR LOTES
     Route::get('/listar', [LoteController::class, 'listar']);
     Route::post('/guardar', [LoteController::class, 'guardar']);
     Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
@@ -86,19 +87,40 @@ Route::prefix('componentes')->group(function () {
 //RUTAS DISEÑADOR
 
 Route::prefix('joya')->group(function () {
+
+    //GESTIONAR CRUD JOYAS
     Route::get('/listar', [App\Http\Controllers\JoyaController::class, 'listar']);
     Route::get('/mostrar/{id}', [App\Http\Controllers\JoyaController::class, 'mostrar']);
     Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']);
     Route::put('/modificar/{id}', [App\Http\Controllers\JoyaController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [App\Http\Controllers\JoyaController::class, 'eliminar']);
+
+    //GENERADOR DE JOYAS ALEATORIAS
+    Route::post('/generar', [App\Http\Controllers\JoyaController::class, 'generarJoyaAleatoria']);
 });
 
 Route::prefix('receta')->group(function () {
+
+     //GESTIONAR CRUD RECETAS
     Route::get('/listar', [App\Http\Controllers\RecetaController::class, 'listar']);
     Route::get('/mostrar/{id}', [App\Http\Controllers\RecetaController::class, 'mostrar']);
     Route::post('/crear', [App\Http\Controllers\RecetaController::class, 'crear']);
     Route::put('/modificar/{id}', [App\Http\Controllers\RecetaController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [App\Http\Controllers\RecetaController::class, 'eliminar']);
+
+    //VERIFICAR SI HAY SUFICIENTES COMPONENTES EN EL INVENTARIO Y CUANTAS JOYAS PUEDE HACER
+    Route::get('/componentes/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'componenteSuficiente']);
+});
+
+Route::prefix('ingrediente')->group(function () {
+
+    //CRUD de componentes para cada receta --> CRUD INGREDIENTE_ASIGNADO
+    Route::get('/listar', [App\Http\Controllers\IngredienteAsignadoController::class, 'listar']);
+    Route::get('/mostrar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'mostrar']);
+    Route::post('/crear', [App\Http\Controllers\IngredienteAsignadoController::class, 'crear']);
+    Route::put('/modificar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'modificar']);
+    Route::delete('/eliminar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'eliminar']);
+
 });
 
 
