@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\IngredienteAsignado;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Receta;
 
-class RecetaController extends Controller
+class IngredienteAsignadoController extends Controller
 {
     public function listar()
     {
         try {
-            $recetas = Receta::all();
-            return response()->json($recetas, 200);
+            $ingredientes = IngredienteAsignado::all();
+            return response()->json($ingredientes, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -21,16 +21,19 @@ class RecetaController extends Controller
     public function crear (Request $request){
         
         $validator = Validator::make($request->all(), [
-            'idUsuario' => 'required|integer|exists:users,id',
+            'id_receta' => 'required|integer|exists:receta,id',
+            'id_componente' => 'required|integer|exists:componente,id',
+            'cantidad' => 'required|integer',
+
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-    
+
         try {
-            $receta = Receta::create($request->all());
-            return response()->json($receta, 201);
+            $ingrediente = IngredienteAsignado::create($request->all());
+            return response()->json($ingrediente, 201);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -39,8 +42,9 @@ class RecetaController extends Controller
     public function mostrar($id){
 
         try {
-            $receta = Receta::findOrFail($id);
-            return response()->json($receta);
+            $ingrediente = IngredienteAsignado::findOrFail($id);
+            return response()->json($ingrediente);
+
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -49,17 +53,20 @@ class RecetaController extends Controller
     public function modificar(Request $request, $id){
 
         $validator = Validator::make($request->all(), [
-            'idUsuario' => 'required|integer|exists:users,id',
+            'id_receta' => 'required|integer|exists:receta,id',
+            'id_componente' => 'required|integer|exists:componente,id',
+            'cantidad' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-    
+
         try {
-            $receta = Receta::findOrFail($id);
-            $receta->update($request->all());
-            return response()->json($receta, 200);
+            $ingrediente = IngredienteAsignado::findOrFail($id);
+            $ingrediente->update($request->all());
+            return response()->json($ingrediente);
+
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -68,12 +75,12 @@ class RecetaController extends Controller
     public function eliminar($id){
         
         try {
-            $receta = Receta::findOrFail($id);
-            $receta->delete();
-            return response()->json(['message' => 'Receta eliminada correctamente']);
+            $ingrediente = IngredienteAsignado::findOrFail($id);
+            $ingrediente->delete();
+            return response()->json(['message' => 'Ingrediente eliminado correctamente']);
+        
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-
 }

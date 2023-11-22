@@ -34,9 +34,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 //RUTAS COLABORADOR 
+
 Route::prefix('lote')->group(function () {
 
-    //CRUD LOTE
+    //GESTIONAR LOTES
     Route::get('/listar', [LoteController::class, 'listar']);
     Route::post('/guardar', [LoteController::class, 'guardar']);
     Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
@@ -75,6 +76,8 @@ Route::prefix('componentes')->group(function () {
 //RUTAS DISEÑADOR
 
 Route::prefix('joya')->group(function () {
+
+    //GESTIONAR CRUD JOYAS
     Route::get('/listar', [App\Http\Controllers\JoyaController::class, 'listar']);
     Route::get('/mostrar/{id}', [App\Http\Controllers\JoyaController::class, 'mostrar']);
     Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']);
@@ -83,11 +86,24 @@ Route::prefix('joya')->group(function () {
 });
 
 Route::prefix('receta')->group(function () {
+
+     //GESTIONAR CRUD RECETAS
     Route::get('/listar', [App\Http\Controllers\RecetaController::class, 'listar']);
     Route::get('/mostrar/{id}', [App\Http\Controllers\RecetaController::class, 'mostrar']);
     Route::post('/crear', [App\Http\Controllers\RecetaController::class, 'crear']);
     Route::put('/modificar/{id}', [App\Http\Controllers\RecetaController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [App\Http\Controllers\RecetaController::class, 'eliminar']);
+});
+
+Route::prefix('ingrediente')->group(function () {
+
+    //CRUD de componentes para cada receta --> CRUD INGREDIENTE_ASIGNADO
+    Route::get('/listar', [App\Http\Controllers\IngredienteAsignadoController::class, 'listar']);
+    Route::get('/mostrar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'mostrar']);
+    Route::post('/crear', [App\Http\Controllers\IngredienteAsignadoController::class, 'crear']);
+    Route::put('/modificar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'modificar']);
+    Route::delete('/eliminar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'eliminar']);
+
 });
 
 

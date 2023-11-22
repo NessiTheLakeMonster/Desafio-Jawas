@@ -10,4 +10,10 @@ class IngredienteAsignado extends Model
     use HasFactory;
 
     protected $table = 'ingrediente_asignado';
+
+    protected $fillable = [
+        'id_receta',
+        'id_componente',
+        'cantidad'
+    ];
 }

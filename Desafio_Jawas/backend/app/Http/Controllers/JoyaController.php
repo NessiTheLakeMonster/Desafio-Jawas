@@ -24,8 +24,8 @@ class JoyaController extends Controller
         $validator = Validator::make($request->all(), [
             //TODO: foto
             //'foto' => 'required|string',
-            'idTipoJoya' => 'required|integer',
-            'idReceta' => 'required|integer',
+            'idTipoJoya' => 'required|integer|exists:tipo_joya,id',
+            'idReceta' => 'required|integer|exists:receta,id',
         ]);
     
         if ($validator->fails()) {
@@ -54,8 +54,8 @@ class JoyaController extends Controller
 
         $validator = Validator::make($request->all(), [
             //'foto' => 'required|string',
-            'idTipoJoya' => 'required|integer',
-            'idReceta' => 'required|integer',
+            'idTipoJoya' => 'required|integer|exists:tipo_joya,id',
+            'idReceta' => 'required|integer|exists:receta,id',
         ]);
 
         if ($validator->fails()) {
@@ -76,7 +76,7 @@ class JoyaController extends Controller
         try {
             $joya = Joya::findOrFail($id);
             $joya->delete();
-            return response()->json(null, 204);
+            return response()->json(['message' => 'Joya eliminada correctamente']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

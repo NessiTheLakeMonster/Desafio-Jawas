@@ -74,7 +74,7 @@ class ComponenteController extends Controller
         try {
             $componente = Componente::findOrFail($id);
             $componente->delete();
-            return response()->json(null, 204);
+            return response()->json(['message' => 'Componente eliminado correctamente']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

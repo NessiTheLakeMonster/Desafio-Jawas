@@ -11,8 +11,8 @@ class Info_LoteController extends Controller
     public function crear (Request $request){
         
         $validator = Validator::make($request->all(), [
-            'idLote' => 'required|integer',
-            'idComponente' => 'required|integer',
+            'idLote' => 'required|integer|exists:lote,id',
+            'idComponente' => 'required|integer|exists:componente,id',
             'descripcion' => 'required|string',
             'cantidad' => 'required|integer',
         ]);
