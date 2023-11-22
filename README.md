@@ -267,3 +267,58 @@
 
 - URL: `http://127.0.0.1:8000/api/receta/eliminar/{id}`
 - Método: `DELETE`
+
+## INGREDIENTES
+
+#### Listar todas los ingredientes
+
+- URL: `http://127.0.0.1:8000/api/ingrediente/listar`
+- Método: `GET`
+
+#### Mostrar un ingrediente específico
+
+- URL: `http://127.0.0.1:8000/api/ingrediente/mostrar/{id}`
+- Método: `GET`
+
+#### Crear un nuevo ingrediente
+
+- URL: `http://127.0.0.1:8000/api/ingrediente/crear`
+- Método: `POST`
+- Datos requeridos:
+  - `id_receta`: ID de la receta (integer, requerido)
+  - `id_componente`: ID del componente (integer, requerido)
+  - `cantidad`: cantidad del ingrediente
+
+##### Ejemplo de solicitud para crear un ingrediente
+
+```json
+{
+  "id_receta": 5,
+  "id_componente":9,
+  "cantidad":32
+}
+```
+
+#### Modificar un ingrediente existente
+
+- URL: `http://127.0.0.1:8000/api/ingrediente/modificar/{id}`
+- Método: `PUT`
+- Datos requeridos:
+  - `id_receta`: ID de la receta (integer, requerido)
+  - `id_componente`: ID del componente (integer, requerido)
+  - `cantidad`: cantidad del ingrediente
+
+##### Ejemplo de solicitud para modificar un ingrediente
+
+```json
+{
+  "id_receta": 5,
+  "id_componente":9,
+  "cantidad":32
+}
+```
+
+#### Eliminar un ingrediente
+
+- URL: `http://127.0.0.1:8000/api/ingrediente/eliminar/{id}`
+- Método: `DELETE`
