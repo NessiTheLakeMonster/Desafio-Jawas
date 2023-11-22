@@ -1,4 +1,4 @@
-## Lote
+## LOTE
 
 #### Listar lotes
 
@@ -78,7 +78,7 @@
 - Parámetros de ruta:
   - `id`: ID del lote que deseas cancelar.
 
-## Info Lote
+## INFO LOTE
 
 #### Desguazar y clasificar el lote
 
@@ -111,7 +111,7 @@
 - URL: `http://127.0.0.1:8000/api/info_lote/listar`
 - Método: `GET`
 
-## Componentes
+## COMPONENTES
 
 #### Listar todos los componentes
 
@@ -166,7 +166,7 @@
 - URL: `http://127.0.0.1:8000/api/componentes/esHardware/{id}`
 - Método: `GET`
 
-## joyas
+## JOYAS
 
 #### Listar todas las joyas
 
@@ -219,4 +219,51 @@
 #### Eliminar una joya
 
 - URL: `http://127.0.0.1:8000/api/joya/eliminar/{id}`
+- Método: `DELETE`
+
+## RECETAS
+
+#### Listar todas las recetas
+
+- URL: `http://127.0.0.1:8000/api/receta/listar`
+- Método: `GET`
+
+#### Mostrar una receta específica
+
+- URL: `http://127.0.0.1:8000/api/receta/mostrar/{id}`
+- Método: `GET`
+
+#### Crear una nueva receta
+
+- URL: `http://127.0.0.1:8000/api/receta/crear`
+- Método: `POST`
+- Datos requeridos:
+  - `idUsuario`: ID del usuario (integer, requerido)
+
+##### Ejemplo de solicitud para crear una receta
+
+```json
+{
+  "idUsuario": 7
+}
+```
+
+#### Modificar una receta existente
+
+- URL: `http://127.0.0.1:8000/api/receta/modificar/{id}`
+- Método: `PUT`
+- Datos requeridos:
+  - `idUsuario`: ID del usuario (integer, requerido)
+
+##### Ejemplo de solicitud para modificar una receta
+
+```json
+{
+  "idUsuario": 7
+}
+```
+
+#### Eliminar una receta
+
+- URL: `http://127.0.0.1:8000/api/receta/eliminar/{id}`
 - Método: `DELETE`
