@@ -10,4 +10,9 @@ class Componente extends Model
     use HasFactory;
 
     protected $table = 'componente';
+
+    protected $fillable = [
+        'nombre',
+        'hardware',
+    ];
 }
