@@ -22,7 +22,7 @@ class UserFactory extends Factory
     {
         return [
             //TODO: 'foto_perfil' => Foto de perfil Usuario corregir
-            'nombre' => $this->faker->name,
+            'nombre' => $this->faker->firstName,
             'apellido' => $this->faker->lastName,
             'fotoPerfil' => $this->faker->imageUrl(640, 480, 'people'), // Genera una URL de imagen aleatoria
             'email' => $this->faker->unique()->safeEmail,

@@ -1,8 +1,10 @@
 export class Usuario {
-    constructor(nombre, apellido, email, passwd) {
+    constructor(foto, nombre, apellido, email, passwd, confPasswd) {
+        this.foto = foto;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.passwd = passwd;
+        this.confPasswd = confPasswd;
     }
 }

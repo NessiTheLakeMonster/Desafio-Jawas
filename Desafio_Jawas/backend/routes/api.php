@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoteController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['auth:sanctum'])->group(function () {
+/* Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('colaborador')->group(function () {
     });
 
@@ -31,7 +35,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('diseñador')->group(function () {
     });
-});
+}); */
+
+// Rutas registro y login
+Route::post('/registro', [AuthController::class, 'registro']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
+
+Route::get('/usuario/listar', [UserController::class, 'listar']);
 
 //RUTAS COLABORADOR 
 Route::prefix('lote')->group(function () {
@@ -89,5 +100,6 @@ Route::prefix('receta')->group(function () {
     Route::put('/modificar/{id}', [App\Http\Controllers\RecetaController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [App\Http\Controllers\RecetaController::class, 'eliminar']);
 });
+
 
 

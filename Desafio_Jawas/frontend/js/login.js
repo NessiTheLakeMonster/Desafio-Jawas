@@ -15,45 +15,114 @@ let msgInicioSesion = document.getElementById("msgExito");
 // Botón de inicio de sesión
 const btnLogin = document.getElementById("btnLogin");
 
-// Eventos
-btnLogin.addEventListener("click", function () {
-    if (validar()) {
-
-        if (!buscarUsuario()) {
-            msgInicioSesion.innerHTML = "No existe un usuario con ese email y contraseña";
-            msgInicioSesion.style.color = "red";
-        } else {
-            window.location.href = "home.html";
-        }
-    }
-});
-
 // Funciones
 function _Init() {
 
 }
 
-function buscarUsuario() { // FIXME mirar para que devuelva boolean
-    const options = {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
+async function loginUsuario(datos) {
+    let body = JSON.stringify(
+        {
+            email: datos.email,
+            password: datos.passwd
+        }
+    );
+
+    var options = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: body
+        
     };
 
-    fetch("http://localhost:3000/usuarios", options) // TODO cambia URL de buscar usuarios
-        .then(response => response.json())
-        .then(data => console.log(data));
+    const response = await fetch("http://localhost:8000/api/login", options);
+    const data = await response.json();
+    console.log(data);
+    if (data.status == 200) {
+        // TODO guardar el token en el local storage
+        /* localStorage.setItem("token", data.usuario.token); */
+        
+        msgInicioSesion.innerHTML = "Inicio de sesión correcto";
+        window.location.href = "home.html";
+    } else {
+        msgInicioSesion.innerHTML = "Inicio de sesión incorrecto";
+
+    }
+    return data;
+}
+
+function cargarDatos() {
+    let datos = {
+        email: email.value,
+        passwd: passwd.value
+    }
+
+    return datos;
 }
 
 function validar() {
     limpiarErrores();
-    esValido = true;
+
+    var esValido = true;
 
     if (!validarEmail(email, msgEmail)) {
         esValido = false;
     }
+
+    return esValido;
 }
 
 function limpiarErrores() {
     msgEmail.innerHTML = "";
     msgPasswd.innerHTML = "";
+    msgInicioSesion.innerHTML = "";
 }
+
+// Eventos
+btnLogin.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (validar()) {
+        loginUsuario(cargarDatos())
+            .then(data => {
+                console.log(data);
+                if (data.status == 200) {
+                    // TODO guardar el token en el local storage
+                    /* localStorage.setItem("token", data.usuario.token); */
+                    
+                    msgInicioSesion.innerHTML = "Inicio de sesión correcto";
+                    window.location.href = "home.html";
+                } else {
+                    msgInicioSesion.innerHTML = "Inicio de sesión incorrecto";
+
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+
+    /* if (validar()) {
+        loginUsuario(cargarDatos())
+            .then(response => {
+                console.log(response);
+                if (response.ok) {
+                    response.json().then(data => {
+                        // TODO guardar el token en el local storage
+                        localStorage.setItem("token", data.usuario.token);
+
+                        msgInicioSesion.innerHTML = "Inicio de sesión correcto";
+                        window.location.href = "home.html";
+                    });
+                } else {
+                    msgInicioSesion.innerHTML = "Inicio de sesión incorrecto";
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    } */
+});

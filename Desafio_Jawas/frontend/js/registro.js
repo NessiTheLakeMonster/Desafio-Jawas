@@ -2,6 +2,7 @@ import { Usuario } from "./utils/clases.js";
 import { validarNombre, validarApellido, validarEmail, validarPasswd } from "./utils/validaciones.js";
 
 // Campos del formulario de registro
+let fotoPerfil = document.getElementById("fotoPerfilRegistro");
 let nombre = document.getElementById("nombreRegistro");
 let apellido = document.getElementById("apellidoRegistro");
 let email = document.getElementById("mailRegistro");
@@ -21,42 +22,56 @@ let msgCuentaCreada = document.getElementById("msgExito");
 // Botón de registro
 const btnRegistro = document.getElementById("btnRegistro");
 
-// Eventos
-btnRegistro.addEventListener("click", function () {
-    if (validar()) {
-        msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
-        msgCuentaCreada.style.color = "green";
-
-        guardarUsuario();
-        btnRegistro.disabled = true;
-    }
-});
+let usuario = [];
 
 // Funciones
-function _Init() {
+/* function _Init() {
 
-}
+} */
 
-function guardarUsuario() {
-    let usuario = new Usuario(
-        nombre.value,
-        apellido.value,
-        email.value,
-        passwd.value
-    );
-
-    sessionStorage.setItem("usuario", JSON.stringify(usuario));
-
-    const options = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(usuario)
+function cogerDatos() {
+    let datos = {
+        fotoPerfil: fotoPerfil.value,
+        nombre: nombre.value,
+        apellido: apellido.value,
+        email: email.value,
+        passwd: passwd.value,
+        confPasswd: confPasswd.value
     };
 
-    fetch("http://localhost:3000/usuarios", options) // TODO cambia URL de guardar usuarios
-        .then(response => response.json())
-        .then(data => console.log(data));
+    return datos;
 }
+
+async function guardarUsuario(datos) {
+    let body = JSON.stringify(
+        {
+            fotoPerfil: datos.fotoPerfil,
+            nombre: datos.nombre,
+            apellido: datos.apellido,
+            email: datos.email,
+            password: datos.passwd,
+            password_confirmation: datos.confPasswd
+        }
+    );
+
+    var options = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        },
+        body: body /* JSON.stringify(usuario), */
+    };
+
+    const response = await fetch("http://127.0.0.1:8000/api/registro", options);
+        const data = await response.json();
+        return data;
+}
+
+
+/* function asignarRol() { // TODO cuando se cree el usuario debe ser colaborador
+
+} */
 
 function validar() {
     limpiarErrores();
@@ -87,4 +102,31 @@ function limpiarErrores() {
     msgEmail.textContent = "";
     msgPasswd.textContent = "";
     msgConfPasswd.textContent = "";
+    msgCuentaCreada.textContent = "";
 }
+
+// Eventos
+btnRegistro.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (validar()) {
+        guardarUsuario(cogerDatos())
+            .then(data => {
+                console.log(data);
+                console.log(data.status);
+                if (data.status == 200) {
+                    msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
+                    msgCuentaCreada.style.color = "green";
+                    window.location.href = "login.html";
+                    btnRegistro.disabled = true;
+                } else {
+                    msgCuentaCreada.innerHTML = "Error al crear la cuenta";
+                    msgCuentaCreada.style.color = "red";
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+});
