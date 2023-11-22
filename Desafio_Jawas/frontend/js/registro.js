@@ -101,6 +101,7 @@ function limpiarErrores() {
     msgEmail.textContent = "";
     msgPasswd.textContent = "";
     msgConfPasswd.textContent = "";
+    msgCuentaCreada.textContent = "";
 }
 
 // Eventos
@@ -122,7 +123,9 @@ btnRegistro.addEventListener("click", function (e) {
                     msgCuentaCreada.style.color = "red";
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+            });
     }
 
 });
