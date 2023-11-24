@@ -10,7 +10,6 @@ class Info_LoteController extends Controller
 {
     public function crear (Request $request){
 
-        //TODO: :IDLOTE O IDLOTE
         $messages =['required' => 'Campo obligatorio',
                     'idLote.required' => 'El campo idLote es obligatorio',
                     'idComponente.required' => 'El campo idComponente es obligatorio',
@@ -35,7 +34,12 @@ class Info_LoteController extends Controller
         }
 
         try {
-            $lote = InfoLote::create($request->all());
+            $lote = new InfoLote;
+            $lote->idLote = $request->get('idLote');
+            $lote->idComponente = $request->get('idComponente');
+            $lote->descripcion = $request->get('descripcion');
+            $lote->cantidad = $request->get('cantidad');
+            $lote->save();
             return response()->json($lote, 201);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -54,10 +58,10 @@ class Info_LoteController extends Controller
         }
     }
 
-    public function listar()
+    public function listar($idLote)
     {
         try {
-            $desguace = InfoLote::all();
+            $desguace = InfoLote::where('idLote', $idLote)->get(['idComponente', 'descripcion', 'cantidad']);
             return response()->json($desguace, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

@@ -48,17 +48,18 @@ Route::get('/usuario/listar', [UserController::class, 'listar']);
 
 Route::prefix('lote')->group(function () {
 
-    //GESTIONAR LOTES
+    //GESTIONAR LOTES - CRUD LOTES 
+    //TODO:MIRAR SI EL ENUNCIADO PIDE ESTAS RUTAS O PREGUNTAR A FERNANDO SI AUNQ NO LO PIDAN LO DEJAMOS O NO
     Route::get('/listar', [LoteController::class, 'listar']);
-    Route::post('/guardar', [LoteController::class, 'guardar']);
-    Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
     Route::put('/modificar/{id}', [LoteController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [LoteController::class, 'eliminar']);
 
-    //COMPROBAR LISTA DE ENTREGAS
-    Route::get('/entregados', [LoteController::class, 'comprobarEntregas']);
-    //ENTREGAR LOTES
-    Route::put('/entregar/{id}', [LoteController::class, 'entregarLote']);
+    // MANDAR LOTE
+    Route::post('/crear', [LoteController::class, 'crear']);
+    //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS
+    Route::get('/entregados', [LoteController::class, 'mostrarEntregados']);
+    //MOSTRAR LISTA DEL LOTE ENTREGADO BUSCADO POR ID 
+    Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
     //CANCELAR LOTES
     Route::put('/cancelar/{id}', [LoteController::class, 'cancelarLote']);
 });
@@ -67,10 +68,17 @@ Route::prefix('lote')->group(function () {
 
 Route::prefix('info_lote')->group(function () {
     
+    //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS PARA CLASIFICAR
+    Route::get('/listar', [LoteController::class, 'listar']);
+    //MOSTRAR LISTA DEL LOTE ENTREGADO BUSCADO POR ID 
+    Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
     //DESGUAZARÁ Y CLASIFICARÁ EL LOTE
     Route::post('/desguazar', [App\Http\Controllers\Info_LoteController::class, 'crear']);
-    Route::get('/mostrar/{id}', [App\Http\Controllers\Info_LoteController::class, 'mostrar']);
-    Route::get('/listar', [App\Http\Controllers\Info_LoteController::class, 'listar']);
+    //MOSTRAR COMPONENTES DEL LOTE DESGUAZADO
+    Route::get('/listar/{idLote}', [App\Http\Controllers\Info_LoteController::class, 'listar']);
+    
+    //Route::get('/mostrar/{id}', [App\Http\Controllers\Info_LoteController::class, 'mostrar']); //TODO: NO LO UTILIZAMOS EN NUESTRAS PANTALLAS
+
 });
 
 Route::prefix('componentes')->group(function () {
