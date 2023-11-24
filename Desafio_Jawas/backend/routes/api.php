@@ -73,11 +73,11 @@ Route::prefix('info_lote')->group(function () {
     //MOSTRAR LISTA DEL LOTE ENTREGADO BUSCADO POR ID 
     Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
     //DESGUAZARÁ Y CLASIFICARÁ EL LOTE
-    Route::post('/desguazar', [App\Http\Controllers\Info_LoteController::class, 'crear']);
+    Route::post('/desguazar', [App\Http\Controllers\InfoLoteController::class, 'crear']);
     //MOSTRAR COMPONENTES DEL LOTE DESGUAZADO
-    Route::get('/listar/{idLote}', [App\Http\Controllers\Info_LoteController::class, 'listar']);
+    Route::get('/listar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'listar']);
     
-    //Route::get('/mostrar/{id}', [App\Http\Controllers\Info_LoteController::class, 'mostrar']); //TODO: NO LO UTILIZAMOS EN NUESTRAS PANTALLAS
+    //Route::get('/mostrar/{id}', [App\Http\Controllers\InfoLoteController::class, 'mostrar']); //TODO: NO LO UTILIZAMOS EN NUESTRAS PANTALLAS
 
 });
 
