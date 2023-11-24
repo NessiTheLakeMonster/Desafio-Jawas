@@ -8,22 +8,19 @@ use Illuminate\Support\Facades\Validator;
 
 class Info_LoteController extends Controller
 {
-    public function crear (Request $request){
+    public function crear (Request $request, $idLote){
 
-        $messages =['required' => 'Campo obligatorio',
-                    'idLote.required' => 'El campo idLote es obligatorio',
-                    'idComponente.required' => 'El campo idComponente es obligatorio',
-                    'descripcion.required' => 'El campo descripcion es obligatorio',
-                    'cantidad.required' => 'El campo cantidad es obligatorio',
-                    'idLote.integer' => 'El campo idLote debe ser un número entero',
-                    'idComponente.integer' => 'El campo idComponente debe ser un número entero',
-                    'cantidad.integer' => 'El campo cantidad debe ser un número entero',
-                    'idLote.exists' => 'El campo idLote no existe',
-                    'idComponente.exists' => 'El campo idComponente no existe',
+        $messages =[
+            'required' => 'Campo obligatorio',
+            'idComponente.required' => 'El campo idComponente es obligatorio',
+            'descripcion.required' => 'El campo descripcion es obligatorio',
+            'cantidad.required' => 'El campo cantidad es obligatorio',
+            'idComponente.integer' => 'El campo idComponente debe ser un número entero',
+            'cantidad.integer' => 'El campo cantidad debe ser un número entero',
+            'idComponente.exists' => 'El campo idComponente no existe',
         ];
         
         $validator = Validator::make($request->all(), [
-            'idLote' => 'required|integer|exists:lote,id',
             'idComponente' => 'required|integer|exists:componente,id',
             'descripcion' => 'required|string',
             'cantidad' => 'required|integer',
@@ -35,7 +32,7 @@ class Info_LoteController extends Controller
 
         try {
             $lote = new InfoLote;
-            $lote->idLote = $request->get('idLote');
+            $lote->idLote = $idLote;
             $lote->idComponente = $request->get('idComponente');
             $lote->descripcion = $request->get('descripcion');
             $lote->cantidad = $request->get('cantidad');
