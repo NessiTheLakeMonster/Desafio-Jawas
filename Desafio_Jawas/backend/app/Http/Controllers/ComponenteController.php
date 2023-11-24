@@ -30,7 +30,7 @@ class ComponenteController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string',
             'hardware' => 'required|boolean',
-        ]);
+        ],$messages);
     
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
@@ -79,7 +79,7 @@ class ComponenteController extends Controller
         }
     }
 
-    public function eliminar($id){
+    /* public function eliminar($id){
         
         try {
             $componente = Componente::findOrFail($id);
@@ -88,17 +88,6 @@ class ComponenteController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
-    }
-
-    public function esHardware($id){
-        try {
-            $componente = Componente::findOrFail($id);
-            return response()->json($componente->hardware, 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    }
-
-//TODO: hacer que el administrador habilite y deshabulite el que ???
+    }*/
 
 }
