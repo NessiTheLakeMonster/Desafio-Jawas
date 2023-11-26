@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('inventario', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idComponente');
-            $table->foreign('idComponente')->references('id')->on('componente');
+            $table->foreign('idComponente')->references('id')->on('componente')->onDelete('cascade');
             $table->integer('cantidad');
             $table->timestamps();
         });

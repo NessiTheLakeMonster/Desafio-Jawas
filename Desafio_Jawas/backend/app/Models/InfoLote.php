@@ -9,4 +9,11 @@ class InfoLote extends Model
 {
     use HasFactory;
     protected $table = 'info_lote';
+
+    protected $fillable = [
+        'idLote',
+        'idComponente',
+        'descripcion',
+        'cantidad',
+    ];
 }

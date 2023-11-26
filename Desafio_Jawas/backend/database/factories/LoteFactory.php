@@ -28,5 +28,7 @@ class LoteFactory extends Factory
             'entregado' => $entregado,
             'cancelado' => $cancelado,
         ];
+
+        //TODO: localizacion a traves de google maps
     }
 }
