@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donación</title>
+    <style>
+        #map {
+            width: 50vw;
+            height: 50vh;
+        }
+
+        .progress-container {
+            width: 50%;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 30px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../js/gestion_lotes.js"></script>
+    <script src="../js/utils/google_maps.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSULpKCqFLZPFYrrwh9hGp-XOH1KtHneE&callback=initMap">
+    </script>
+
+    <div id="map">
+        <!-- Aquí va el mapa -->
+    </div>
+
+    <button id="mandarLote">Mandar Lote</button>
+
+    <h3>Entregándose...</h3>
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar">0%</div>
+    </div>
+
+    <h2>LOTES DEL USUARIO</h2>
+    <table id="tablaLotes">
+        <thead>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Lugar</th>
+            <th>Entregado</th>
+            <th>Cancelado</th>
+        <thead>
+
+        <tbody>
+            <!-- Aquí va la tabla de lotes del usuario -->
+        </tbody>
+    </table>
+</body>
+
+</html>
