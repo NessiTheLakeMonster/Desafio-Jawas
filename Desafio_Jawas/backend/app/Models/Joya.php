@@ -10,4 +10,12 @@ class Joya extends Model
     use HasFactory;
 
     protected $table = 'joya';
+
+    protected $fillable = [
+        //TODO: foto
+        'foto',
+        'idTipoJoya',
+        'idReceta',
+
+    ];
 }
