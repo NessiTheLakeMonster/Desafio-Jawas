@@ -1,42 +1,32 @@
-class Localizacion {
-    constructor(callback) {
-        if (navigator.geolocation) {
-            //Obtenemos ubicación
-            navigator.geolocation.getCurrentPosition((position) => {
-                this.latitud = position.coords.latitude
-                this.longitud = position.coords.longitude
-
-                callback()
-            })
-        } else {
-            alert("Geolocalización no soportada")
-        }
-    }
-}
-
 function initMap() {
-    const ubicacion = new Localizacion(() => {
-        const options = {
-            center: {
-                lat: ubicacion.latitud,
-                lng: ubicacion.longitud
-            },
+    var myLatLng = { lat: 38.69296294925023, lng: -4.1086506843566895 };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: myLatLng
+    });
 
-            zoom: 15
-        }
+    // Añade un marcador para referencia visual
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map
+    });
 
-        let map = document.getElementById('map')
+    // Agrega un escuchador de eventos de clic al mapa
+    map.addListener('click', function (event) {
+        placeMarker(event.latLng);
+    });
 
-        const mapa = new google.maps.Map(map, options)
+    function placeMarker(location) {
+        // Elimina el marcador existente
+        marker.setMap(null);
 
-        // Añadir event listener para el clic en el mapa
-        google.maps.event.addListener(map, 'click', (event) => {
-            // Obtener latitud y longitud del clic
-            const clickedLat = event.latLng.lat();
-            const clickedLng = event.latLng.lng();
-
-            // Hacer lo que necesites con la latitud y longitud obtenidas
-            console.log(`Latitud: ${clickedLat}, Longitud: ${clickedLng}`);
+        // Crea un nuevo marcador en la ubicación del clic
+        marker = new google.maps.Marker({
+            position: location,
+            map: map
         });
-    })
+
+        // Muestra las coordenadas en la consola (puedes hacer lo que quieras con ellas)
+        console.log('Coordenadas del clic: ' + location.lat() + ', ' + location.lng());
+    }
 }
