@@ -51,9 +51,14 @@ Route::prefix('usuario')->group(function () {
     //LISTAR USUARIOS
     Route::get('/listar', [UserController::class, 'listar']);
     //MOSTRAR USUARIO BUSCADO POR ID
+    Route::get('/mostrar/{id}', [UserController::class, 'buscar']);
     //MODIFICAR USUARIO
+    Route::put('/modificar/{id}', [UserController::class, 'modificar']);
     //ELIMINAR USUARIO
+    Route::delete('/eliminar/{id}', [UserController::class, 'eliminar']);
     //CREAR USUARIO
+    /* Route::post('/crear', [UserController::class, 'crear']); */
+    Route::post('/registro', [AuthController::class, 'registro']);
 
 });
 

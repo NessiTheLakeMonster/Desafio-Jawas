@@ -18,15 +18,22 @@ class UserController extends Controller
         }
     }
 
-    public function guardar(Request $request)
+    public function crear(Request $request)
     {
+        $messages = [
+            'required' => 'Campo obligatorio',
+            'string' => 'El campo :nombre debe ser un texto',
+            'email' => 'El campo :email debe ser un email',
+            'password' => 'El campo :password debe ser un texto',
+        ];
+
         $validator = Validator::make($request->all(), [
             'fotoPerfil' => 'required|string',
             'nombre' => 'required|string',
             'apellido' => 'required|string',
             'email' => 'required|string',
             'password' => 'required|string',
-        ]);
+        ], $messages);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
@@ -40,14 +47,54 @@ class UserController extends Controller
         }
     }
 
-    public function obtenerPorId($id)
+    public function buscar($id)
     {
         try {
-            $usuario = User::find($id);
+            $usuario = User::findOrFail($id);
             return response()->json($usuario, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
+    public function modificar(Request $request, $id)
+    {
+        $messages = [
+            'required' => 'Campo obligatorio',
+            'string' => 'El campo :nombre debe ser un texto',
+            'email' => 'El campo :email debe ser un email',
+            'password' => 'El campo :password debe ser un texto',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'fotoPerfil' => 'required|string',
+            'nombre' => 'required|string',
+            'apellido' => 'required|string',
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        try {
+            $usuario = User::findOrFail($id);
+            $usuario->update($request->all());
+            return response()->json($usuario, 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $usuario = User::findOrFail($id);
+            $usuario->delete();
+            return response()->json($usuario, 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }
