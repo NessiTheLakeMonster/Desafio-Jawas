@@ -1,24 +1,27 @@
 {
-  "name": "frontend",
+  "name": "proyecto_joyeria",
   "version": "1.0.0",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "dev": "webpack-dev-server --mode development --open --port 8888"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "description": "",
+  "main": "index.js",
   "devDependencies": {
-    "css-loader": "^6.8.1",
     "html-webpack-plugin": "^5.5.3",
-    "sass": "^1.69.5",
-    "sass-loader": "^13.3.2",
-    "style-loader": "^3.3.3",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
   },
-  "description": ""
+  "scripts": {
+    "build": "webpack",
+    "config": "webpack serve --config webpack.config.js --mode development",
+    "watch": "webpack --watch",
+    "start": "webpack --watch mode development",
+    "dev": "webpack-dev-server --mode development"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dev-server": "^0.2.0",
+    "webpack-dev-server": "^4.15.1"
+  }
 }
+

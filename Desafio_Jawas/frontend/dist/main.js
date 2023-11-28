@@ -1,0 +1,1 @@
+document.getElementById("btnParticipar").addEventListener("click",(function(t){window.location.href="../html/login.html"}));
