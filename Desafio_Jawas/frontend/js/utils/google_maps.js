@@ -28,5 +28,11 @@ function initMap() {
 
         // Muestra las coordenadas en la consola (puedes hacer lo que quieras con ellas)
         console.log('Coordenadas del clic: ' + location.lat() + ', ' + location.lng());
+
+        // Asigna las coordenadas al objeto window
+        window.coordenadas = {
+            lat: location.lat(),
+            lng: location.lng()
+        };
     }
 }
