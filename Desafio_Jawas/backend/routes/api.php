@@ -43,7 +43,6 @@ Route::post('/registro', [AuthController::class, 'registro']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
-
 //-------------------------RUTAS ADMINISTRADOR-------------------------
 
 //GESTIONAR USUARIOS
@@ -52,9 +51,14 @@ Route::prefix('usuario')->group(function () {
     //LISTAR USUARIOS
     Route::get('/listar', [UserController::class, 'listar']);
     //MOSTRAR USUARIO BUSCADO POR ID
+    Route::get('/mostrar/{id}', [UserController::class, 'buscar']);
     //MODIFICAR USUARIO
+    Route::put('/modificar/{id}', [UserController::class, 'modificar']);
     //ELIMINAR USUARIO
+    Route::delete('/eliminar/{id}', [UserController::class, 'eliminar']);
     //CREAR USUARIO
+    /* Route::post('/crear', [UserController::class, 'crear']); */
+    Route::post('/registro', [AuthController::class, 'registro']);
 
 });
 
@@ -116,6 +120,8 @@ Route::prefix('info_lote')->group(function () {
     Route::get('/listar', [LoteController::class, 'listar']);
     //MOSTRAR LOTE ENTREGADO BUSCADO POR ID 
     Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
+    //CREAR COMPONENTE
+    Route::post('/crear', [App\Http\Controllers\ComponenteController::class, 'crear']);
     //DESGUAZARÁ Y CLASIFICARÁ EL LOTE
     Route::post('/desguazar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'crear']);
     //MOSTRAR COMPONENTES DEL LOTE DESGUAZADO

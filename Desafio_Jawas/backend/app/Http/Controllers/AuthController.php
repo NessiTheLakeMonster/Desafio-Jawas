@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class AuthController extends Controller
@@ -115,6 +116,11 @@ class AuthController extends Controller
                 $usuario->email = $request->email;
                 $usuario->password = Hash::make($request->password);
                 $usuario->save();
+
+                DB::table('rol_asignado')->insert([
+                    'id_Usuario' => $usuario->id,
+                    'id_Rol' => 1
+                ]);
 
                 $success['token'] =  $usuario->createToken('access_token', ["user"])->plainTextToken;
 
