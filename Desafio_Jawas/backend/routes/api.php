@@ -42,6 +42,7 @@ Route::post('/registro', [AuthController::class, 'registro']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
+
 Route::get('/usuario/listar', [UserController::class, 'listar']);
 
 //RUTAS COLABORADOR 
