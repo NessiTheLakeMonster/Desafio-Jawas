@@ -43,7 +43,6 @@ Route::post('/registro', [AuthController::class, 'registro']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
-
 //-------------------------RUTAS ADMINISTRADOR-------------------------
 
 //GESTIONAR USUARIOS

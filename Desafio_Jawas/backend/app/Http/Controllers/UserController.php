@@ -39,4 +39,15 @@ class UserController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function obtenerPorId($id)
+    {
+        try {
+            $usuario = User::find($id);
+            return response()->json($usuario, 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
 }

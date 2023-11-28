@@ -1,5 +1,6 @@
 import { Usuario } from "./utils/clases.js";
 import { validarNombre, validarApellido, validarEmail, validarPasswd } from "./utils/validaciones.js";
+import { guardarUsuario } from "./http/http_registro.js";
 
 // Campos del formulario de registro
 let fotoPerfil = document.getElementById("fotoPerfilRegistro");
@@ -41,33 +42,6 @@ function cogerDatos() {
 
     return datos;
 }
-
-async function guardarUsuario(datos) {
-    let body = JSON.stringify(
-        {
-            fotoPerfil: datos.fotoPerfil,
-            nombre: datos.nombre,
-            apellido: datos.apellido,
-            email: datos.email,
-            password: datos.passwd,
-            password_confirmation: datos.confPasswd
-        }
-    );
-
-    var options = {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        },
-        body: body /* JSON.stringify(usuario), */
-    };
-
-    const response = await fetch("http://127.0.0.1:8000/api/registro", options);
-        const data = await response.json();
-        return data;
-}
-
 
 /* function asignarRol() { // TODO cuando se cree el usuario debe ser colaborador
 
@@ -112,13 +86,12 @@ btnRegistro.addEventListener("click", function (e) {
     if (validar()) {
         guardarUsuario(cogerDatos())
             .then(data => {
-                console.log(data);
-                console.log(data.status);
+                /* console.log(data);
+                console.log(data.status); */
                 if (data.status == 200) {
                     msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
                     msgCuentaCreada.style.color = "green";
                     window.location.href = "login.html";
-                    btnRegistro.disabled = true;
                 } else {
                     msgCuentaCreada.innerHTML = "Error al crear la cuenta";
                     msgCuentaCreada.style.color = "red";
