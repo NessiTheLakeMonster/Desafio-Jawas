@@ -28,12 +28,6 @@
 </head>
 
 <body>
-    <script src="../js/gestion_lotes.js"></script>
-    <script src="../js/utils/google_maps.js"></script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSULpKCqFLZPFYrrwh9hGp-XOH1KtHneE&callback=initMap">
-    </script>
-
     <div id="map">
         <!-- Aquí va el mapa -->
     </div>
@@ -49,18 +43,13 @@
 
     <h2>LOTES DEL USUARIO</h2>
     <table id="tablaLotes">
-        <thead>
-            <th>ID</th>
-            <th>Usuario</th>
-            <th>Lugar</th>
-            <th>Entregado</th>
-            <th>Cancelado</th>
-        <thead>
-
-        <tbody>
-            <!-- Aquí va la tabla de lotes del usuario -->
-        </tbody>
+        <!-- Aquí va la tabla de lotes -->
     </table>
 </body>
+<script src="../js/utils/google_maps.js"></script>
+<script type="module"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSULpKCqFLZPFYrrwh9hGp-XOH1KtHneE&callback=initMap">
+</script>
+<script type="module" src="../js/gestion_lotes.js"></script>
 
 </html>
