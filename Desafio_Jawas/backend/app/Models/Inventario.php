@@ -9,4 +9,9 @@ class Inventario extends Model
 {
     use HasFactory;
     protected $table = 'inventario';
+
+    protected $fillable = [
+        'id_componente',
+        'cantidad',
+    ];
 }

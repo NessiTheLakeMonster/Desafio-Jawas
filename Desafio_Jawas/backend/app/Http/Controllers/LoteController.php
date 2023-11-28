@@ -11,29 +11,45 @@ class LoteController extends Controller
     public function listar()
     {
         try {
-            $lotes = Lote::all();
+            $lotes = Lote::where('entregado', true)->get();
             return response()->json($lotes, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
-    public function guardar (Request $request){
+    public function crear (Request $request){
         
+        $messages =[ 
+            'required' => 'Campo obligatorio',
+            'id_usuario.required' => 'El campo id_usuario es obligatorio',
+            'lugar_recogida.required' => 'El campo lugar_recogida es obligatorio',
+            'id_usuario.integer' => 'El campo id_usuario debe ser un número entero',
+            'id_usuario.exists' => 'El campo id_usuario no existe',
+        ];
+
         $validator = Validator::make($request->all(), [
             'id_usuario' => 'required|integer|exists:users,id',
             'lugar_recogida' => 'required|string',
-            'entregado' => 'required|boolean',
-            'cancelado' => 'required|boolean',
-        ]);
+        ],$messages);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
 
         try {
-            $lote = Lote::create($request->all());
-            return response()->json($lote, 201);
+            $lote = new Lote;
+            $lote->id_usuario = $request->id_usuario;
+            $lote->lugar_recogida = $request->lugar_recogida;
+            $lote->entregado = 1;
+            $lote->cancelado = 0; 
+
+            if ($lote->save()) {
+                return response()->json(['success' => 'Lote creado con éxito'], 201);
+            } else {
+                return response()->json(['error' => 'Error al crear el lote'], 500);
+            }
+
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -42,9 +58,13 @@ class LoteController extends Controller
     public function mostrar($id){
 
         try {
-            $lote = Lote::findOrFail($id);
-            return response()->json($lote);
-
+            $lote = Lote::where('id', $id)->where('entregado', true)->first();
+    
+            if ($lote) {
+                return response()->json($lote);
+            } else {
+                return response()->json(['error' => 'Lote no encontrado'], 404);
+            }
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -52,21 +72,40 @@ class LoteController extends Controller
 
     public function modificar(Request $request, $id){
 
+        $messages =[ 
+            'required' => 'Campo obligatorio',
+            'id_usuario.required' => 'El campo id_usuario es obligatorio',
+            'lugar_recogida.required' => 'El campo lugar_recogida es obligatorio',
+            'id_usuario.integer' => 'El campo id_usuario debe ser un número entero',
+            'id_usuario.exists' => 'El campo id_usuario no existe',
+        ];
+
         $validator = Validator::make($request->all(), [
             'id_usuario' => 'required|integer|exists:users,id',
             'lugar_recogida' => 'required|string',
-            'entregado' => 'required|boolean',
-            'cancelado' => 'required|boolean',
-        ]);
+        ],$messages);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
 
         try {
-            $lote = Lote::findOrFail($id);
-            $lote->update($request->all());
-            return response()->json($lote);
+            $lote = Lote::find($id);
+        
+            if ($lote) {
+                $lote->id_usuario = $request->get('id_usuario');
+                $lote->lugar_recogida = $request->get('lugar_recogida');
+                $lote->entregado = $request->get('entregado');
+                $lote->cancelado = $request->get('cancelado');
+        
+                if ($lote->save()) {
+                    return response()->json(['success' => 'Lote modificado con éxito']);
+                } else {
+                    return response()->json(['error' => 'Error al modificar el lote']);
+                }
+            } else {
+                return response()->json(['error' => 'Lote no encontrado']);
+            }
 
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -85,9 +124,9 @@ class LoteController extends Controller
         }
     }
 
-    public function comprobarEntregas(){
+    public function mostrarEntregados($idUsuario){ // SOLO COLABORADORES PODRÁN VER ESTA LISTA
         try {
-            $lotes = Lote::where('entregado', true)->get();
+            $lotes = Lote::where('id_usuario', $idUsuario)->where('entregado', true)->where('cancelado', false)->get();
             return response()->json($lotes);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -96,33 +135,27 @@ class LoteController extends Controller
 
     public function cancelarLote($id){
         try {
-            $lote = Lote::where('id', $id)->where('cancelado', false)->first();
+            $lote = Lote::where('id', $id)->where('entregado', true)->where('cancelado', false)->first();
     
             if ($lote) {
-                $lote->update(['cancelado' => true]);
-                return response()->json($lote);
+                $lote->entregado = 0;
+                $lote->cancelado = 1;
+
+                if ($lote->save()) {
+                    return response()->json(['success' => 'Lote cancelado con éxito']);
+                } else {
+                    return response()->json(['error' => 'Error al cancelar el lote']);
+                }
+
             } else {
                 return response()->json(['error' => 'Lote no encontrado o ya está cancelado'], 404);
             }
+
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
-    public function entregarLote($id){
-        try {
-            $lote = Lote::where('id', $id)->where('entregado', false)->where('cancelado', false)->first();
-    
-            if ($lote) {
-                $lote->update(['entregado' => true]);
-                return response()->json($lote);
-            } else {
-                return response()->json(['error' => 'Lote no encontrado o ya está entregado o está cancelado'], 404);
-            }
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    }
 
 
 }
