@@ -1,4 +1,4 @@
-import { getUsuarios, deleteUsuario } from "./http/http_gestionUsuarios.js";
+import { getUsuarios, deleteUsuario, getUsuarioById } from "./http/http_gestionUsuarios.js";
 
 // Variables del HTML
 const tablaUsuarios = document.getElementById('tablaUsuarios');
@@ -8,6 +8,7 @@ const btnEliminar = document.getElementById('btnBorrar');
 const btnEditar = document.getElementById('btnModificar');
 const btnCrear = document.getElementById('btnAgregar');
 
+// Funciones 
 export function cabeceraTabla() {
     let cabecera = document.createElement('tr');
 
@@ -38,7 +39,22 @@ export function createTableRows(data) {
     `).join('');
 }
 
+export function guardarUsuarioSeleccionado(idUsuario) {
+    getUsuarioById(idUsuario).then(data => {
+        localStorage.setItem('usuarioSeleccionado', JSON.stringify(data));
+    });
+}
+
+export function limpiarLocalStorage() {
+    localStorage.removeItem('idUsuario');
+    localStorage.removeItem('usuarioSeleccionado');
+    localStorage.removeItem('modificar');
+    localStorage.removeItem('crear');
+}
+
 export function _Init() {
+    limpiarLocalStorage();
+    
     getUsuarios().then(data => {
         cabeceraTabla();
         tablaUsuarios.innerHTML += createTableRows(data);
@@ -54,6 +70,7 @@ export function _Init() {
                         }
                     });
                     localStorage.setItem('idUsuario', this.value);
+                    guardarUsuarioSeleccionado(this.value);
                 } else {
                     localStorage.removeItem('idUsuario');
                 }
@@ -74,6 +91,28 @@ btnEliminar.addEventListener('click', function () {
             alert(data.message);
         }
     });
+});
+
+btnEditar.addEventListener('click', function () {
+    let idUsuario = localStorage.getItem('idUsuario');
+    let modificar = localStorage.setItem('modificar', true);
+
+    if (idUsuario) {
+        window.location.href = 'modificarCrearUsuario.html';
+    } else {
+        alert('Debe seleccionar un usuario');
+    }
+});
+
+btnCrear.addEventListener('click', function () {
+    let idUsuario = localStorage.getItem('idUsuario');
+    let crear = localStorage.setItem('crear', true);
+
+    if (!idUsuario) {
+        window.location.href = 'modificarCrearUsuario.html';
+    } else {
+        alert('Debe deseleccionar el usuario');
+    }
 });
 
 // Ejecución de funciones

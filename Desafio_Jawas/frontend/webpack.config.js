@@ -9,6 +9,7 @@ module.exports = {
         home: './js/home.js',
         gestionUsuarios: './js/gestionUsuarios.js',
         donaciones: './js/gestion_lotes.js',
+        modificarCrearUsuario: './js/modificarCrearUsuario.js',
     },
     output: {
         filename: '[name].js',
