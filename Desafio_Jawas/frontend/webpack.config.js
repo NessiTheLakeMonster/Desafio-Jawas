@@ -8,6 +8,8 @@ module.exports = {
         registro: './js/registro.js',
         home: './js/home.js',
         gestionUsuarios: './js/gestionUsuarios.js',
+        donaciones: './js/gestion_lotes.js',
+        modificarCrearUsuario: './js/modificarCrearUsuario.js',
         donacion: './js/gestion_lotes.js',
         despieceLote: './js/despieceLote.js',
         despieceLoteDetalles: './js/despieceLoteDetalles.js',
