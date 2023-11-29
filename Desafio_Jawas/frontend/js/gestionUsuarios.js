@@ -84,6 +84,7 @@ btnEliminar.addEventListener('click', function () {
     let idUsuario = localStorage.getItem('idUsuario');
 
     deleteUsuario(idUsuario).then(data => {
+        
         if (data.status === 200) {
             alert(data.message);
             window.location.reload();
