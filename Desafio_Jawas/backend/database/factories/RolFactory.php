@@ -19,5 +19,4 @@ class RolFactory extends Factory
     {
         return [];
     }
-
 }

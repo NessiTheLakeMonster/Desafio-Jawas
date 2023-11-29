@@ -15,9 +15,6 @@ const btnSeleccionarOtroLote = document.getElementById("btnOtroLote");
 //Botón de añadir componente
 const btnAñadirComponente = document.getElementById("btnAñadirComponente");
 
-//ID LOTE REGISTRADO
-/* let idLote = localStorage.getItem('loteId'); */
-
 //Volver a la pantalla anterior
 btnSeleccionarOtroLote.addEventListener('click', function() {
     localStorage.removeItem('idLote');

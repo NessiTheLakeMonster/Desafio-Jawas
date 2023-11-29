@@ -17,7 +17,6 @@ class RolAsignadoSeeder extends Seeder
     {
         $usuarios = User::all();
 
-        // todos los users pueden ser 'colaborador'
         foreach ($usuarios as $usuario) {
             RolAsignado::create([
                 'id_usuario' => $usuario->id,

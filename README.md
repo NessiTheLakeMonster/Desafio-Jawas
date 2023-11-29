@@ -5,11 +5,44 @@ Integrantes
   - [Jaime Ortega](https://github.com/jornu99)
 
 -------
+# Ejecución del código
+
+## BASE DE DATOS
+
+Los siguientes comandos deben ejecutarse en la carpeta `backend`
+
+```bash 
+  php artisan migrate
+
+  php artisan db:seed --class=UserSeeder
+  php artisan db:seed --class=RolSeeder
+  php artisan db:seed --class=RolAsignadoSeeder
+  php artisan db:seed --class=LoteSeeder
+  php artisan db:seed --class=ComponenteSeeder
+  php artisan db:seed --class=InfoLoteSeeder
+  php artisan db:seed --class=InventarioSeeder
+  php artisan db:seed --class=RecetaSeeder
+  php artisan db:seed --class=IngredienteAsignadoSeeder
+  php artisan db:seed --class=TipoJoyaSeeder
+  php artisan db:seed --class=JoyaSeeder
+```
+
+## SERVIDOR WEBPACK
+
+Los siguientes comandos deben ejecutarse en la carpeta `frontend`
+```bash
+  npm run build
+  npm run config
+  npm run watch
+```
+
+`run config` y `run watch` deben estar ejecutándose al mismo tiempo
+
+-------
 # Manual de Servidor :closed_lock_with_key:
 
 Información importante a saber para el profesor:
 + Los `middleware` aún no están implementados, pero si programados en el código. En proximos días serán funcionales. Con esto se debe saber que no miramos aún si el usuario que ha iniciado sesión tiene permisos para entrar a esas funcionalidad o no.
-
 
 ## USUARIOS
 #### Registrar usuario

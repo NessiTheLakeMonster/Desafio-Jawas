@@ -18,16 +18,17 @@ class RecetaController extends Controller
         }
     }
 
-    public function crear (Request $request){
-        
+    public function crear(Request $request)
+    {
+
         $validator = Validator::make($request->all(), [
             'idUsuario' => 'required|integer|exists:users,id',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-    
+
         try {
             $receta = Receta::create($request->all());
             return response()->json($receta, 201);
@@ -36,7 +37,8 @@ class RecetaController extends Controller
         }
     }
 
-    public function mostrar($id){
+    public function mostrar($id)
+    {
 
         try {
             $receta = Receta::findOrFail($id);
@@ -46,7 +48,8 @@ class RecetaController extends Controller
         }
     }
 
-    public function modificar(Request $request, $id){
+    public function modificar(Request $request, $id)
+    {
 
         $validator = Validator::make($request->all(), [
             'idUsuario' => 'required|integer|exists:users,id',
@@ -55,7 +58,7 @@ class RecetaController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-    
+
         try {
             $receta = Receta::findOrFail($id);
             $receta->update($request->all());
@@ -65,8 +68,9 @@ class RecetaController extends Controller
         }
     }
 
-    public function eliminar($id){
-        
+    public function eliminar($id)
+    {
+
         try {
             $receta = Receta::findOrFail($id);
             $receta->delete();
@@ -75,5 +79,4 @@ class RecetaController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-
 }

@@ -127,7 +127,7 @@ class AuthController extends Controller
                 return response()->json([
                     'usuario' => $success,
                     'message' => 'usuario creado',
-                    'status' => 200 // TODO mirar para demas controller el status
+                    'status' => 200
                 ], 200);
             }
         } catch (\Exception $e) {
@@ -137,24 +137,4 @@ class AuthController extends Controller
             ], 500);
         }
     }
-
-    /*
-    TEORÍA VALIDATOR 
-    - 'required' => es obligatorio => 'email' => 'required'
-    - 'string' => debe ser un string => 'email' => 'string'
-    - 'email' => debe ser un email => 'email' => 'email'
-    - 'max:55' => longitud máxima de 55 caracteres => 'email' => 'max:55'
-    - 'min:8' => longitud mínima de 8 caracteres => 'contraseña' => 'min:8'
-    - 'unique' => debe ser único en la tabla => 'email' => 'unique'
-    - 'confirmed' => debe ser igual al campo de confirmación => 'contraseña' => 'confirmed'
-    - 'exists:usuarios,id' => debe existir en la tabla usuarios, en el campo id => 'id' => 'exists:usuarios,id'
-    - 'exists:usuarios,id,rol,admin' => debe existir en la tabla usuarios, en el campo id, y el campo rol debe ser igual a admin => 'id' => 'exists:usuarios,id,rol,admin'
-    - 'birthdate' => debe ser una fecha válida => 'birthdate' => 'birthdate'
-    - integer => debe ser un número entero => 'id' => 'integer'
-    - 'numeric' => debe ser un número   => 'id' => 'numeric'
-    - 'digits_between:1,3' => debe tener entre 1 y 3 dígitos => 'id' => 'digits_between:1,3'
-    - 'digits:3' => debe tener 3 dígitos => 'id' => 'digits:3'
-    - 'date_format:Y-m-d' => debe tener el formato de fecha Y-m-d => 'birthdate' => 'date_format:Y-m-d'
-    - 'regex' => debe cumplir una expresión regular => 'email' => 'regex:/^.+@.+$/i'
-    */
 }

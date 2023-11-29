@@ -26,10 +26,6 @@ const btnRegistro = document.getElementById("btnRegistro");
 let usuario = [];
 
 // Funciones
-/* function _Init() {
-
-} */
-
 function cogerDatos() {
     let datos = {
         fotoPerfil: fotoPerfil.value,
@@ -42,10 +38,6 @@ function cogerDatos() {
 
     return datos;
 }
-
-/* function asignarRol() { // TODO cuando se cree el usuario debe ser colaborador
-
-} */
 
 function validar() {
     limpiarErrores();
@@ -86,8 +78,6 @@ btnRegistro.addEventListener("click", function (e) {
     if (validar()) {
         guardarUsuario(cogerDatos())
             .then(data => {
-                /* console.log(data);
-                console.log(data.status); */
                 if (data.status == 200) {
                     msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
                     msgCuentaCreada.style.color = "green";

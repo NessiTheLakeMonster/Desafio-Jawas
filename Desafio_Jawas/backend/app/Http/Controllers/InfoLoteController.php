@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Validator;
 
 class InfoLoteController extends Controller
 {
-    public function crear (Request $request, $idLote){
+    public function crear(Request $request, $idLote)
+    {
 
-        $messages =[
+        $messages = [
             'required' => 'Campo obligatorio',
             'idComponente.required' => 'El campo idComponente es obligatorio',
             'descripcion.required' => 'El campo descripcion es obligatorio',
@@ -21,19 +22,19 @@ class InfoLoteController extends Controller
             'cantidad.integer' => 'El campo cantidad debe ser un número entero',
             'idComponente.exists' => 'El campo idComponente no existe',
         ];
-        
+
         $validator = Validator::make($request->all(), [
             'idComponente' => 'required|integer|exists:componente,id',
             'descripcion' => 'required|string',
             'cantidad' => 'required|integer',
-        ],$messages);
+        ], $messages);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
 
         try {
-            $lote = Lote::findOrFail($idLote); 
+            $lote = Lote::findOrFail($idLote);
             $lote = Componente::findOrFail($request->idComponente);
             // Merge agrega idLote a la solicitud antes de crear el InfoLote. Esto asegura que idLote se incluya cuando se crea el InfoLote.
             $request->merge(['idLote' => $idLote]);
@@ -46,12 +47,12 @@ class InfoLoteController extends Controller
     }
 
 
-    public function mostrar($id){
+    public function mostrar($id)
+    {
 
         try {
             $desguace = InfoLote::findOrFail($id);
             return response()->json($desguace);
-
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -67,5 +68,4 @@ class InfoLoteController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-
 }
