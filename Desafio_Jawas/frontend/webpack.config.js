@@ -8,7 +8,10 @@ module.exports = {
         registro: './js/registro.js',
         home: './js/home.js',
         gestionUsuarios: './js/gestionUsuarios.js',
-        donaciones: './js/gestion_lotes.js',
+        donacion: './js/gestion_lotes.js',
+        despieceLote: './js/despieceLote.js',
+        despieceLoteDetalles: './js/despieceLoteDetalles.js',
+
     },
     output: {
         filename: '[name].js',
