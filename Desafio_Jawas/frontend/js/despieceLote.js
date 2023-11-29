@@ -16,19 +16,16 @@ let searchButton = document.getElementById("searchButton");
 
 export function cabeceraTabla(data) {
     let cabecera = document.createElement('tr');
-
-    let th = document.createElement('th');
-    cabecera.appendChild(th);
-
-    Object.keys(data[0]).forEach(key => {
-        if (data[0][key] !== undefined) {
-            let th = document.createElement('th');
-            th.textContent = key.toUpperCase();
-            cabecera.appendChild(th);
-        }
+    let headers = ['','ID', 'ID USUARIO', 'LUGAR RECOGIDA', 'ENTREGADO', 'CANCELADO'];
+    // TODO cambiar los true y false para que no salgan 1 y 0
+    headers.forEach(header => {
+        let th = document.createElement('th');
+        th.textContent = header;
+        cabecera.appendChild(th);
     });
 
     tablaLoteClasificador.appendChild(cabecera);
+
 }
 
 export function createTableRows(data) {
@@ -40,8 +37,6 @@ export function createTableRows(data) {
             <td>${lote.lugar_recogida}</td>
             <td>${lote.entregado}</td>
             <td>${lote.cancelado}</td>
-            <td>${lote.created_at}</td>
-            <td>${lote.updated_at}</td>
         </tr>
     `).join('');
 }
@@ -110,7 +105,7 @@ btnDesguazar.addEventListener('click', function() {
     if (loteId) {
         window.location.href = './despieceLoteDetalles.html';
     } else {
-        alert('Por favor, selecciona un lote antes de continuar');
+        msgErrorLote.textContent = "Selecciona un lote de la lista";
     }
 });
 
