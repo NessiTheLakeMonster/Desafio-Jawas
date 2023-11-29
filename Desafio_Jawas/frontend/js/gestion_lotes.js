@@ -1,4 +1,4 @@
-import { getUsuarios} from './http/http_gestionUsuarios.js'
+import { getUsuarios } from './http/http_gestionUsuarios.js'
 
 const latitud = localStorage.getItem('latitud')
 const longitud = localStorage.getItem('longitud')
