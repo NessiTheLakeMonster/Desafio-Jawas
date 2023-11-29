@@ -1,7 +1,8 @@
 export async function crearLote() {
     let bodyJSON = JSON.stringify(
         {
-            id_usuario: datos.id_usuario,
+            id: datos.id,
+            idUsuario: datos.idUsuario,
             lugar_recogida: datos.lugar_recogida,
             entregado: datos.entregado,
             cancelado: datos.cancelado
@@ -11,22 +12,19 @@ export async function crearLote() {
     let options = {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         },
         body: bodyJSON
     }
 
-    try {
-        const response = await fetch("http://localhost:8000/api/lote/crear", options)
-        const data = await response.json()
-        return data
-    } catch (error) {
-        console.log('ERROR en la solicitud POST para mandar lote', error)
-        throw error
-    }
+    const response = await fetch(`http://localhost:8000/api/lote/crear`, options)
+    const data = await response.json()
+    return data
+
 }
 
-export async function mostrarLotes() {
+export async function mostrarLotes(idUsuario) {
     let options = {
         method: 'GET',
         headers: {
@@ -34,17 +32,13 @@ export async function mostrarLotes() {
         }
     }
 
-    try {
-        const response = await fetch('http://localhost:8000/api/lote/entregados', options)
-        const data = await response.json()
-        return data
-    } catch (error) {
-        console.log('ERROR en la solicitud GET para mostrar lotes', error)
-        throw error
-    }
+    const response = await fetch(`http://localhost:8000/api/lote/entregados/${idUsuario}`, options)
+    const data = await response.json()
+    return data
+
 }
 
-export async function cancelarLote() {
+export async function cancelarLote(id) {
     let options = {
         method: 'DELETE',
         headers: {
@@ -52,13 +46,9 @@ export async function cancelarLote() {
         }
     }
 
-    try {
-        const response = await fetch('http://localhost:8000/api/lote/cancelar', options)
-        const data = await response.json()
-        return data
-    } catch (error) {
-        console.log('ERROR en la solicitud DELETE para cancelar lote', error)
-        throw error
-    }
+    const response = await fetch(`http://localhost:8000/api/lote/cancelar/${id}`, options)
+    const data = await response.json()
+    return data
+
 
 }

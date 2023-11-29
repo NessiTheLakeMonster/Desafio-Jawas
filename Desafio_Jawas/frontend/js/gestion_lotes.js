@@ -1,11 +1,13 @@
-import { getUsuarios } from './http/http_gestionUsuarios.js'
+import { mostrarLotes } from './http/http_gestionLotes.js'
 
 const latitud = localStorage.getItem('latitud')
 const longitud = localStorage.getItem('longitud')
 
+const mandarLote = document.getElementById('mandarLote')
 const tablaLotes = document.getElementById('tablaLotes')
+const cancelarLote = document.getElementById('cancelarLote')
 
-function move() {
+export function move() {
     var elem = document.getElementById("myBar")
     var width = 0
     var id = setInterval(frame, 10)
@@ -21,26 +23,52 @@ function move() {
     }
 }
 
-// function cabeceraTabla
+export function cabeceraTabla(data) {
+    let cabecera = document.createElement('tr');
 
-let cont = 1
+    let th = document.createElement('th');
+    cabecera.appendChild(th);
 
-function llenarTablaLotes() {
-    let tr = `
-                <tr>
-                    <td>${cont}</td>
-                    <td>${usuario.nombre}</td>
-                    <td>${latitud + ', ' + longitud}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            `
-    cont++;
+    Object.keys(data[0]).forEach(key => {
+        if (data[0][key] !== undefined) {
+            let th = document.createElement('th');
+            th.textContent = key.toUpperCase();
+            cabecera.appendChild(th);
+        }
+    });
 
-    tablaLotes.innerHTML += tr
+    tablaLotes.appendChild(cabecera);
 }
 
-window.onload = function () {
-    move(),
-    llenarTablaLotes()
-};
+export function llenarTablaLotes(data) {
+    return data.map(lote => `
+                <tr>
+                    <td>${lote.id}</td>
+                    <td>${lote.idUsuario}</td>
+                    <td>${latitud + ', ' + longitud}</td>
+                    <td>${lote.entregado}</td>
+                    <td>${lote.cancelado}</td>
+                </tr>
+            `).join('')
+}
+
+// export function _Init() {
+//     mostrarLotes().then(data => {
+//         cabeceraTabla(data)
+//         tablaLotes.innerHTML += llenarTablaLotes(data)
+//     })
+
+    mandarLote.addEventListener('click', async function () {
+        let data = await mostrarLotes(idUsuario)
+
+        tablaLotes.innerHTML = ''
+
+        if (data && data.id !== undefined) {
+            data = Array.isArray(data) ? data : [data]
+
+            tablaLotes.innerHTML += llenarTablaLotes(data)
+        } 
+        console.log('CLICASTE')
+    })
+// }
+// _Init()
