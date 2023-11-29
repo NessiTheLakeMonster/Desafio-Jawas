@@ -8,7 +8,31 @@ Integrantes
 # Manual de Servidor :closed_lock_with_key:
 ## Registrar usuario
 
+- URL: `http://127.0.0.1:8000/api/registro`
+- Método: `POST`
+  
+```json
+{
+  "fotoPerfil": "url_Foto",
+  "nombre": "Ines",
+  "apellido" : "Barrera",
+  "email": "inesmballe@gmail.com",
+  "password" : "admin123",
+  "password_confirmation" : "admin123"
+}
+```
+
 ## Iniciar sesión
+
+- URL: `http://127.0.0.1:8000/api/login`
+- Método: `POST`
+
+```json
+{
+  "email": "inesmballe@gmail.com",
+  "password" : "admin123"
+}
+```
 
 ## LOTE
 
