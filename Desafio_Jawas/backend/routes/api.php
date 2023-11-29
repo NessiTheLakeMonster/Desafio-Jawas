@@ -128,7 +128,7 @@ Route::prefix('info_lote')->group(function () {
     Route::get('/listar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'listar']);
 
     //TODO:NO SE USA
-    Route::get('/mostrar/{id}', [App\Http\Controllers\InfoLoteController::class, 'mostrar']); 
+    Route::get('/mostrarr/{id}', [App\Http\Controllers\InfoLoteController::class, 'mostrar']); 
 
 });
 
