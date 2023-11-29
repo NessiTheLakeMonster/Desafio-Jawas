@@ -9,3 +9,15 @@ export async function getUsuarios() {
     const data = await response.json();
     return data;
 }
+
+export async function deleteUsuario(id) {
+    var options = {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
+    const response = await fetch(`http://localhost:8000/api/usuario/eliminar/${id}`, options);
+    const data = await response.json();
+    return data;
+}

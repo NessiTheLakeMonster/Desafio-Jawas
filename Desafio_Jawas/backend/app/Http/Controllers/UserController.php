@@ -92,7 +92,11 @@ class UserController extends Controller
         try {
             $usuario = User::findOrFail($id);
             $usuario->delete();
-            return response()->json($usuario, 200);
+            return response()->json([
+                'message' => 'Usuario eliminado',
+                'id' => $id,
+                'status' => 200
+            ], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
