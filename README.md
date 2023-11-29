@@ -2,35 +2,52 @@
 Integrantes
   - [Inés Mª Barrera Llerena](https://github.com/NessiTheLakeMonster)
   - [Patricia Mota](https://github.com/patrimj)
-  - [Jaime](https://github.com/jornu99)
+  - [Jaime Ortega](https://github.com/jornu99)
 
 -------
 # Manual de Servidor :closed_lock_with_key:
-## Registrar usuario
+
+Información importante a saber para el profesor:
++ Los `middleware` aún no están implementados, pero si programados en el código. En proximos días serán funcionales. Con esto se debe saber que no miramos aún si el usuario que ha iniciado sesión tiene permisos para entrar a esas funcionalidad o no.
+
+
+## USUARIOS
+#### Registrar usuario
 
 - URL: `http://127.0.0.1:8000/api/registro`
 - Método: `POST`
-  
+- Datos requeridos:
+  - `fotoPerfil`: Foto que va a tener el usuario (string)
+  - `nombre`: Nombre del usuario (string, requerido)
+  - `apellido`: Apellido del usuario (string, requerido)
+  - `email`: Email del usuario (string, requerido, único)
+  - `password`: Contraseña del usuario (string, requerido)
+
+##### Ejemplo de solicitud para registrar usuario
 ```json
 {
   "fotoPerfil": "url_Foto",
   "nombre": "Ines",
-  "apellido" : "Barrera",
+  "apellido": "Barrera",
   "email": "inesmballe@gmail.com",
-  "password" : "admin123",
-  "password_confirmation" : "admin123"
+  "password": "admin123",
+  "password_confirmation": "admin123"
 }
 ```
 
-## Iniciar sesión
+#### Iniciar sesión
 
 - URL: `http://127.0.0.1:8000/api/login`
 - Método: `POST`
+- Datos requeridos:
+  - `email`: Email del usuario (string, requerido, único)
+  - `password`: Contraseña del usuario (string, requerido)
 
+##### Ejemplo de solicitud para iniciar sesión
 ```json
 {
   "email": "inesmballe@gmail.com",
-  "password" : "admin123"
+  "password": "admin123"
 }
 ```
 
@@ -55,8 +72,6 @@ Integrantes
 {
     "id_usuario": 1,
     "lugar_recogida": "40.712776, -74.005974",
-    "entregado": false,
-    "cancelado": false
 }
 ```
 
@@ -74,7 +89,7 @@ Integrantes
 - Parámetros de ruta:
   - `id`: ID del lote (integer, requerido)
 - Datos requeridos:
-  - `id_usuario`: ID del usuario (integer, requerido)
+  - `id_lote`: ID del lote (integer, requerido)
   - `lugar_recogida`: Lugar de recogida del lote (string, requerido)
   - `entregado`: Estado de entrega del lote (boolean, requerido)
   - `cancelado`: Estado de cancelación del lote (boolean, requerido)
@@ -110,10 +125,11 @@ Integrantes
 
 #### Desguazar y clasificar el lote
 
-- URL: `http://127.0.0.1:8000/api/info_lote/desguazar`
+- URL: `http://127.0.0.1:8000/api/info_lote/desguazar/{idLote}`
 - Método: `POST`
+- Parámetros de ruta:
+  - `idLote`: ID del lote (integer, requerido) 
 - Datos requeridos:
-  - `idLote`: ID del lote (integer, requerido)
   - `idComponente`: ID del componente (integer, requerido)
   - `descripcion`: Descripción del componente (string, requerido)
   - `cantidad`: Cantidad de componentes (integer, requerido)
@@ -122,7 +138,6 @@ Integrantes
 
 ```json
 {
-    "idLote": 1,
     "idComponente": 1,
     "descripcion": "gominola",
     "cantidad": 10
@@ -132,6 +147,8 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/info_lote/listar/{idLote}`
 - Método: `GET`
+- Parámetros de ruta:
+  - `idLote`: ID del lote (integer, requerido) 
 
 ## COMPONENTES
 
@@ -144,6 +161,8 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/componentes/mostrar/{id}`
 - Método: `GET`
+- Parámetros de ruta:
+  - `id`: ID del componente (integer, requerido) 
 
 #### Crear un nuevo componente
 
@@ -166,6 +185,8 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/componentes/modificar/{id}`
 - Método: `PUT`
+- Parámetros de ruta:
+  - `id`: ID del componente (integer, requerido) 
 - Datos requeridos:
   - `nombre`: Nuevo nombre del componente (string, requerido)
   - `hardware`: Indica si el componente es hardware (booleano, requerido)
@@ -183,10 +204,10 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/componentes/eliminar/{id}`
 - Método: `DELETE`
+- Parámetros de ruta:
+  - `id`: ID del componente (integer, requerido) 
 
-#### Verificar si un componente es hardware
-- URL: `http://127.0.0.1:8000/api/componentes/esHardware/{id}`
-- Método: `GET`
+## INVENTARIO
 
 ## JOYAS
 
@@ -199,6 +220,8 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/joya/mostrar/{id}`
 - Método: `GET`
+- Parámetros de ruta:
+  - `id`: ID de la joya (integer, requerido) 
 
 #### Crear una nueva joya
 
@@ -223,6 +246,8 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/joya/modificar/{id}`
 - Método: `PUT`
+- Parámetros de ruta:
+  - `id`: ID de la joya (integer, requerido) 
 - Datos requeridos:
   - `foto`: foto de la joya (string, requerido)
 
@@ -238,6 +263,8 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/joya/eliminar/{id}`
 - Método: `DELETE`
+- Parámetros de ruta:
+  - `id`: ID de la joya (integer, requerido) 
 
 #### Generador de Joyas Aleatorios
 
@@ -252,12 +279,15 @@ Integrantes
 
 ```json
 {
-  "idTipoJoya": 1
+  "idTipoJoya": 1,
+  "foto": "ruta/a/la/foto.jpg"
 }
 ```
 #### Verificar si hay suficientes componentes en el inventario
 - URL: `http://127.0.0.1:8000/api/joya/componentes/{id}`
 - Método: `GET`
+- Parámetros de ruta:
+  - `id`: ID del componente (integer, requerido) 
 - Datos requeridos:
   - `id_receta`: ID de la receta (integer, requerido)
 
@@ -293,13 +323,15 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/receta/mostrar/{id}`
 - Método: `GET`
+- Parámetros de ruta:
+  - `id`: ID de la receta (integer, requerido) 
 
 #### Crear una nueva receta
 
 - URL: `http://127.0.0.1:8000/api/receta/crear`
 - Método: `POST`
 - Datos requeridos:
-  - `idUsuario`: ID del usuario (integer, requerido)
+  - `id`: ID del usuario (integer, requerido)
 
 ##### Ejemplo de solicitud para crear una receta
 
@@ -313,8 +345,10 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/receta/modificar/{id}`
 - Método: `PUT`
+- Parámetros de ruta:
+  - `id`: ID de la receta (integer, requerido) 
 - Datos requeridos:
-  - `idUsuario`: ID del usuario (integer, requerido)
+  - `id`: ID del usuario (integer, requerido)
 
 ##### Ejemplo de solicitud para modificar una receta
 
@@ -328,6 +362,8 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/receta/eliminar/{id}`
 - Método: `DELETE`
+- Parámetros de ruta:
+  - `id`: ID de la receta (integer, requerido) 
 
 ## INGREDIENTES
 
@@ -340,6 +376,8 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/ingrediente/mostrar/{id}`
 - Método: `GET`
+- Parámetros de ruta:
+  - `id`: ID del ingrediente (integer, requerido) 
 
 #### Crear un nuevo ingrediente
 
@@ -364,6 +402,8 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/ingrediente/modificar/{id}`
 - Método: `PUT`
+- Parámetros de ruta:
+  - `id`: ID del ingredeinte (integer, requerido) 
 - Datos requeridos:
   - `id_receta`: ID de la receta (integer, requerido)
   - `id_componente`: ID del componente (integer, requerido)
@@ -383,3 +423,5 @@ Integrantes
 
 - URL: `http://127.0.0.1:8000/api/ingrediente/eliminar/{id}`
 - Método: `DELETE`
+- Parámetros de ruta:
+  - `id`: ID del ingredente (integer, requerido) 
