@@ -13,7 +13,6 @@ module.exports = {
         despieceLoteDetalles: './js/despieceLoteDetalles.js',
         recetas: './js/recetas.js',
         recetasDetalles: './js/recetasDetalle.js',
-
     },
     output: {
         filename: '[name].js',
