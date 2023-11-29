@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\InfoLote;
+use App\Models\Lote;
+use App\Models\Componente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class Info_LoteController extends Controller
+class InfoLoteController extends Controller
 {
     public function crear (Request $request, $idLote){
 
@@ -31,12 +33,12 @@ class Info_LoteController extends Controller
         }
 
         try {
-            $lote = new InfoLote;
-            $lote->idLote = $idLote;
-            $lote->idComponente = $request->get('idComponente');
-            $lote->descripcion = $request->get('descripcion');
-            $lote->cantidad = $request->get('cantidad');
-            $lote->save();
+            $lote = Lote::findOrFail($idLote); 
+            $lote = Componente::findOrFail($request->idComponente);
+            // Merge agrega idLote a la solicitud antes de crear el InfoLote. Esto asegura que idLote se incluya cuando se crea el InfoLote.
+            $request->merge(['idLote' => $idLote]);
+            $request->merge(['idComponente' => $request->idComponente]);
+            $lote = InfoLote::create($request->all());
             return response()->json($lote, 201);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -59,6 +61,7 @@ class Info_LoteController extends Controller
     {
         try {
             $desguace = InfoLote::where('idLote', $idLote)->get(['idComponente', 'descripcion', 'cantidad']);
+
             return response()->json($desguace, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

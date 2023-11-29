@@ -3,21 +3,29 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../css/despieceLote.css">
         <title>Lotes</title>
     </head>
 
     <body>
-        <h1> LOTES POR CLASIFICAR </h1>
+        <div style="background-color: rgb(253, 208, 253);">
+            <input type="search" id="searchBar" placeholder="Buscar lote por el ID">
+            <button id="searchButton">Buscar</button>
+        </div>
+        
+        <div style="background-color: lightblue;">
+            <span id="msgErrorLote"></span>
+        </div>
 
-        <input type="search" id="searchBar" placeholder="Buscar lote por el ID">
+        <div style="background-color: rgb(255, 219, 219);">
+            <table id="tablaLoteClasificador">
+                <h2>Lotes por clasificar</h2>
+            </table>
+        </div>
 
-        <table id="tablaLoteClasificador">
-
-        </table>
-
-        <span id="msgErrorLote"></span>
-
-        <input type="button" value="Desguazar Lote" id="btnDesguazar">
+        <div style="background-color: rgb(228, 255, 219);">
+            <input type="button" value="Desguazar Lote" id="btnDesguazar">
+        </div>
 
     </body>
     <script type="module" src="../js/despieceLote.js"></script>
