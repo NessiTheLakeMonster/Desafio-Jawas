@@ -18,11 +18,11 @@ class ComponenteFactory extends Factory
     {
 
         $componentesHardware = [
-            1 => 'RAM', 
-            2 => 'CPU', 
-            3 => 'GPU', 
-            4 => 'Disco duro', 
-            5 => 'Placa base', 
+            1 => 'RAM',
+            2 => 'CPU',
+            3 => 'GPU',
+            4 => 'Disco duro',
+            5 => 'Placa base',
             6 => 'Fuente de alimentación',
             7 => 'Cable de red',
             8 => 'Cable de alimentación',
@@ -40,15 +40,15 @@ class ComponenteFactory extends Factory
             7 => 'arandela',
 
         ];
-    
+
         $esHardware = $this->faker->boolean;
-    
+
         if ($esHardware) {
             $nombre = $this->faker->randomElement($componentesHardware);
         } else {
             $nombre = $this->faker->randomElement($componentesNoHardware);
         }
-    
+
         return [
             'nombre' => $nombre,
             'hardware' => $esHardware ? 1 : 0,

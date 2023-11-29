@@ -1,40 +1,74 @@
-const usuarioGuardado = sessionStorage.getItem('usuario')
-const usuario = JSON.parse(usuarioGuardado)
+import { mostrarLotes } from './http/http_gestionLotes.js'
 
-function move() {
-    var elem = document.getElementById("myBar");
-    var width = 0;
-    var id = setInterval(frame, 10);
+const latitud = localStorage.getItem('latitud')
+const longitud = localStorage.getItem('longitud')
+
+const mandarLote = document.getElementById('mandarLote')
+const tablaLotes = document.getElementById('tablaLotes')
+const cancelarLote = document.getElementById('cancelarLote')
+
+export function move() {
+    var elem = document.getElementById("myBar")
+    var width = 0
+    var id = setInterval(frame, 10)
 
     function frame() {
         if (width >= 100) {
-            clearInterval(id);
+            clearInterval(id)
         } else {
-            width++;
-            elem.style.width = width + "%";
-            elem.innerHTML = width + "%";
+            width++
+            elem.style.width = width + "%"
+            elem.innerHTML = width + "%"
         }
     }
 }
 
-let cont = 1
+export function cabeceraTabla(data) {
+    let cabecera = document.createElement('tr');
 
-function llenarTablaLotesUsuario() {
-    const tablaLotes = document.getElementById('tablaLotes')
+    let th = document.createElement('th');
+    cabecera.appendChild(th);
 
-    let tr = `
-                <tr>
-                    <td>${cont}</td>
-                    <td>${usuario.nombre}</td>
-                    <td>${window.coordenadas.lat + ', ' + window.coordenadas.lng}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            `
-    cont++;
+    Object.keys(data[0]).forEach(key => {
+        if (data[0][key] !== undefined) {
+            let th = document.createElement('th');
+            th.textContent = key.toUpperCase();
+            cabecera.appendChild(th);
+        }
+    });
+
+    tablaLotes.appendChild(cabecera);
 }
 
-// Llama a la función de simulación al cargar la página (esto puede ser en respuesta a alguna acción del usuario)
-window.onload = function () {
-    move()
-};
+export function llenarTablaLotes(data) {
+    return data.map(lote => `
+                <tr>
+                    <td>${lote.id}</td>
+                    <td>${lote.idUsuario}</td>
+                    <td>${latitud + ', ' + longitud}</td>
+                    <td>${lote.entregado}</td>
+                    <td>${lote.cancelado}</td>
+                </tr>
+            `).join('')
+}
+
+// export function _Init() {
+//     mostrarLotes().then(data => {
+//         cabeceraTabla(data)
+//         tablaLotes.innerHTML += llenarTablaLotes(data)
+//     })
+
+    mandarLote.addEventListener('click', async function () {
+        let data = await mostrarLotes(idUsuario)
+
+        tablaLotes.innerHTML = ''
+
+        if (data && data.id !== undefined) {
+            data = Array.isArray(data) ? data : [data]
+
+            tablaLotes.innerHTML += llenarTablaLotes(data)
+        } 
+        console.log('CLICASTE')
+    })
+// }
+// _Init()

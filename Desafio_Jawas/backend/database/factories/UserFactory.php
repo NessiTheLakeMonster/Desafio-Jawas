@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'fotoPerfil' => $this->faker->imageUrl(640, 480, 'people'), // Genera una URL de imagen aleatoria
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),      
+            'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
     }

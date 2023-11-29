@@ -3,26 +3,24 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../css/despieceLote.css">
         <title>Desguazar</title>
     </head>
 
     <body>
         <h1> DESGUAZAR LOTE </h1>
 
-        <select id="seleccionarComponente">
-        <option value="">Selecciona un componente</option>
-            <option value="1">Componente 1</option>
-            <option value="2">Componente 2</option>
-            <option value="3">Componente 3</option>
-        </select>
-
+        <span id="msgExito"></span><br>
+        
+        <select id="selectComponentes"></select>
+        
         <label for="descripcionComponente"></label>
         <input type="text" id="descripcionComponente" placeholder="Descripción">
 
         <label for="cantidadComponente"></label>
         <input type="text" id="cantidadComponente" placeholder="Cantidad">
 
-        <span id="msgErrorLote"></span>
+        <span id="msgLote"></span>
 
         <input type="button" value="Añadir" id="btnAñadirComponente">
 
@@ -32,6 +30,7 @@
 
         </table>
         
+        <input type="button" value="Seleccionar otro lote" id="btnOtroLote">
 
     </body>
     <script type="module" src="../js/despieceLoteDetalles.js"></script>

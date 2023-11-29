@@ -10,6 +10,11 @@ module.exports = {
         gestionUsuarios: './js/gestionUsuarios.js',
         donaciones: './js/gestion_lotes.js',
         modificarCrearUsuario: './js/modificarCrearUsuario.js',
+        donacion: './js/gestion_lotes.js',
+        despieceLote: './js/despieceLote.js',
+        despieceLoteDetalles: './js/despieceLoteDetalles.js',
+        recetas: './js/recetas.js',
+        recetasDetalles: './js/recetasDetalle.js',
     },
     output: {
         filename: '[name].js',
