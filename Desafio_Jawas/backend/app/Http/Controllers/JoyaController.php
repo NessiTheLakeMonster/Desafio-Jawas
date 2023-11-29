@@ -106,7 +106,7 @@ class JoyaController extends Controller
 
             $ingredientes = IngredienteAsignado::where('id_receta', $receta->id)->get();
 
-            if (!$this->componentesSuficiente($ingredientes, $componentes)) {
+            if (!$this->componenteSuficiente($ingredientes, $componentes)) {
                 return response()->json(['error' => 'No hay suficientes componentes en el inventario'], 500);
             }
 
