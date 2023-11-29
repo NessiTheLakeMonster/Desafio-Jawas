@@ -11,6 +11,8 @@ module.exports = {
         donacion: './js/gestion_lotes.js',
         despieceLote: './js/despieceLote.js',
         despieceLoteDetalles: './js/despieceLoteDetalles.js',
+        recetas: './js/recetas.js',
+        recetasDetalles: './js/recetasDetalle.js',
 
     },
     output: {

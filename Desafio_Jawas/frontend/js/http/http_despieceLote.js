@@ -7,7 +7,7 @@ export async function getLotes() {
             "Content-Type": "application/json"
         }
     };
-    const response = await fetch("http://localhost:8000/api/info_lote/listar", options);
+    const response = await fetch(`http://localhost:8000/api/info_lote/listar`, options);
     const data = await response.json();
     return data;
 }
@@ -44,7 +44,7 @@ export async function desguaceLote(datos) {
     let idLote = localStorage.getItem('loteId');
     let bodyJson = JSON.stringify(
         {
-            id_componente: datos.id_componente,
+            idComponente: datos.idComponente,
             descripcion: datos.descripcion, 
             cantidad: datos.cantidad
         }
@@ -70,10 +70,11 @@ export async function getComponentes(idLote) {
     var options = {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     };
-    const response = await fetch(`http://localhost:8000/info_lote/listar/${idLote}`, options);
+    const response = await fetch(`http://localhost:8000/api/info_lote/listar/${idLote}`, options);
     const data = await response.json();
     return data;
 }

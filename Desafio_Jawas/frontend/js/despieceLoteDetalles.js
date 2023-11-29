@@ -16,7 +16,7 @@ const btnSeleccionarOtroLote = document.getElementById("btnOtroLote");
 const btnAñadirComponente = document.getElementById("btnAñadirComponente");
 
 //ID LOTE REGISTRADO
-let idLote = localStorage.getItem('idLote');
+/* let idLote = localStorage.getItem('loteId'); */
 
 //Volver a la pantalla anterior
 btnSeleccionarOtroLote.addEventListener('click', function() {
@@ -24,12 +24,8 @@ btnSeleccionarOtroLote.addEventListener('click', function() {
     window.location.href = 'despieceLote.html';
 });
 
-// Crear el elemento select
-let select = document.createElement('select');
-select.id = 'seleccionarComponente';
 
-// Añadir el select al DOM
-document.body.appendChild(select);
+let select = document.getElementById('selectComponentes');
 
 // Obtener los componentes de la base de datos
 getLoteComponentes()
@@ -47,7 +43,7 @@ getLoteComponentes()
 
 function cogerComponente() {
     let datos = {
-        idComponente: select.value,
+        idComponente: parseInt(select.value),
         descripcion: descripcionComponente.value,
         cantidad: cantidadComponente.value
     };
@@ -57,13 +53,16 @@ function cogerComponente() {
 
 btnAñadirComponente.addEventListener('click', function(e) {
     e.preventDefault();
-    desguaceLote(cogerComponente())
+    let datos = cogerComponente();
+    desguaceLote(datos)
+
         .then(data => {
-            console.log(data);
-            if (data.status == 200) {
+        
+            if (data.id) {
                 msgComponenteInsertado.innerHTML = "Componente añadido con éxito";
                 msgComponenteInsertado.style.color = "green";
-    
+                window.location.reload();
+        
             } else {
                 msgComponenteInsertado.innerHTML = "Error al añadir el componente";
                 msgComponenteInsertado.style.color = "red";
@@ -77,16 +76,12 @@ btnAñadirComponente.addEventListener('click', function(e) {
 //tabla interior lote
 export function cabeceraTabla(data) {
     let cabecera = document.createElement('tr');
-
-    let th = document.createElement('th');
-    cabecera.appendChild(th);
-
-    Object.keys(data[0]).forEach(key => {
-        if (data[0][key] !== undefined) {
-            let th = document.createElement('th');
-            th.textContent = key.toUpperCase();
-            cabecera.appendChild(th);
-        }
+    let headers = ['ID COMPONENTE', 'DESCRIPCIÓN', 'CANTIDAD'];
+    // TODO cambir los id de los componentes por los nombres
+    headers.forEach(header => {
+        let th = document.createElement('th');
+        th.textContent = header;
+        cabecera.appendChild(th);
     });
 
     tablaInfoLotes.appendChild(cabecera);
@@ -98,13 +93,13 @@ export function createTableRows(data) {
             <td>${info_lote.idComponente}</td>
             <td>${info_lote.descripcion}</td>
             <td>${info_lote.cantidad}</td>
-            <td>${info_lote.created_at}</td>
-            <td>${info_lote.updated_at}</td>
         </tr>
     `).join('');
 }
 
 export function _Init() {
+    let idLote = localStorage.getItem('loteId');
+
     getComponentes(idLote)
     .then(data => {
         cabeceraTabla(data);
