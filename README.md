@@ -11,7 +11,8 @@ Integrantes
 
 Los siguientes comandos deben ejecutarse en la carpeta `backend`
 
-```bash 
+```bash
+  php artisan update -> Este comando debe ejecutarse para la carpeta vendor
   php artisan migrate
 
   php artisan db:seed --class=UserSeeder
@@ -31,6 +32,7 @@ Los siguientes comandos deben ejecutarse en la carpeta `backend`
 
 Los siguientes comandos deben ejecutarse en la carpeta `frontend`
 ```bash
+  npm install -> Este comando debe ejecutarse para crear la carpeta node_modules
   npm run build
   npm run config
   npm run watch
