@@ -13,6 +13,8 @@ Los siguientes comandos deben ejecutarse en la carpeta `backend`
 
 ```bash
   php artisan update -> Este comando debe ejecutarse para la carpeta vendor
+  php artisan key:generate
+
   php artisan migrate
 
   php artisan db:seed --class=UserSeeder
