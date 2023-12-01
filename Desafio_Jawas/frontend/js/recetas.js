@@ -6,20 +6,20 @@ let tablaIngredientes = document.getElementById("tablaIngredientes");
 
 //botones
 const btnCrearReceta = document.getElementById("btnCrearReceta");
-const btnIngredientes = document.getElementById("btnIngredientes");
+const btnIngredientes = document.getElementById("btnIngredientes"); 
+//barra de busqueda
+let searchBar = document.getElementById("searchBar"); 
+let searchButton = document.getElementById("searchButton");
 
 export function cabeceraTabla(data) {
     let cabecera = document.createElement('tr');
+    let headers = ['','ID', 'USUARIO'];
 
-    let th = document.createElement('th');
-    cabecera.appendChild(th);
+    headers.forEach(header => {
+         let th = document.createElement('th');
+         th.textContent = header;
+         cabecera.appendChild(th);
 
-    Object.keys(data[0]).forEach(key => {
-        if (data[0][key] !== undefined) {
-            let th = document.createElement('th');
-            th.textContent = key.toUpperCase();
-            cabecera.appendChild(th);
-        }
     });
 
     tablaRecetas.appendChild(cabecera);
@@ -28,23 +28,53 @@ export function cabeceraTabla(data) {
 export function createTableRows(data) {
     return data.map(receta => `
         <tr>
-            <td><input class="checkbox-lote" type="checkbox" name="lote" value="${receta.id}"></td>
+            <td><input class="checkbox-receta" type="checkbox" name="receta" value="${receta.id}"></td>
             <td>${receta.id}</td>
             <td>${receta.idUsuario}</td>
-            <td>${receta.created_at}</td>
-            <td>${receta.updated_at}</td>
+
         </tr>
     `).join('');
 }
 
+export function cabeceraTablaIngredientes() {
+    let cabecera = document.createElement('tr');
+    let titulo = document.createElement('tr');
+    let headers = ['Componente', 'Cantidad'];
+
+    let tituloIngredientes = document.createElement('th');
+    tituloIngredientes.textContent = 'Ingredientes';
+    tituloIngredientes.colSpan = headers.length; 
+    titulo.appendChild(tituloIngredientes);
+
+
+    headers.forEach(header => {
+         let th = document.createElement('th');
+         th.textContent = header;
+         cabecera.appendChild(th);
+    });
+    tablaIngredientes.appendChild(titulo);
+    tablaIngredientes.appendChild(cabecera);
+
+}
+
+export function createIngredientRows(data) {
+    return data.map(ingrediente => `
+        <tr>
+            <td>${ingrediente.id_componente}</td>
+            <td>${ingrediente.cantidad}</td>
+        </tr>
+    `).join('');
+}
+
+
+
 export function _Init() {
     getRecetas().then(data => {
-        console.log(data)
         
         cabeceraTabla(data);
         tablaRecetas.innerHTML += createTableRows(data);
 
-        let checkboxes = document.querySelectorAll('.checkbox-lote');
+        let checkboxes = document.querySelectorAll('.checkbox-receta');
 
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function() {
@@ -55,17 +85,69 @@ export function _Init() {
                             otherCheckbox.checked = false;
                         }
                     });
-                    // Si el checkbox está seleccionado, guardar el ID en el localStorage
+            
                     localStorage.setItem('recetaId', this.value);
                 } else {
-                    // Si el checkbox no está seleccionado, eliminar el ID del localStorage
+         
                     localStorage.removeItem('recetaId');
                 }
             });
         });
+        document.getElementById('btnIngredientes').addEventListener('click', async () => {
+            let id_receta = localStorage.getItem('recetaId');
+
+            if (id_receta) {
+                getIngredientes(id_receta).then(data => {
+       
+                    tablaIngredientes.innerHTML = '';
+                    cabeceraTablaIngredientes();
+                    tablaIngredientes.innerHTML += createIngredientRows(data);
+                }).catch(error => {
+                    console.error('Hubo un error al obtener los ingredientes:', error);
+                });
+            } else {
+                msgErrorReceta.textContent = "Selecciona una receta de la lista";
+            }
+        });
+
+
     }).catch(error => {
         console.error('Hubo un error al obtener las recetas:', error);
     });
 }
+
+//Botón de buscar
+searchButton.addEventListener('click', async function() {
+    let id = searchBar.value;
+    let data = await getReceta(id);
+
+    tablaRecetas.innerHTML = "";
+
+    if (data && data.id !== undefined) {
+
+        data = Array.isArray(data) ? data : [data];
+
+        cabeceraTabla(data);//
+        tablaRecetas.innerHTML += createTableRows(data);
+
+    } else {
+        msgErrorReceta.textContent = "La receta que buscas no existe, selecciona una receta de la lista";
+        // Ejecución de funciones
+        _Init();
+
+    }
+});
+
+//TECLA ENTER
+searchBar.addEventListener('keyup', async function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        searchButton.click();
+    }
+});
+
+btnCrearReceta.addEventListener('click', function() {
+    window.location.href = './recetasDetalle.html'
+});
 
 _Init();
