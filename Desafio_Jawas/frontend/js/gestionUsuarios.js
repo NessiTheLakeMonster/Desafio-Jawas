@@ -50,6 +50,7 @@ export function createTableRows(data) {
 export function guardarUsuarioSeleccionado(idUsuario) {
     getUsuarioById(idUsuario).then(data => {
         localStorage.setItem('usuarioSeleccionado', JSON.stringify(data));
+        console.log(data);
     });
 }
 

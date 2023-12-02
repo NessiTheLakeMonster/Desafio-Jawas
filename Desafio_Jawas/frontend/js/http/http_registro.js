@@ -1,3 +1,10 @@
+/**
+ * Función que se encarga de crear un usuario mediante una petición POST a la API
+ * 
+ * @author Inés Mª Barrera Llerena
+ * @param {*} datos 
+ * @returns data
+ */
 export async function guardarUsuario(datos) {
     let bodyJson = JSON.stringify(
         {
