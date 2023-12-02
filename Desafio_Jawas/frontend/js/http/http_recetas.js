@@ -41,8 +41,35 @@ export async function getIngredientes(id_receta) {
     return data;
 }
 
+//MODIFICAR CANTIDAD DE INGREDIENTE DE LA RECETA
+export async function modificarIngrediente(datos) {
+
+        let id_receta = localStorage.getItem('recetaId');
+        let id_componente = localStorage.getItem('id_componente')
+    
+        let bodyJson = JSON.stringify(
+            {   
+                "id_componente": id_componente,
+                "cantidad": datos.cantidad
+            }
+        );
+    
+        var options = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: bodyJson 
+        };
+        const response = await fetch(`http://localhost:8000/api/ingrediente/modificar/${id_receta}`, options);
+        const data = await response.json();
+        return data;
+    }
+
 //CREAR RECETA NUEVA -> BOTÓN DE CREAR RECETA
 export async function recetaNueva() {
+    //TODO:traerme el usuario de ines
     let idUsuario = localStorage.getItem('usuarioId'); 
 
     let bodyJson = JSON.stringify(
@@ -64,6 +91,7 @@ export async function recetaNueva() {
     return data;
 
 }
+
 
 // AÑADIR INGREDIENTE A LA RECETA
 export async function addIngrediente(id_receta, datos) {

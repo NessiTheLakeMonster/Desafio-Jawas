@@ -182,10 +182,11 @@ Route::prefix('ingrediente')->group(function () {
     Route::post('/crear/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'crear']);
     //VER INGREDIENTES DE LA RECETA CONCRETA
     Route::get('/listar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'listar']);
+    //MODIFICAR LA CANTIDAD DE INGREDIENTE DE LA RECETA
+    Route::put('/modificar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'modificarCantidad']);
 
     //TODO: NO SE USA
     Route::get('/mostrar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'mostrar']);
-    Route::put('/modificar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'eliminar']);
 
 });
