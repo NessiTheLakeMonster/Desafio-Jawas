@@ -217,6 +217,7 @@ export function _Init() {
                         });
                     });
 
+
                     decreaseButtons.forEach(button => {
                         button.addEventListener('click', function() {
                             let id_componente = this.getAttribute('data-id');
@@ -226,7 +227,9 @@ export function _Init() {
                                 this.nextSibling.textContent = cantidad;
                                 let datos = { cantidad: cantidad,
                                             id_componente: id_componente };
-
+                                modificarIngrediente(datos).then(response => {
+                                    console.log(response); // Imprime la respuesta de la API
+                                });
                             }
                         });
                     });
@@ -240,7 +243,9 @@ export function _Init() {
                                 this.previousSibling.textContent = cantidad;
                                 let datos = { cantidad: cantidad,
                                             id_componente: id_componente  };
-
+                                modificarIngrediente(datos).then(response => {
+                                    console.log(response); // Imprime la respuesta de la API
+                                });
                             }
                         });
                     });
