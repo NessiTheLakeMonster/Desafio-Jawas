@@ -84,7 +84,7 @@ btnCrear.addEventListener('click', () => {
         guardarUsuario(agregarUsuario()).then(data => {
             console.log(data);
         });
-    } else if (btnCrear.value === 'Modificar') {
+    } else if (btnCrear.value === 'Modificar') { // FIXME se debe mirar lo del token de seguridad
         modificar(cargarUsuario(),usuario.id).then(data => {
             console.log(data);
         });
