@@ -24,19 +24,27 @@ export function cabeceraTabla() {
 }
 
 export function createTableRows(data) {
-    return data.map(user => `
-        <tr>
-            <td><input type="checkbox" name="idUsuario" value="${user.id}" id="checkBoxUsuario"></td>
-            <td>${user.id}</td>
-            <td><img src="${user.fotoPerfil}" width=40 /></td>
-            <td>${user.nombre}</td>
-            <td>${user.apellido}</td>
-            <td>${user.email}</td>
-            <td>${user.email_verified_at}</td>
-            <td>${user.created_at}</td>
-            <td>${user.updated_at}</td>
-        </tr>
-    `).join('');
+    return data.map(user => {
+        let createdAt = new Date(user.created_at);
+        let updatedAt = new Date(user.updated_at);
+
+        let formattedCreatedAt = `${createdAt.getDate()}/${createdAt.getMonth()+1}/${createdAt.getFullYear()} ${createdAt.getHours()}:${createdAt.getMinutes()}:${createdAt.getSeconds()}`;
+        let formattedUpdatedAt = `${updatedAt.getDate()}/${updatedAt.getMonth()+1}/${updatedAt.getFullYear()} ${updatedAt.getHours()}:${updatedAt.getMinutes()}:${updatedAt.getSeconds()}`;
+
+        return `
+            <tr>
+                <td><input type="checkbox" name="idUsuario" value="${user.id}" id="checkBoxUsuario"></td>
+                <td>${user.id}</td>
+                <td><img src="${user.fotoPerfil}" alt="Foto de perfil" width="100"></td>
+                <td>${user.nombre}</td>
+                <td>${user.apellido}</td>
+                <td>${user.email}</td>
+                <td>${user.email_verified_at}</td>
+                <td>${formattedCreatedAt}</td>
+                <td>${formattedUpdatedAt}</td>
+            </tr>
+        `;
+    }).join('');
 }
 
 export function guardarUsuarioSeleccionado(idUsuario) {

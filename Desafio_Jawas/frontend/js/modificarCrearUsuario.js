@@ -10,11 +10,11 @@ const btnCrear = document.getElementById('btnEnviar');
 
 // Funciones
 export function _Init() {
-    if (localStorage.getItem('modificar' === 'true')) {
+    if (localStorage.getItem('modificar') === 'true') {
         modificarUsuario();
     }
 
-    if (localStorage.getItem('crear' === 'true')) {
+    if (localStorage.getItem('crear') === 'true') {
         crearUsuario();
     }
 }
