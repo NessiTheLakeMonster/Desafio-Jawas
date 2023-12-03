@@ -88,15 +88,41 @@ export async function recetaNueva() {
     };
     const response = await fetch(`http://localhost:8000/api/receta/crear`, option);
     const data = await response.json();
+
+    //guardamos el id de la receta para cuando le metems los ingredientes
+    localStorage.setItem('idRecetaNueva', data.id);
     return data;
 
 }
 
+//MOSTRAR LISTA DE JOYAS
+export async function getJoyas() {
+    var options = {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
+    const response = await fetch(`http://localhost:8000/api/joya/tipos`, options);
+    const data = await response.json();
+    return data;
+}
+
+//MOSTRAR LISTA DE COMPONENTES
+export async function getComponentes() {
+    var options = {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
+    const response = await fetch(`http://localhost:8000/api/componentes/listar`, options);
+    const data = await response.json();
+    return data;
+}
 
 // AÑADIR INGREDIENTE A LA RECETA
 export async function addIngrediente(id_receta, datos) {
-
-    //let id_receta = localStorage.getItem('recetaId');
 
     let bodyJson = JSON.stringify(
         {   
@@ -114,6 +140,21 @@ export async function addIngrediente(id_receta, datos) {
         body: bodyJson 
     };
     const response = await fetch(`http://localhost:8000/api/ingrediente/crear/${id_receta}`, options);
+    const data = await response.json();
+    return data;
+}
+
+//MOSTRAR INGREDEINTES DE LA RECETA CONCRETA
+export async function getIngredientesNuevos(id_receta) {
+
+    var options = {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    };
+    const response = await fetch(`http://localhost:8000/api/ingrediente/listar/${id_receta}`, options);
     const data = await response.json();
     return data;
 }

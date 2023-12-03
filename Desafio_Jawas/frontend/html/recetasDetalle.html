@@ -20,34 +20,37 @@
             </a>
         </header>
 
-        <div>
-            <input type="search" id="searchBar" placeholder="Buscar lote por el ID">
-            <button id="searchButton">Buscar</button>
-            <span id="msgErrorSearch"></span>
+        <h1> RECETA NUEVA </h1>
+
+        <div id="contenedorPrincipal">
+            <span id="msgExito"></span><br>
+
+            <select id="selectTiposJoyas"></select>
+            <input type="button" value="Elegir otro tipo de joya" id="btnElegirJoya">
+            <span id="msgJoya"></span><br>
+        </div>
+
+        <div id="contenedorSecundario" style="display: none;"></div> //TODO:quiero deshabilitar esta parte para que hasta que no se seleccione el tipo de joya no se pueda acceder a esta parte
+
+            <select id="selectComponentes"></select>
+
+            <label for="cantidadComponente"></label>
+            <input type="text" id="cantidadComponente" placeholder="Cantidad">
+
+            
+            <input type="button" value="Añadir" id="btnAñadirComponente">
+
+            <h1> INGREDIENTES DE LA RECETA</h1>
+
+            <div>
+                <table id="tablaIngredientes">
+                </table>
+            </div>
         </div>
         
-        <div>
-            <table id="tablaRecetas">
-                <h2>Recetas</h2>
-            </table>
-        </div>
+        <input type="button" value="Ver recetas" id="btnRecetas">
 
-        <div>
-            <table id="tablaIngredientes">
-            </table>
-        </div>
 
-        <div>
-            <span id="msgErrorReceta"></span>
-        </div>
-
-        <div>
-            <input type="button" value="Ver ingredentes" id="btnIngredientes">
-        </div>
-
-        <div>
-            <input type="button" value="Crear receta" id="btnCrearReceta">
-        </div>
 
         <video autoplay muted loop id="myVideo">
             <source src="../assets/video.mp4" type="video/mp4">

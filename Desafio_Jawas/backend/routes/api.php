@@ -138,6 +138,8 @@ Route::prefix('info_lote')->group(function () {
 //GESTIONAR JOYAS
 Route::prefix('joya')->group(function () {
 
+    //MOSTRAR LISTA TIPOS DE JOYAS
+    Route::get('/tipos', [App\Http\Controllers\TipoJoyaController::class, 'listar']);
     //MOSTRAR LISTA DE TODAS LAS JOYAS
     Route::get('/listar', [App\Http\Controllers\JoyaController::class, 'listar']);
     //MOSTRAR JOYA BUSCADA POR ID
