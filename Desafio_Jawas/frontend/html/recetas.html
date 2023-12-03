@@ -19,6 +19,12 @@
                 <img src="../assets/perfil.png" alt="logo" width="35px" >
             </a>
         </header>
+
+        <div>
+            <input type="search" id="searchBar" placeholder="Buscar lote por el ID">
+            <button id="searchButton">Buscar</button>
+            <span id="msgErrorSearch"></span>
+        </div>
         
         <div>
             <table id="tablaRecetas">
@@ -28,12 +34,19 @@
 
         <div>
             <table id="tablaIngredientes">
-                <h2>Ingredientes</h2>
             </table>
         </div>
 
         <div>
+            <span id="msgErrorReceta"></span>
+        </div>
+
+        <div>
             <input type="button" value="Ver ingredentes" id="btnIngredientes">
+        </div>
+
+        <div>
+            <input type="button" value="Modificar receta" id="btnModificarReceta">
         </div>
 
         <div>
@@ -62,5 +75,5 @@
         </footer>
         
     </body>
-    <script type="module" src="../js/despieceLote.js"></script>
+    <script type="module" src="../js/recetas.js"></script>
 </html>
