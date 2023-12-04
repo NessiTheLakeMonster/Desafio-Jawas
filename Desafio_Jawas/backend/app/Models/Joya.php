@@ -12,7 +12,6 @@ class Joya extends Model
     protected $table = 'joya';
 
     protected $fillable = [
-        //TODO: foto
         'foto',
         'idTipoJoya',
         'idReceta',

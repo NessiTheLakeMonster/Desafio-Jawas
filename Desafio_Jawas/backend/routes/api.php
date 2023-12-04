@@ -55,7 +55,7 @@ Route::prefix('usuario')->group(function () {
     //MODIFICAR USUARIO
     Route::put('/modificar/{id}', [UserController::class, 'modificar']);
     //ELIMINAR USUARIO
-    Route::delete('/eliminar/{id}', [UserController::class, 'eliminar']);
+    Route::delete('/eliminar/{id}', [UserController::class, 'delete']);
     //CREAR USUARIO
     /* Route::post('/crear', [UserController::class, 'crear']); */
     Route::post('/registro', [AuthController::class, 'registro']);
@@ -119,7 +119,7 @@ Route::prefix('info_lote')->group(function () {
     //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS PARA CLASIFICAR
     Route::get('/listar', [LoteController::class, 'listar']);
     //MOSTRAR LOTE ENTREGADO BUSCADO POR ID 
-    Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
+    Route::get('/mostrar/{id}', [LoteController::class, 'buscar']);
     //CREAR COMPONENTE
     Route::post('/crear', [App\Http\Controllers\ComponenteController::class, 'crear']);
     //DESGUAZARÁ Y CLASIFICARÁ EL LOTE
@@ -138,6 +138,8 @@ Route::prefix('info_lote')->group(function () {
 //GESTIONAR JOYAS
 Route::prefix('joya')->group(function () {
 
+    //MOSTRAR LISTA TIPOS DE JOYAS
+    Route::get('/tipos', [App\Http\Controllers\TipoJoyaController::class, 'listar']);
     //MOSTRAR LISTA DE TODAS LAS JOYAS
     Route::get('/listar', [App\Http\Controllers\JoyaController::class, 'listar']);
     //MOSTRAR JOYA BUSCADA POR ID
@@ -182,10 +184,11 @@ Route::prefix('ingrediente')->group(function () {
     Route::post('/crear/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'crear']);
     //VER INGREDIENTES DE LA RECETA CONCRETA
     Route::get('/listar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'listar']);
+    //MODIFICAR LA CANTIDAD DE INGREDIENTE DE LA RECETA
+    Route::put('/modificar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'modificarCantidad']);
 
     //TODO: NO SE USA
     Route::get('/mostrar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'mostrar']);
-    Route::put('/modificar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'eliminar']);
 
 });

@@ -3,9 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
     <title>Registro</title>
 </head>
 <body>
+
+    <header>
+        <a href="../html/home.html" id="inicio">
+            <img src="../assets/Jawas.webp" alt="logo" width="40px" >
+        </a>
+        <h1>JAWAS JOYAS</h1>
+        <a href="../html/perfil.html" id="perfil">
+            <img src="../assets/perfil.png" alt="logo" width="35px" >
+        </a>
+    </header>
+
     <h1>Registro</h1>
 
     <span id="msgExito"></span><br>
@@ -33,6 +45,27 @@
     <span id="msgErrorConfPasswd"></span><br> 
 
     <input type="button" value="Registrarse" id="btnRegistro">
+
+    <video autoplay muted loop id="myVideo">
+        <source src="../assets/video.mp4" type="video/mp4">
+    </video> 
+
+    <footer>
+        <div class="footer-contenido">
+            <div class="redes-sociales">
+                <p>Puedes encontrarnos en:</p>
+                <a href="https://www.instagram.com/" target="_blank"><img src="../assets/icono_instagram.webp" alt="Instagram" height="68px"></a>
+                <a href="https://twitter.com/?lang=es " target="_blank"><img src="../assets/icono_twitter.png" alt="Twitter" height="55px"></a>
+                <a href="https://www.facebook.com/?locale=es_ES" target="_blank"><img src="../assets/icono_facebook.png" alt="Facebook" height="55px"></a>
+            </div>
+            <div class="politica-privacidad">
+                <a href="politica-de-privacidad.html">Política de Privacidad</a>
+            </div>
+            <div class="copyright">
+                <span>&copy; 2023 Jawas Joyas</span>
+            </div> 
+        </div>
+    </footer>
 </body>
 <script type="module" src="../js/registro.js"></script>
 </html>

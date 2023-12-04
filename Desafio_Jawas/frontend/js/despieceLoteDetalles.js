@@ -15,9 +15,6 @@ const btnSeleccionarOtroLote = document.getElementById("btnOtroLote");
 //Botón de añadir componente
 const btnAñadirComponente = document.getElementById("btnAñadirComponente");
 
-//ID LOTE REGISTRADO
-/* let idLote = localStorage.getItem('loteId'); */
-
 //Volver a la pantalla anterior
 btnSeleccionarOtroLote.addEventListener('click', function() {
     localStorage.removeItem('idLote');
@@ -27,10 +24,10 @@ btnSeleccionarOtroLote.addEventListener('click', function() {
 
 let select = document.getElementById('selectComponentes');
 
-// Obtener los componentes de la base de datos
+// Obtenemos los componentes de la base de datos
 getLoteComponentes()
     .then(componentes => {
-        // Crear una opción para cada componente
+
         componentes.forEach(componente => {
             let elementoOpcion = document.createElement('option');
             elementoOpcion.value = componente.id;

@@ -16,7 +16,7 @@ let searchButton = document.getElementById("searchButton");
 
 export function cabeceraTabla(data) {
     let cabecera = document.createElement('tr');
-    let headers = ['','ID', 'ID USUARIO', 'LUGAR RECOGIDA', 'ENTREGADO', 'CANCELADO'];
+    let headers = ['','Nº DE LOTE', 'USUARIO', 'LUGAR RECOGIDA', 'ENTREGADO', 'CANCELADO'];
     // TODO cambiar los true y false para que no salgan 1 y 0
     headers.forEach(header => {
         let th = document.createElement('th');
