@@ -10,4 +10,8 @@ class TipoJoya extends Model
     use HasFactory;
 
     protected $table = 'tipo_joya';
+
+    protected $fillable = [
+        'nombre',
+    ];
 }

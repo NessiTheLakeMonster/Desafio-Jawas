@@ -24,9 +24,9 @@ Los siguientes comandos deben ejecutarse en la carpeta `backend`
   php artisan db:seed --class=ComponenteSeeder
   php artisan db:seed --class=InfoLoteSeeder
   php artisan db:seed --class=InventarioSeeder
+  php artisan db:seed --class=TipoJoyaSeeder
   php artisan db:seed --class=RecetaSeeder
   php artisan db:seed --class=IngredienteAsignadoSeeder
-  php artisan db:seed --class=TipoJoyaSeeder
   php artisan db:seed --class=JoyaSeeder
 ```
 

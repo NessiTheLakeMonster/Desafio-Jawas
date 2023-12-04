@@ -16,7 +16,7 @@ let searchButton = document.getElementById("searchButton");
 
 export function cabeceraTabla(data) {
     let cabecera = document.createElement('tr');
-    let headers = ['','ID', 'ID USUARIO', 'LUGAR RECOGIDA', 'ENTREGADO', 'CANCELADO'];
+    let headers = ['','Nº DE LOTE', 'USUARIO', 'LUGAR RECOGIDA', 'ENTREGADO', 'CANCELADO'];
     // TODO cambiar los true y false para que no salgan 1 y 0
     headers.forEach(header => {
         let th = document.createElement('th');
@@ -42,30 +42,31 @@ export function createTableRows(data) {
 }
 
 export function _Init() {
-    getLotes().then(data => {
-        cabeceraTabla(data);
-        tablaLoteClasificador.innerHTML += createTableRows(data);
+    getLotes()
+        .then(data => {
+            cabeceraTabla(data);
+            tablaLoteClasificador.innerHTML += createTableRows(data);
 
-        let checkboxes = document.querySelectorAll('.checkbox-lote');
+            let checkboxes = document.querySelectorAll('.checkbox-lote');
 
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                if (this.checked) {
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
 
-                    checkboxes.forEach(otherCheckbox => {
-                        if (otherCheckbox !== checkbox) {
-                            otherCheckbox.checked = false;
-                        }
-                    });
-                    // Si el checkbox está seleccionado, guardar el ID en el localStorage
-                    localStorage.setItem('loteId', this.value);
-                } else {
-                    // Si el checkbox no está seleccionado, eliminar el ID del localStorage
-                    localStorage.removeItem('loteId');
-                }
+                        checkboxes.forEach(otherCheckbox => {
+                            if (otherCheckbox !== checkbox) {
+                                otherCheckbox.checked = false;
+                            }
+                        });
+                        // Si el checkbox está seleccionado, guardar el ID en el localStorage
+                        localStorage.setItem('loteId', this.value);
+                    } else {
+                        // Si el checkbox no está seleccionado, eliminar el ID del localStorage
+                        localStorage.removeItem('loteId');
+                    }
+                });
             });
         });
-    });
 }
 
 //Botón de buscar

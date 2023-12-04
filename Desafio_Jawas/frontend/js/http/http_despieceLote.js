@@ -1,4 +1,3 @@
-
 //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS PARA CLASIFICAR
 export async function getLotes() {
     var options = {

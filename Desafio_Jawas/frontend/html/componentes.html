@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
         <link rel="stylesheet" type="text/css" href="../css/despieceLote.css">
-        <title>Recetas</title>
+        <title>Componentes</title>
     </head>
 
     <body>
@@ -20,37 +20,34 @@
             </a>
         </header>
 
-        <h1> RECETA NUEVA </h1>
-
-        <div id="contenedorPrincipal">
-            <span id="msgExito"></span><br>
-
-            <select id="selectTiposJoyas"></select>
-            <input type="button" value="Elegir otro tipo de joya" id="btnElegirJoya">
-            <span id="msgJoya"></span><br>
-        </div>
-
-        <div id="contenedorSecundario" style="display: none;"></div> //TODO:quiero deshabilitar esta parte para que hasta que no se seleccione el tipo de joya no se pueda acceder a esta parte
-
-            <select id="selectComponentes"></select>
-
-            <label for="cantidadComponente"></label>
-            <input type="text" id="cantidadComponente" placeholder="Cantidad">
-
-            
-            <input type="button" value="Añadir" id="btnAñadirComponente">
-
-            <h1> INGREDIENTES DE LA RECETA</h1>
-
-            <div>
-                <table id="tablaIngredientes">
-                </table>
-            </div>
+        <div>
+            <input type="search" id="searchBar" placeholder="Buscar componente">
+            <button id="searchButton">Buscar</button>
         </div>
         
-        <input type="button" value="Ver recetas" id="btnRecetas">
+       
+            <table id="tablaComponentes">
+                <h2>Componentes</h2>
+            </table>
+    
 
+        <div id="crearComponente">
+            <h2>Crear nuevo componente</h2>
+            <label for="nombreComponente"></label>
+            <input type="text" id="nombreComponente" placeholder="Nombre componente">
+                <br>
+            <label for="esHardware"></label>
+            <input type="text" id="hardware" placeholder="¿Es hardware?">
 
+        </div>
+
+        <div>
+            <span id="msgErrorComponente"></span>
+        </div>
+
+        <div>
+            <input type="button" value="Guardar Componente" id="btnGuardarComponente">
+        </div>
 
         <video autoplay muted loop id="myVideo">
             <source src="../assets/video.mp4" type="video/mp4">
@@ -74,5 +71,5 @@
         </footer>
         
     </body>
-    <script type="module" src="../js/recetasDetalle.js"></script>
+    <script type="module" src="../js/componentes.js"></script>
 </html>
