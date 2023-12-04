@@ -42,30 +42,31 @@ export function createTableRows(data) {
 }
 
 export function _Init() {
-    getLotes().then(data => {
-        cabeceraTabla(data);
-        tablaLoteClasificador.innerHTML += createTableRows(data);
+    getLotes()
+        .then(data => {
+            cabeceraTabla(data);
+            tablaLoteClasificador.innerHTML += createTableRows(data);
 
-        let checkboxes = document.querySelectorAll('.checkbox-lote');
+            let checkboxes = document.querySelectorAll('.checkbox-lote');
 
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                if (this.checked) {
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
 
-                    checkboxes.forEach(otherCheckbox => {
-                        if (otherCheckbox !== checkbox) {
-                            otherCheckbox.checked = false;
-                        }
-                    });
-                    // Si el checkbox está seleccionado, guardar el ID en el localStorage
-                    localStorage.setItem('loteId', this.value);
-                } else {
-                    // Si el checkbox no está seleccionado, eliminar el ID del localStorage
-                    localStorage.removeItem('loteId');
-                }
+                        checkboxes.forEach(otherCheckbox => {
+                            if (otherCheckbox !== checkbox) {
+                                otherCheckbox.checked = false;
+                            }
+                        });
+                        // Si el checkbox está seleccionado, guardar el ID en el localStorage
+                        localStorage.setItem('loteId', this.value);
+                    } else {
+                        // Si el checkbox no está seleccionado, eliminar el ID del localStorage
+                        localStorage.removeItem('loteId');
+                    }
+                });
             });
         });
-    });
 }
 
 //Botón de buscar

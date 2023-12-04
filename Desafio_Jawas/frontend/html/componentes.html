@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
         <link rel="stylesheet" type="text/css" href="../css/despieceLote.css">
-        <title>Recetas</title>
+        <title>Componentes</title>
     </head>
 
     <body>
@@ -20,27 +20,34 @@
             </a>
         </header>
 
-        <h1>Bienvenido, elige con que función trabajar</h1>
+        <div>
+            <input type="search" id="searchBar" placeholder="Buscar componente">
+            <button id="searchButton">Buscar</button>
+        </div>
+        
+       
+            <table id="tablaComponentes">
+                <h2>Componentes</h2>
+            </table>
+    
 
-            <button>
-            <a href="gestionUsuarios.html">Gestionar Usuarios</a>
-            </button>
-            
-            <button>
-            <a href="donacion.html">Donar un lote</a>
-            </button>
-            
-            <button>
-            <a href="despieceLote.html">Despiezar lote</a>
-            </button>
-            
-            <button>
-            <a href="recetas.html">Gestionar Recetas</a>
-            </button>
-            
-            <button>
-            <a href="componentes.html"> Gestionar componentes</a>
-            </button>
+        <div id="crearComponente">
+            <h2>Crear nuevo componente</h2>
+            <label for="nombreComponente"></label>
+            <input type="text" id="nombreComponente" placeholder="Nombre componente">
+                <br>
+            <label for="esHardware"></label>
+            <input type="text" id="hardware" placeholder="¿Es hardware?">
+
+        </div>
+
+        <div>
+            <span id="msgErrorComponente"></span>
+        </div>
+
+        <div>
+            <input type="button" value="Guardar Componente" id="btnGuardarComponente">
+        </div>
 
         <video autoplay muted loop id="myVideo">
             <source src="../assets/video.mp4" type="video/mp4">
@@ -64,5 +71,5 @@
         </footer>
         
     </body>
-    <script type="module" src="../js/recetas.js"></script>
+    <script type="module" src="../js/componentes.js"></script>
 </html>
