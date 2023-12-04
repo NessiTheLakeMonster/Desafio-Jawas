@@ -73,6 +73,7 @@ export function _Init() {
                     guardarUsuarioSeleccionado(this.value);
                 } else {
                     localStorage.removeItem('idUsuario');
+                    location.reload();
                 }
             });
         });

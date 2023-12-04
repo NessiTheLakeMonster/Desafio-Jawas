@@ -84,7 +84,8 @@ Route::prefix('inventario')->group(function () {
     //LISTAR INVENTARIO
     Route::get('/mostrar', [InventarioController::class, 'mostrar']);
     //MODIFICAR INVENTARIO (solo cantidades)
-
+    Route::put('/modificar/{id}', [InventarioController::class, 'modificarCantidad']);
+    
     //TODO: NO SE USA
     //MOSTRAR INVENTARIO BUSCADO POR ID
     //ELIMINAR INVENTARIO

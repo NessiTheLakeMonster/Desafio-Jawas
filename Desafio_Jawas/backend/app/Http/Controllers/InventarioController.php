@@ -18,6 +18,7 @@ class InventarioController extends Controller
         }
     }
 
+    // TODO Aquí esta la plantilla para poder hacer join y cambiar columnas de las tablas
     public function mostrar()
     {
         try {
@@ -25,6 +26,22 @@ class InventarioController extends Controller
                 ->select('inventario.*', 'componente.nombre as nombre_componente')
                 ->get();
             return response()->json($inventario);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function modificarCantidad(Request $request, $id)
+    {
+        try {
+            $inventario = Inventario::findOrFail($id);
+            $inventario->cantidad = $request->cantidad;
+            $inventario->save();
+            return response()->json([
+                'inventario' => $inventario,
+                'message' => 'Cantidad modificada',
+                'status' => 200
+            ], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
