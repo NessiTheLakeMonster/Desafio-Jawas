@@ -1,3 +1,7 @@
+/**
+ * @author Jaime Ortega
+ */
+
 let latitud
 let longitud
 
@@ -19,6 +23,8 @@ function initMap() {
     // Agrega un escuchador de eventos de clic al mapa
     map.addListener('click', function (event) {
         placeMarker(event.latLng)
+        localStorage.setItem('latitud', latitud)
+        localStorage.setItem('longitud', longitud)
     })
 
     function placeMarker(location) {
@@ -33,11 +39,5 @@ function initMap() {
 
         latitud = location.lat()
         longitud = location.lng()
-
-        localStorage.setItem('latitud', latitud)
-        localStorage.setItem('longitud', longitud)
-
-        // Muestra las coordenadas en la consola (puedes hacer lo que quieras con ellas)
-        console.log('Coordenadas del clic: ' + latitud + ', ' + longitud)
     }
 }

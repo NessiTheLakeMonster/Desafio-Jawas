@@ -1,11 +1,17 @@
-import { mostrarLotes } from './http/http_gestionLotes.js'
+/**
+ * @author Jaime Ortega
+ */
 
-const latitud = localStorage.getItem('latitud')
-const longitud = localStorage.getItem('longitud')
+import { mostrarLotes, mostrarLote, cancelarLote } from './http/http_gestionLotes.js'
 
-const mandarLote = document.getElementById('mandarLote')
-const tablaLotes = document.getElementById('tablaLotes')
-const cancelarLote = document.getElementById('cancelarLote')
+let idUsuario = sessionStorage.getItem('idUsuario')
+console.log(idUsuario)
+let latitud = localStorage.getItem('latitud')
+let longitud = localStorage.getItem('longitud')
+
+let mandarLote = document.getElementById('mandarLote')
+let tablaLotes = document.getElementById('tablaLotes')
+let cancelar = document.getElementById('cancelar')
 
 export function move() {
     var elem = document.getElementById("myBar")
@@ -24,18 +30,14 @@ export function move() {
 }
 
 export function cabeceraTabla(data) {
-    let cabecera = document.createElement('tr');
-
-    let th = document.createElement('th');
-    cabecera.appendChild(th);
-
-    Object.keys(data[0]).forEach(key => {
-        if (data[0][key] !== undefined) {
-            let th = document.createElement('th');
-            th.textContent = key.toUpperCase();
-            cabecera.appendChild(th);
-        }
-    });
+    let cabecera = document.createElement('tr')
+    let columnas = ['', 'Nº LOTE', 'USUARIO', 'LUGAR RECOGIDA', 'ENTREGADO', 'CANCELADO']
+    
+    columnas.forEach(col => {
+        let th = document.createElement('th')
+        th.textContent = col
+        cabecera.appendChild(th)
+    })
 
     tablaLotes.appendChild(cabecera);
 }
@@ -43,6 +45,7 @@ export function cabeceraTabla(data) {
 export function llenarTablaLotes(data) {
     return data.map(lote => `
                 <tr>
+                    <td><input class="checkbox-lote" type="checkbox" name"lote" value="${lote.id}"</td>
                     <td>${lote.id}</td>
                     <td>${lote.idUsuario}</td>
                     <td>${latitud + ', ' + longitud}</td>
@@ -52,23 +55,46 @@ export function llenarTablaLotes(data) {
             `).join('')
 }
 
-// export function _Init() {
-//     mostrarLotes().then(data => {
-//         cabeceraTabla(data)
-//         tablaLotes.innerHTML += llenarTablaLotes(data)
-//     })
-
-    mandarLote.addEventListener('click', async function () {
-        let data = await mostrarLotes(idUsuario)
-
-        tablaLotes.innerHTML = ''
-
-        if (data && data.id !== undefined) {
-            data = Array.isArray(data) ? data : [data]
-
-            tablaLotes.innerHTML += llenarTablaLotes(data)
-        } 
-        console.log('CLICASTE')
+export function _Init() {
+    mostrarLotes(idUsuario).then(data => {
+        cabeceraTabla(data)
+        tablaLotes.innerHTML += llenarTablaLotes(data)
     })
-// }
-// _Init()
+    .catch(error => console.error('Error:', error))
+
+    let checkboxes = document.querySelectorAll('.checkbox-lote')
+    
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+
+                checkboxes.forEach(otraCheckbox => {
+                    if (otraCheckbox !== checkbox) {
+                        otraCheckbox.checked = false;
+                    }
+                });
+                // Si el checkbox está seleccionado, guardar el ID en el localStorage
+                localStorage.setItem('usuarioId', this.value);
+            } else {
+                // Si el checkbox no está seleccionado, eliminar el ID del localStorage
+                localStorage.removeItem('usuarioId');
+            }
+        })
+    })
+
+    
+}
+_Init()
+
+    // mandarLote.addEventListener('click', async function () {
+    //     let data = await mostrarLotes()
+
+    //     tablaLotes.innerHTML = ''
+
+    //     if (data && data.id !== undefined) {
+    //         data = Array.isArray(data) ? data : [data]
+
+    //         tablaLotes.innerHTML += llenarTablaLotes(data)
+    //     } 
+    //     console.log('CLICASTE')
+    // })
