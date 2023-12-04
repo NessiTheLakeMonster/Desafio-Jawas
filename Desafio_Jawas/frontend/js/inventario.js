@@ -1,11 +1,11 @@
-import { getInventario } from "./http/http_inventario.js";
+import { getInventario, getNombreComponente } from "./http/http_inventario.js";
 
 const tablaInventario = document.getElementById('tablaInventario');
 
 export function cabeceraTablaInventario() {
     let cabecera = document.createElement('tr');
 
-    let headers = ['ID', 'ID Componente', 'Cantidad', 'created_at', 'updated_at'];
+    let headers = ['Número Inventario', 'Nombre Componente', 'Cantidad'];
 
     headers.forEach(header => {
         let th = document.createElement('th');
@@ -20,15 +20,19 @@ export function crearFilasTablaInventario(data) {
     return data.map(producto => `
         <tr>
             <td>${producto.id}</td>
-            <td>${producto.id_componente}</td>
+            <td>${producto.nombre_componente}</td>
             <td>${producto.cantidad}</td>
-            <td>${producto.created_at}</td>
-            <td>${producto.updated_at}</td>
         </tr>
     `).join('');
 }
 
-export function _Init() {
+export function mostrarNombreComponente(idComponente) {
+    getNombreComponente(idComponente).then(data => {
+        return data.nombre;
+    });
+}
+
+export async function _Init() {
     getInventario().then(data => {
         cabeceraTablaInventario();
         tablaInventario.innerHTML += crearFilasTablaInventario(data);
