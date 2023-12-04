@@ -16,4 +16,15 @@ class Lote extends Model
         'entregado',
         'cancelado',
     ];
+
+    public function getEntregadoAttribute($value)
+    {
+        return $value == 1 ? 'SI' : 'NO';
+    }
+
+    public function getCanceladoAttribute($value)
+    {
+        return $value == 1 ? 'SI' : 'NO';
+    }
 }
+

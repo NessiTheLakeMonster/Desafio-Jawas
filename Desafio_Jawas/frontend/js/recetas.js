@@ -23,7 +23,7 @@ localStorage.setItem('usuarioId', '1');
 //cabecera tabla recetas
 export function cabeceraTabla(data) {
     let cabecera = document.createElement('tr');
-    let headers = ['','ID', 'USUARIO'];
+    let headers = ['','ID', 'USUARIO', 'TIPO JOYA'];
 
     headers.forEach(header => {
          let th = document.createElement('th');
@@ -41,7 +41,8 @@ export function createTableRows(data) {
         <tr>
             <td><input class="checkbox-receta" type="checkbox" name="receta" value="${receta.id}"></td>
             <td>${receta.id}</td>
-            <td>${receta.idUsuario}</td>
+            <td>${receta.nombre} ${receta.apellido}</td> 
+            <td>${receta.tipo_joya}</td>
 
         </tr>
     `).join('');
@@ -72,7 +73,7 @@ export function cabeceraTablaIngredientes() {
 export function createIngredientRows(data) {
     return data.map(ingrediente => `
         <tr>
-            <td>${ingrediente.id_componente}</td>
+            <td>${ingrediente.nombre}</td>
             <td>${ingrediente.cantidad}</td>
         </tr>
     `).join('');
@@ -104,15 +105,15 @@ export function createModificarRecetaRows(data) {
     return data.map(ingrediente => `
         <tr>
             <td><input class="checkbox-receta" type="checkbox" name="receta" value="${ingrediente.id_componente}" data-id="${ingrediente.id_componente}"></td>
-            <td>${ingrediente.id_componente}</td>
+            <td>${ingrediente.nombre}</td>
             <td>
                 <button class="decrease-button" data-id="${ingrediente.id_componente}">-</button>
                 ${ingrediente.cantidad}
                 <button class="increase-button" data-id="${ingrediente.id_componente}">+</button>
             </td>
-        </tr>
+        </tr> 
     `).join('');
-}
+} 
 
 export function _Init() {
 
@@ -299,9 +300,8 @@ searchBar.addEventListener('keyup', async function(event) {
 
 //Botón crear receta
 btnCrearReceta.addEventListener('click', async function() {
-    let data = await recetaNueva();
+    //let data = await recetaNueva();
     window.location.href = './recetasDetalle.html'
-    console.log(data);
 });
 
 _Init();

@@ -22,16 +22,17 @@
 
         <h1> RECETA NUEVA </h1>
 
+        <h4>Elige una joya de la que quieres hacer tu receta</h4>
         <div id="contenedorPrincipal">
             <span id="msgExito"></span><br>
 
             <select id="selectTiposJoyas"></select>
-            <input type="button" value="Elegir otro tipo de joya" id="btnElegirJoya">
+            <input type="button" value="Crear receta" id="btnAñadirJoya">
             <span id="msgJoya"></span><br>
         </div>
-
-        <div id="contenedorSecundario" style="display: none;"></div> //TODO:quiero deshabilitar esta parte para que hasta que no se seleccione el tipo de joya no se pueda acceder a esta parte
-
+       <!-- <input type="button" value="Elegir otro tipo de joya" id="btnElegirJoya"> -->
+        <div id="contenedorSecundario" style="display: none;"> </div>
+            <h4>Elige los ingredientes</h4>
             <select id="selectComponentes"></select>
 
             <label for="cantidadComponente"></label>
@@ -47,9 +48,11 @@
                 </table>
             </div>
         </div>
+
+        <input type="button" value="Nueva Receta" id="btnNuevaReceta">
         
         <input type="button" value="Ver recetas" id="btnRecetas">
-
+    
 
 
         <video autoplay muted loop id="myVideo">

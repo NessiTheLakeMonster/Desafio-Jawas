@@ -6,6 +6,7 @@ let tablaLoteClasificador = document.getElementById("tablaLoteClasificador");
 
 // Mensaje de error de lote no encontrado
 let msgErrorLote = document.getElementById("msgErrorLote");
+let msgErrorSearch = document.getElementById("msgErrorSearch");
 
 //Botón de Desguazar lote
 const btnDesguazar = document.getElementById("btnDesguazar");
@@ -17,7 +18,6 @@ let searchButton = document.getElementById("searchButton");
 export function cabeceraTabla(data) {
     let cabecera = document.createElement('tr');
     let headers = ['','Nº DE LOTE', 'USUARIO', 'LUGAR RECOGIDA', 'ENTREGADO', 'CANCELADO'];
-    // TODO cambiar los true y false para que no salgan 1 y 0
     headers.forEach(header => {
         let th = document.createElement('th');
         th.textContent = header;
@@ -33,7 +33,7 @@ export function createTableRows(data) {
         <tr>
             <td><input class="checkbox-lote" type="checkbox" name="lote" value="${lote.id}"></td>
             <td>${lote.id}</td>
-            <td>${lote.id_usuario}</td>
+            <td>${lote.nombre} ${lote.apellido}</td>
             <td>${lote.lugar_recogida}</td>
             <td>${lote.entregado}</td>
             <td>${lote.cancelado}</td>
@@ -84,7 +84,8 @@ searchButton.addEventListener('click', async function() {
         tablaLoteClasificador.innerHTML += createTableRows(data);//filas
 
     } else {
-        msgErrorLote.textContent = "El lote que buscas no existe, selecciona un lote de la lista";
+        msgErrorSearch.textContent = "El lote que buscas no existe, selecciona un lote de la lista";
+        msgErrorSearch.style.color = "red";
         // Ejecución de funciones
         _Init();
 
@@ -107,6 +108,7 @@ btnDesguazar.addEventListener('click', function() {
         window.location.href = './despieceLoteDetalles.html';
     } else {
         msgErrorLote.textContent = "Selecciona un lote de la lista";
+
     }
 });
 

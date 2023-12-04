@@ -1,4 +1,4 @@
-import {addIngrediente, getJoyas, getComponentes, getIngredientesNuevos } from "./http/http_recetas.js";
+import {addIngrediente, getJoyas, getComponentes, getIngredientesNuevos, recetaNueva } from "./http/http_recetas.js";
 
 let cantidadComponente = document.getElementById("cantidadComponente");
 
@@ -15,8 +15,14 @@ const btnAñadirComponente = document.getElementById("btnAñadirComponente");
 //Botón de ver recetas 
 const btnRecetas = document.getElementById("btnRecetas");
 
+//Botón de crear receta
+const btnAñadirJoya = document.getElementById("btnAñadirJoya");
+
+//Botón de crear nueva receta
+const btnCrearNuevaReceta = document.getElementById("btnNuevaReceta");
+
 //Botón de volver a seleccionar joya
-const btnElegirJoya = document.getElementById('btnElegirJoya');
+///const btnElegirJoya = document.getElementById('btnElegirJoya');
 
 //volver a la pantalla anterior
 btnRecetas.addEventListener('click', function() {
@@ -38,7 +44,7 @@ getJoyas()
             elementoOpcion.value = joya.id;
             elementoOpcion.text = joya.nombre;
             selectJoya.appendChild(elementoOpcion);
-
+            btnAñadirJoya.disabled = true;
         });
 
     })
@@ -60,8 +66,6 @@ getComponentes()
 function cogerIngrediente() {   
     let datos = {
         id_receta: localStorage.getItem('idRecetaNueva'),   
-        //TODO: TIPO DE JOYA QUE HACER PORQUE EN Q BBDD SE METE
-        idJoya: parseInt(selectJoya.value),
         id_componente: parseInt(selectComponentes.value),
         cantidad: cantidadComponente.value
     };
@@ -77,12 +81,16 @@ btnAñadirComponente.addEventListener('click', function(e) {
             if (data.id) {
                 msgComponenteInsertado.innerHTML = "Componente añadido con éxito";
                 msgComponenteInsertado.style.color = "green";
+                btnAñadirJoya.disabled = true;
+
+                //btnElegirJoya.disabled = true;
                 window.location.reload();
             } else {
                 msgComponenteInsertado.innerHTML = "No se ha podido añadir el componente";
                 msgComponenteInsertado.style.color = "red";
             }
         })
+        
         .catch(error => console.error('Error:', error));
         console.log(datos);
 });
@@ -109,10 +117,17 @@ export function createTableRows(data) {
         </tr>
     `).join('');
 }
+//Botón crear nueva receta
+btnCrearNuevaReceta.addEventListener('click', function() {
+    window.location.reload();
+});
 
 export function _Init() {
 
     let id_recetaNueva = localStorage.getItem('idRecetaNueva');
+    selectComponentes.disabled = true;
+    cantidadComponente.disabled = true;
+    btnAñadirComponente.disabled = true;
 
     getIngredientesNuevos(id_recetaNueva)
         .then(data => {
@@ -122,17 +137,37 @@ export function _Init() {
         .catch(error => console.error('Error:', error));
 
         selectJoya.addEventListener('change', function() {
+            btnAñadirJoya.disabled = false;
             selectJoya.disabled = true;
+            
         
             // la joya seleccionad del select
             let joyaSeleccionada = selectJoya.options[selectJoya.selectedIndex].text;
         
             msgJoyaInsertada.innerHTML = "La receta creará un/una: " + joyaSeleccionada;
+            msgJoyaInsertada.style.color = "blue";
         });
 
+        //TODO:nose si quitarlo
+        /*
         btnElegirJoya.addEventListener('click', function() {
             selectJoya.disabled = false;
-        });
+            btnAñadirJoya.disabled = false;
+        });*/
 }
+
+//Botón crear receta
+btnAñadirJoya.addEventListener('click', async function() {
+    this.disabled = true;
+    selectComponentes.disabled = false;
+    cantidadComponente.disabled = false;
+    btnAñadirComponente.disabled = false;
+    let idTipoJoya = selectJoya.value;
+    let data = await recetaNueva(idTipoJoya);
+    msgComponenteInsertado.innerHTML = "Receta creada con éxito";
+    msgComponenteInsertado.style.color = "green";
+});
+
+
 
 _Init();
