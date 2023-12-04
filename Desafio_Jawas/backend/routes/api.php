@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoteController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
+use App\Http\Controllers\InventarioController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -81,8 +82,10 @@ Route::prefix('componentes')->group(function () {
 //GESTIONAR INVENTARIO
 Route::prefix('inventario')->group(function () {
     //LISTAR INVENTARIO
+    Route::get('/mostrar', [InventarioController::class, 'mostrar']);
     //MODIFICAR INVENTARIO (solo cantidades)
-
+    Route::put('/modificar/{id}', [InventarioController::class, 'modificarCantidad']);
+    
     //TODO: NO SE USA
     //MOSTRAR INVENTARIO BUSCADO POR ID
     //ELIMINAR INVENTARIO

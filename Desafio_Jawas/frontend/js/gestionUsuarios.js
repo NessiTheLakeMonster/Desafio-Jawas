@@ -9,7 +9,7 @@ const btnEditar = document.getElementById('btnModificar');
 const btnCrear = document.getElementById('btnAgregar');
 
 // Funciones 
-export function cabeceraTabla() {
+export function cabeceraTablaUsuarios() {
     let cabecera = document.createElement('tr');
 
     let headers = ['', 'ID', 'Foto de Perfil', 'Nombre', 'Apellido', 'Email', 'email_verified_at', 'created_at', 'updated_at'];
@@ -23,7 +23,7 @@ export function cabeceraTabla() {
     tablaUsuarios.appendChild(cabecera);
 }
 
-export function createTableRows(data) {
+export function crearFilasTablaUsuario(data) {
     return data.map(user => `
         <tr>
             <td><input type="checkbox" name="idUsuario" value="${user.id}" id="checkBoxUsuario"></td>
@@ -57,7 +57,7 @@ export function _Init() {
     
     getUsuarios().then(data => {
         cabeceraTabla();
-        tablaUsuarios.innerHTML += createTableRows(data);
+        tablaUsuarios.innerHTML += crearFilasTablaUsuario(data);
 
         let checkboxes = document.querySelectorAll('input[name="idUsuario"]');
 
@@ -73,6 +73,7 @@ export function _Init() {
                     guardarUsuarioSeleccionado(this.value);
                 } else {
                     localStorage.removeItem('idUsuario');
+                    location.reload();
                 }
             });
         });
