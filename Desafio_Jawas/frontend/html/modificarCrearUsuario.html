@@ -7,13 +7,25 @@
 </head>
 <body>
     <h1 id="titulo"></h1>
-    <img src="" id="fotoUsuario"><br>
-    Nombre:<input type="text" id="nombreUsuario"><br>
-    Apellido:<input type="text" id="apellidoUsuario">
-    Email:<input type="text" id="emailUsuario">
-    Contraseña:<input type="text" id="passwdUsuario">
 
-    <input type="button" value="" id="btnEnviar">
+    <span id="msgExito"></span><br>
+
+    <img src="" id="fotoUsuario" width="200"><br>
+    <label for="nuevaFoto" id="lblNewFoto"></label><input type="text" id="nuevaFoto"> <br>
+    <span id="msgErrorFoto"></span><br>
+    Nombre:<input type="text" id="nombreUsuario"><br>
+    <span id="msgErrorNombre"></span><br>
+    Apellido:<input type="text" id="apellidoUsuario"><br>
+    <span id="msgErrorApellido"></span><br>
+    Email:<input type="text" id="emailUsuario"><br>
+    <span id="msgErrorEmail"></span><br>
+    <label for="passwdUsuario" id="lblPasswdUsuario"></label><input type="text" id="passwdUsuario"><br>
+    <span id="msgErrorPasswd"></span><br>
+    <label for="passwdUsuario" id="lblPasswdUsuario2"></label><input type="text" id="passwdUsuario2"><br>
+    <span id="msgErrorPasswd2"></span><br>
+
+    <input type="button" id="btnEnviar">
+    <input type="button" id="cambioPasswd">
 </body>
 <script type="module" src="../js/modificarCrearUsuario.js"></script>
 </html>
