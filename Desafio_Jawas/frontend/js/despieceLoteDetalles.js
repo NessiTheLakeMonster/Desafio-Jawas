@@ -24,10 +24,10 @@ btnSeleccionarOtroLote.addEventListener('click', function() {
 
 let select = document.getElementById('selectComponentes');
 
-// Obtener los componentes de la base de datos
+// Obtenemos los componentes de la base de datos
 getLoteComponentes()
     .then(componentes => {
-        // Crear una opción para cada componente
+
         componentes.forEach(componente => {
             let elementoOpcion = document.createElement('option');
             elementoOpcion.value = componente.id;
@@ -61,7 +61,7 @@ btnAñadirComponente.addEventListener('click', function(e) {
                 window.location.reload();
         
             } else {
-                msgComponenteInsertado.innerHTML = "Error al añadir el componente";
+                msgComponenteInsertado.innerHTML = "El componente no se pudo añadir, complete los campos";
                 msgComponenteInsertado.style.color = "red";
             }
         })
@@ -73,7 +73,7 @@ btnAñadirComponente.addEventListener('click', function(e) {
 //tabla interior lote
 export function cabeceraTabla(data) {
     let cabecera = document.createElement('tr');
-    let headers = ['ID COMPONENTE', 'DESCRIPCIÓN', 'CANTIDAD'];
+    let headers = ['COMPONENTE', 'DESCRIPCIÓN', 'CANTIDAD'];
     // TODO cambir los id de los componentes por los nombres
     headers.forEach(header => {
         let th = document.createElement('th');
@@ -87,7 +87,7 @@ export function cabeceraTabla(data) {
 export function createTableRows(data) {
     return data.map(info_lote => `
         <tr>
-            <td>${info_lote.idComponente}</td>
+            <td>${info_lote.nombre}</td>
             <td>${info_lote.descripcion}</td>
             <td>${info_lote.cantidad}</td>
         </tr>

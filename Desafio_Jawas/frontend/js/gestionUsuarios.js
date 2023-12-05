@@ -9,7 +9,7 @@ const btnEditar = document.getElementById('btnModificar');
 const btnCrear = document.getElementById('btnAgregar');
 
 // Funciones 
-export function cabeceraTabla() {
+export function cabeceraTablaUsuarios() {
     let cabecera = document.createElement('tr');
 
     let headers = ['', 'ID', 'Foto de Perfil', 'Nombre', 'Apellido', 'Email', 'email_verified_at', 'created_at', 'updated_at'];
@@ -23,7 +23,7 @@ export function cabeceraTabla() {
     tablaUsuarios.appendChild(cabecera);
 }
 
-export function createTableRows(data) {
+export function crearFilasTablaUsuario(data) {
     return data.map(user => {
         let createdAt = new Date(user.created_at);
         let updatedAt = new Date(user.updated_at);
@@ -66,27 +66,9 @@ export function _Init() {
 
     getUsuarios().then(data => {
         cabeceraTabla();
-        tablaUsuarios.innerHTML += createTableRows(data);
+        tablaUsuarios.innerHTML += crearFilasTablaUsuario(data);
 
         let checkboxes = document.querySelectorAll('.checkbox-usuario');
-
-        /* checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                if (this.checked) {
-                    checkboxes.forEach(box => {
-                        if (box !== this) {
-                            box.disabled = this.checked;
-                        }
-                    });
-                    localStorage.setItem('idUsuario', this.value);
-                    guardarUsuarioSeleccionado(this.value);
-                } else {
-                    localStorage.removeItem('idUsuario');
-                    localStorage.removeItem('usuarioSeleccionado');
-                    
-                }
-            });
-        }); */
 
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function () {
@@ -102,6 +84,9 @@ export function _Init() {
                 } else {
                     localStorage.removeItem('idUsuario');
                     localStorage.removeItem('usuarioSeleccionado');
+
+                    location.reload();
+
                 }
             });
         });

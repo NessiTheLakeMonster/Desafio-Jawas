@@ -11,7 +11,10 @@ class RecetaController extends Controller
     public function listar()
     {
         try {
-            $recetas = Receta::all();
+            $recetas = Receta::join('users', 'receta.idUsuario', '=', 'users.id')
+                ->join('tipo_joya', 'receta.idTipoJoya', '=', 'tipo_joya.id')
+                ->select('receta.*', 'users.nombre', 'users.apellido', 'tipo_joya.nombre as tipo_joya')
+                ->get();
             return response()->json($recetas, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -23,6 +26,7 @@ class RecetaController extends Controller
 
         $validator = Validator::make($request->all(), [
             'idUsuario' => 'required|integer|exists:users,id',
+            'idTipoJoya' => 'required|integer|exists:tipo_joya,id',
         ]);
 
         if ($validator->fails()) {
@@ -41,7 +45,11 @@ class RecetaController extends Controller
     {
 
         try {
-            $receta = Receta::findOrFail($id);
+            $receta = Receta::join('users', 'receta.idUsuario', '=', 'users.id')
+                ->join('tipo_joya', 'receta.idTipoJoya', '=', 'tipo_joya.id')
+                ->select('receta.*', 'users.nombre', 'users.apellido', 'tipo_joya.nombre as tipo_joya')
+                ->where('receta.id', $id)
+                ->first();
             return response()->json($receta);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -53,6 +61,7 @@ class RecetaController extends Controller
 
         $validator = Validator::make($request->all(), [
             'idUsuario' => 'required|integer|exists:users,id',
+            'idTipoJoya' => 'required|integer|exists:tipo_joya,id',
         ]);
 
         if ($validator->fails()) {

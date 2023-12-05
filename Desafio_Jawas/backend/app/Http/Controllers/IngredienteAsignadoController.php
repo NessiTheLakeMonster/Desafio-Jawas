@@ -12,7 +12,9 @@ class IngredienteAsignadoController extends Controller
     public function listar($id_receta)
     {
         try {
-            $ingredientes = IngredienteAsignado::where('id_receta', $id_receta)->get();
+            $ingredientes = IngredienteAsignado::join('componente', 'ingrediente_asignado.id_componente', '=', 'componente.id')
+                ->select('ingrediente_asignado.id', 'ingrediente_asignado.id_receta', 'ingrediente_asignado.id_componente', 'componente.nombre', 'ingrediente_asignado.cantidad')
+                -> where('id_receta', $id_receta)->get();
             return response()->json($ingredientes, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -63,23 +65,19 @@ class IngredienteAsignadoController extends Controller
         }
     }
 
-    public function modificar(Request $request, $id)
+    public function modificarCantidad(Request $request, $id_receta)
     {
 
         $messages = [
             'required' => 'Campo obligatorio',
-            'id_receta.required' => 'El campo id_receta es obligatorio',
             'id_componente.required' => 'El campo id_componente es obligatorio',
             'cantidad.required' => 'El campo cantidad es obligatorio',
-            'id_receta.integer' => 'El campo id_receta debe ser un número entero',
             'id_componente.integer' => 'El campo id_componente debe ser un número entero',
             'cantidad.integer' => 'El campo cantidad debe ser un número entero',
-            'id_receta.exists' => 'El campo id_receta no existe',
             'id_componente.exists' => 'El campo id_componente no existe',
         ];
 
         $validator = Validator::make($request->all(), [
-            'id_receta' => 'required|integer|exists:receta,id',
             'id_componente' => 'required|integer|exists:componente,id',
             'cantidad' => 'required|integer',
 
@@ -90,8 +88,11 @@ class IngredienteAsignadoController extends Controller
         }
 
         try {
-            $ingrediente = IngredienteAsignado::findOrFail($id);
-            $ingrediente->update($request->all());
+            $ingrediente = IngredienteAsignado::where('id_receta', $id_receta)
+            ->where('id_componente', $request->id_componente)
+            ->firstOrFail();
+            $ingrediente->cantidad = $request->cantidad;
+            $ingrediente->save();
             return response()->json($ingrediente);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

@@ -8,12 +8,25 @@ use Illuminate\Support\Facades\Validator;
 
 class LoteController extends Controller
 {
-    public function listar()
+   /* public function listar()
     {
         try {
             $lotes = Lote::where('entregado', true)->get();
             return response()->json($lotes, 200);
         } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }*/
+
+    public function listar(){
+        try{
+            $lotes = Lote::join('users', 'lote.id_usuario', '=', 'users.id')
+            ->select('lote.*', 'users.nombre', 'users.apellido')
+            ->where('entregado', true)
+            ->get();
+
+            return response()->json($lotes, 200);
+        }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -59,7 +72,11 @@ class LoteController extends Controller
     {
 
         try {
-            $lote = Lote::where('id', $id)->where('entregado', true)->first();
+            $lote = Lote::join('users', 'lote.id_usuario', '=', 'users.id')
+            ->select('lote.*', 'users.nombre', 'users.apellido')
+            ->where('lote.id', $id)
+            ->where('entregado', true)
+            ->first();
 
             if ($lote) {
                 return response()->json($lote);
