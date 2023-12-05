@@ -79,7 +79,11 @@ class UserController extends Controller
         try {
             $usuario = User::findOrFail($id);
             $usuario->update($request->all());
-            return response()->json($usuario, 200);
+            return response()->json([
+                "usuario" => $usuario,
+                "message" => "Usuario modificado",
+                "status" => 200
+            ], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -105,7 +109,10 @@ class UserController extends Controller
                 $newPassword = $request->get('password');
 
                 if (Hash::check($newPassword, $usuario->password)) {
-                    return response()->json(['error' => 'La nueva contraseña no puede ser la misma que la antigua'], 400);
+                    return response()->json([
+                        'error' => 'La nueva contraseña no puede ser la misma que la antigua',
+                        'status'=> 400
+                    ], 400);
                 }
 
                 $usuario->password = Hash::make($newPassword);

@@ -1,5 +1,6 @@
 import { modificar, modificarPasswd } from "./http/http_modificarCrearUsuario.js";
 import { guardarUsuario } from "./http/http_registro.js";
+import { validarNombre, validarApellido, validarPasswd, validarEmail } from "./utils/validaciones.js";
 
 // Variables de los campos del formulario del HTML
 let titulo = document.getElementById('titulo');
@@ -20,10 +21,25 @@ let lblConfPasswd = document.getElementById('lblPasswdUsuario2');
 const btnEnviar = document.getElementById('btnEnviar');
 const btnCambiarPasswd = document.getElementById('cambioPasswd');
 
+// Mensajes de error
+let msgFoto = document.getElementById("msgErrorFoto");
+let msgNom = document.getElementById("msgErrorNombre");
+let msgApe = document.getElementById("msgErrorApellido");
+let msgEmail = document.getElementById("msgErrorEmail");
+let msgPasswd = document.getElementById("msgErrorPasswd");
+let msgConfPasswd = document.getElementById("msgErrorPasswd2");
+
+// Mensajes de exito
+let msgExito = document.getElementById("msgExito");
+
 let usuario;
 
-// Funciones de Modificación del Usuario
+// FUNCIONES DE MODIFICAR USUARIO
 
+/**
+ * @author Inés Mª Barrera Llerena
+ * @summary Función encargada de cambiar el HTML para modificar un usuario
+ */
 export function modificarUsuario() {
     console.log(usuario);
 
@@ -68,7 +84,22 @@ export function cargarPasswd() {
     return datos;
 }
 
-// Funciones de Creación del Usuario
+export function validarModificarFormulario() {
+    limpiarErrores();
+    var esValido = true;
+
+    if (!validarNombre(nombre, msgNom)) {
+        esValido = false;
+    }
+
+    if (!validarApellido(apellido, msgApe)) {
+        esValido = false;
+    }
+
+    return esValido;
+}
+
+// FUNCIONES DE CREAR USUARIO
 
 export function crearUsuario() {
     titulo.textContent = 'Crear Usuario';
@@ -95,6 +126,45 @@ export function agregarUsuario() {
     return datos;
 }
 
+export function validarCrearFormulario() {
+    limpiarErrores();
+    var esValido = true;
+
+    if (!validarNombre(nombre, msgNom)) {
+        esValido = false;
+    }
+
+    if (!validarApellido(apellido, msgApe)) {
+        esValido = false;
+    }
+
+    if (!validarEmail(email, msgEmail)) {
+        esValido = false;
+    }
+
+    if (!validarPasswd(password, confPassword, msgPasswd, msgConfPasswd)) {
+        esValido = false;
+    }
+
+    return esValido;
+}
+
+export function limpiarErrores() {
+    msgFoto.textContent = "";
+    msgNom.textContent = "";
+    msgApe.textContent = "";
+    msgPasswd.textContent = "";
+    msgConfPasswd.textContent = "";
+    msgExito.textContent = "";
+
+    nombre.style.borderColor = "none";
+    apellido.style.borderColor = "none";
+    password.style.borderColor = "none";
+    confPassword.style.borderColor = "none";
+    email.style.borderColor = "none";
+}
+
+
 // Funciones de ejecución
 
 /**
@@ -114,23 +184,45 @@ export function _Init() {
 // Eventos de los botones
 btnEnviar.addEventListener('click', function () {
     if (btnEnviar.value === 'Crear') {
-        guardarUsuario(agregarUsuario()).then(data => {
-            console.log(data);
-            if (data === 'Usuario creado') {
-                /* window.location.href = 'gestionUsuarios.html'; */
-                alert('Usuario creado');
-            }
-        });
-    } else if (btnEnviar.value === 'Actualizar Datos') { 
-        modificar(cargarUsuario(), usuario.id).then(data => {
-            console.log(data);
-            if (data === 'Usuario modificado') {
-                localStorage.removeItem('usuarioSeleccionado');
-                localStorage.removeItem('modificar');
-                /* window.location.href = 'gestionUsuarios.html'; */
-                alert('Usuario modificado');
-            }
-        });
+
+        if (validarCrearFormulario()) {
+            guardarUsuario(agregarUsuario()).then(data => {
+                console.log(data);
+                if (data.status === 200) {
+                    localStorage.removeItem('crear');
+
+                    /* window.location.href = 'gestionUsuarios.html'; */
+                    msgExito.textContent = "Usuario creado correctamente";
+                    msgExito.style.display = "block";
+                    msgExito.style.color = "green";
+                }
+            });
+        } else {
+            msgExito.textContent = "Por favor, rellene los campos correctamente";
+            msgExito.style.display = "block";
+            msgExito.style.color = "red";
+        }
+
+    } else if (btnEnviar.value === 'Actualizar Datos') {
+
+        if (validarModificarFormulario()) {
+            modificar(cargarUsuario(), usuario.id).then(data => {
+                console.log(data);
+                if (data.status === 200) {
+                    localStorage.removeItem('usuarioSeleccionado');
+                    localStorage.removeItem('modificar');
+
+                    /* window.location.href = 'gestionUsuarios.html'; */
+                    msgExito.textContent = "Usuario modificado correctamente";
+                    msgExito.style.display = "block";
+                    msgExito.style.color = "green";
+                }
+            });
+        } else {
+            msgExito.textContent = "Por favor, rellene los campos correctamente";
+            msgExito.style.display = "block";
+            msgExito.style.color = "red";
+        }
     }
 });
 
@@ -139,13 +231,24 @@ btnCambiarPasswd.addEventListener('click', function () {
         modificarPasswd(cargarPasswd(), usuario.id).then(data => {
             console.log(usuario.id);
             console.log(data);
-            if (data === 'Contraseña modificada') {
+            if (data.status === 200) {
+                localStorage.removeItem('usuarioSeleccionado');
+                localStorage.removeItem('modificar');
+
                 /* window.location.href = 'gestionUsuarios.html'; */
-                alert('Contraseña modificada');
+                msgExito.textContent = "Contraseña modificada correctamente";
+                msgExito.style.display = "block";
+                msgExito.style.color = "green";
+            }
+
+            if (data.status === 400) {
+                msgConfPasswd.textContent = "Las contraseñas son iguales";
+                msgConfPasswd.style.display = "block";
+                msgConfPasswd.style.color = "red";
             }
         });
     } else {
-        alert('Por favor, introduce una contraseña');
+        msgExito.textContent = "La contraseña no pudo ser modificada";
     }
 });
 
