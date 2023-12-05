@@ -112,7 +112,7 @@ export function cabeceraTabla(data) {
 export function createTableRows(data) {
     return data.map(ingrediente => `
         <tr>
-            <td>${ingrediente.id_componente}</td>
+            <td>${ingrediente.nombre}</td>
             <td>${ingrediente.cantidad}</td>
         </tr>
     `).join('');
