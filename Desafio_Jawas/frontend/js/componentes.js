@@ -90,25 +90,28 @@ btnAddComponente.addEventListener('click',  function(e) {
 
 });
 
-//Botón de buscar
+//Botón de busca
 searchButton.addEventListener('click', async function() {
     let id = searchBar.value;
-    let data = await getComponente(id);
 
-    tablaComponentes.innerHTML = "";
-
-    if (data && data.id !== undefined) {
-        // los datos son un array
-        data = Array.isArray(data) ? data : [data];
-
-        cabeceraTablaComponentes(data);//Cabecera
-        tablaComponentes.innerHTML += createTableRows(data);//filas
-
+    if (id === "") {
+        let data = await getComponentes();
+        tablaComponentes.innerHTML = "";
+        cabeceraTablaComponentes(data);
+        tablaComponentes.innerHTML += createTableRows(data);
     } else {
-        msgErrorComponente.textContent = "El componente que buscas no existe, selecciona un componente de la lista";
-        // Ejecución de funciones
-        _Init();
+        let data = await getComponente(id);
+        tablaComponentes.innerHTML = "";
 
+        if (data && data.id !== undefined) {
+            data = Array.isArray(data) ? data : [data];
+            cabeceraTablaComponentes(data);
+            tablaComponentes.innerHTML += createTableRows(data);
+        } else {
+            msgErrorComponente.textContent = "El componente que buscas no existe, selecciona un componente de la lista";
+            msgErrorComponente.style.color = "red";
+            _Init();
+        }
     }
 });
 

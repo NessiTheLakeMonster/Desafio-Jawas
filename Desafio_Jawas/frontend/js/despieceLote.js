@@ -72,23 +72,25 @@ export function _Init() {
 //Botón de buscar
 searchButton.addEventListener('click', async function() {
     let id = searchBar.value;
-    let data = await getLote(id);
 
-    tablaLoteClasificador.innerHTML = "";
-
-    if (data && data.id !== undefined) {
-        // los datos son un array
-        data = Array.isArray(data) ? data : [data];
-
-        cabeceraTabla(data);//Cabecera
-        tablaLoteClasificador.innerHTML += createTableRows(data);//filas
-
+    if (id === "") {
+        let data = await getLotes();
+        tablaLoteClasificador.innerHTML = "";
+        cabeceraTabla(data);
+        tablaLoteClasificador.innerHTML += createTableRows(data);
     } else {
-        msgErrorSearch.textContent = "El lote que buscas no existe, selecciona un lote de la lista";
-        msgErrorSearch.style.color = "red";
-        // Ejecución de funciones
-        _Init();
+        let data = await getLote(id);
+        tablaLoteClasificador.innerHTML = "";
 
+        if (data && data.id !== undefined) {
+            data = Array.isArray(data) ? data : [data];
+            cabeceraTabla(data);
+            tablaLoteClasificador.innerHTML += createTableRows(data);
+        } else {
+            msgErrorSearch.textContent = "El lote que buscas no existe, selecciona un lote de la lista";
+            msgErrorSearch.style.color = "red";
+            _Init();
+        }
     }
 });
 

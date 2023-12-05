@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
         <link rel="stylesheet" type="text/css" href="../css/despieceLote.css">
-        <title>Home</title>
+        <title>Joyas</title>
     </head>
 
     <body>
@@ -20,35 +20,30 @@
             </a>
         </header>
 
-        <h1>Bienvenido, elige con que función trabajar</h1>
+        <div>
+            <input type="search" id="searchBar" placeholder="Buscar joya">
+            <button id="searchButton">Buscar</button>
+            <span id="msgErrorBuscar"></span>
+        </div>
+        
+       
+            <table id="tablaJoyas">
+                <h2>Joyas</h2>
+            </table>
 
-            <button>
-            <a href="gestionUsuarios.html">Gestionar Usuarios</a>
-            </button>
-            
-            <button>
-            <a href="donacion.html">Donar un lote</a>
-            </button>
-            
-            <button>
-            <a href="despieceLote.html">Despiezar lote</a>
-            </button>
-            
-            <button>
-            <a href="recetas.html">Gestionar Recetas</a>
-            </button>
-            
-            <button>
-            <a href="componentes.html"> Gestionar componentes</a>
-            </button>
+        <div>
+            <span id="msgErrorJoya"></span>
+        </div>
 
-            <button>
-                <a href="inventario.html"> Gestionar inventarios</a>
-            </button>
+        <div>
+            <input type="button" value="Modificar Joya" id="btnModificarJoya">
+        </div>
 
-            <button>
-                <a href="joyas.html"> Gestionar Joyas</a>
-            </button>
+        <table id="tablaModificarJoya"></table>
+
+        <div>
+            <input type="button" value="Generar Joya" id="btnGenerarJoya">
+        </div>
 
         <video autoplay muted loop id="myVideo">
             <source src="../assets/video.mp4" type="video/mp4">
@@ -72,5 +67,5 @@
         </footer>
         
     </body>
-    <script type="module" src="../js/home.js"></script>
+    <script type="module" src="../js/joyas.js"></script>
 </html>

@@ -8,6 +8,8 @@ use App\Models\Joya;
 use App\Models\Receta;
 use App\Models\Inventario;
 use App\Models\IngredienteAsignado;
+use Illuminate\Support\Facades\DB;
+
 
 class JoyaController extends Controller
 {
@@ -15,7 +17,10 @@ class JoyaController extends Controller
     public function listar()
     {
         try {
-            $joyas = Joya::all();
+            $joyas = DB::table('joya')->join ('tipo_joya', 'joya.idTipoJoya', '=', 'tipo_joya.id')
+            ->select ('joya.*', 'tipo_joya.nombre as tipo_joya')
+            ->get();
+            
             return response()->json($joyas, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -47,7 +52,11 @@ class JoyaController extends Controller
     {
 
         try {
-            $joya = Joya::findOrFail($id);
+            $joya = DB::table('joya')
+                ->join('tipo_joya', 'joya.idTipoJoya', '=', 'tipo_joya.id')
+                ->select('joya.*', 'tipo_joya.nombre as tipo_joya')
+                ->where('joya.id', '=', $id)
+                ->first();
             return response()->json($joya);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

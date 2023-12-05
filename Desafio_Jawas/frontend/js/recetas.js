@@ -229,7 +229,7 @@ export function _Init() {
                                 let datos = { cantidad: cantidad,
                                             id_componente: id_componente };
                                 modificarIngrediente(datos).then(response => {
-                                    console.log(response); // Imprime la respuesta de la API
+                                    console.log(response);
                                 });
                             }
                         });
@@ -271,22 +271,25 @@ export function _Init() {
 //Botón de buscar
 searchButton.addEventListener('click', async function() {
     let id = searchBar.value;
-    let data = await getReceta(id);
 
-    tablaRecetas.innerHTML = "";
-
-    if (data && data.id !== undefined) {
-
-        data = Array.isArray(data) ? data : [data];
-
-        cabeceraTabla(data);//
+    if (id === "") {
+        let data = await getRecetas();
+        tablaRecetas.innerHTML = "";
+        cabeceraTabla(data);
         tablaRecetas.innerHTML += createTableRows(data);
-
     } else {
-        msgErrorSearch.textContent = "La receta que buscas no existe, selecciona una receta de la lista";
-        msgErrorSearch.style.color = "red";
-        _Init();
+        let data = await getReceta(id);
+        tablaRecetas.innerHTML = "";
 
+        if (data && data.id !== undefined) {
+            data = Array.isArray(data) ? data : [data];
+            cabeceraTabla(data);
+            tablaRecetas.innerHTML += createTableRows(data);
+        } else {
+            msgErrorSearch.textContent = "La receta que buscas no existe, selecciona una receta de la lista";
+            msgErrorSearch.style.color = "red";
+            _Init();
+        }
     }
 });
 
