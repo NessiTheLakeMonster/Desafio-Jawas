@@ -75,7 +75,7 @@ export async function _Init() {
                     buttons.forEach(button => {
                         button.disabled = true;
                     });
-                    location.reload();
+                    //location.reload();
                 }
             });
         });
