@@ -12,7 +12,9 @@ class IngredienteAsignadoController extends Controller
     public function listar($id_receta)
     {
         try {
-            $ingredientes = IngredienteAsignado::where('id_receta', $id_receta)->get();
+            $ingredientes = IngredienteAsignado::join('componente', 'ingrediente_asignado.id_componente', '=', 'componente.id')
+                ->select('ingrediente_asignado.id', 'ingrediente_asignado.id_receta', 'ingrediente_asignado.id_componente', 'componente.nombre', 'ingrediente_asignado.cantidad')
+                -> where('id_receta', $id_receta)->get();
             return response()->json($ingredientes, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

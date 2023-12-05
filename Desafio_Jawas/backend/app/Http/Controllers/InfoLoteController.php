@@ -61,7 +61,10 @@ class InfoLoteController extends Controller
     public function listar($idLote)
     {
         try {
-            $desguace = InfoLote::where('idLote', $idLote)->get(['idComponente', 'descripcion', 'cantidad']);
+            $desguace = InfoLote::join('componente', 'info_lote.idComponente', '=', 'componente.id')
+            ->select('info_lote.*', 'componente.nombre')
+            ->where('idLote', $idLote)
+            ->get();
 
             return response()->json($desguace, 200);
         } catch (\Exception $e) {

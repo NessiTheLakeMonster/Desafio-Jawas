@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Database\Factories\ComponenteFactory;
-use App\Models\Componente;
+use App\Models\TipoJoya;
 use App\Models\RolAsignado;
 
 /**
@@ -22,6 +22,7 @@ class RecetaFactory extends Factory
     {
         return [
             'idUsuario' => RolAsignado::where('id_rol', 3)->get('id_usuario')->random()->id_usuario,
+            'idTipoJoya' => TipoJoya::all()->random()->id, 
         ];
     }
 }
