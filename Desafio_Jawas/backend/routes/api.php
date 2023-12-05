@@ -56,6 +56,8 @@ Route::prefix('usuario')->group(function () {
     Route::put('/modificar/{id}', [UserController::class, 'modificar']);
     //ELIMINAR USUARIO
     Route::delete('/eliminar/{id}', [UserController::class, 'delete']);
+    // MODIFICAR CONTRASEÑA
+    Route::put('/modPasswd/{id}', [UserController::class, 'modificarPasswd']);
     //CREAR USUARIO
     /* Route::post('/crear', [UserController::class, 'crear']); */
     Route::post('/registro', [AuthController::class, 'registro']);
