@@ -48,7 +48,7 @@ export function createTableRows(data) {
 function guardarComponente() {
 
     let datos = {
-        id: id.value,
+
         nombre: nombre.value,
         hardware: hardware.value,
     };
