@@ -3,8 +3,6 @@ import { getInventario, modificarInventario } from "./http/http_inventario.js";
 // Variables del HTML
 const tablaInventario = document.getElementById('tablaInventario');
 
-// Botones
-const btnGuardar = document.getElementById('btnGuardar');
 
 // Funciones
 export function cabeceraTablaInventario() {
@@ -45,18 +43,38 @@ export async function _Init() {
         let decreaseButtons = document.querySelectorAll('.decrease-button');
         let increaseButtons = document.querySelectorAll('.increase-button');
 
+        let buttons = document.querySelectorAll('.decrease-button, .increase-button');
+        buttons.forEach(button => {
+            button.disabled = true;
+    });
+
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function () {
                 if (this.checked) {
-                    checkboxes.forEach(box => {
-                        if (box !== this) {
-                            box.disabled = this.checked;
+                    checkboxes.forEach(otherCheckbox => {
+                        if (otherCheckbox !== checkbox) {
+                            otherCheckbox.checked = false;
                         }
                     });
                     localStorage.setItem('idInventario', this.value);
                     console.log(localStorage.getItem('idInventario'));
+
+                    buttons.forEach(button => {
+                        button.disabled = true;
+                    });
+
+                    // Activar solo los botones correspondientes al checkbox seleccionado
+                    let id = checkbox.getAttribute('data-id');
+                    let relatedButtons = document.querySelectorAll(`.decrease-button[data-id="${id}"], .increase-button[data-id="${id}"]`);
+                    relatedButtons.forEach(button => {
+                        button.disabled = false;
+                    });                   
+
                 } else {
                     localStorage.removeItem('idInventario');
+                    buttons.forEach(button => {
+                        button.disabled = true;
+                    });
                     location.reload();
                 }
             });
