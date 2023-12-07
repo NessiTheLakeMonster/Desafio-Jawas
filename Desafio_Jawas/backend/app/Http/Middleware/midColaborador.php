@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class colaborador
+class midColaborador
 {
     /**
      * Handle an incoming request.
@@ -15,6 +15,15 @@ class colaborador
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        $user = $request->user();
+
+        if ($user -> tokenCan('colaborador')) {
+            return $next($request);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "No tienes permisos para realizar esta acción"
+            ], 401);
+        }
     }
 }

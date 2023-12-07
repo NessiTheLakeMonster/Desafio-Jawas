@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class clasificador
+class midAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,6 +15,15 @@ class clasificador
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        $user = $request->user();
+
+        if ($user->tokenCan('administrador')) {
+            return $next($request);
+        } else {
+            return response()->json([
+                "success" => false,
+                "message" => "No tienes permisos para realizar esta acción"
+            ], 401);
+        }
     }
 }
