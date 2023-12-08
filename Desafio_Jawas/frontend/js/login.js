@@ -59,6 +59,7 @@ btnLogin.addEventListener("click", function (e) {
                 if (data.status == 200) {
                     // TODO guardar el token en el local storage
                     localStorage.setItem("token", data.usuario.token);
+                    localStorage.setItem("usuarioId", data.usuario.id);
                     
                     msgInicioSesion.innerHTML = "Inicio de sesión correcto";
                     window.location.href = "home.html";

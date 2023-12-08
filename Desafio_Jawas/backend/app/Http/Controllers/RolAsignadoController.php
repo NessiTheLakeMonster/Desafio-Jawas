@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\RolAsignado;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RolAsignadoController extends Controller
 {
@@ -128,5 +130,25 @@ class RolAsignadoController extends Controller
         }
 
         return $success;
+    }
+
+    public function mostrarRoles($idUsuario)
+    {
+        try {
+            $usuario = DB::table('users')->where('id', $idUsuario)->first();
+
+            $roles = DB::table('rol_asignado')
+                ->join('rol', 'rol_asignado.id_rol', '=', 'rol.id')
+                ->where('rol_asignado.id_usuario', $usuario->id)
+                ->select('rol_asignado.*', 'rol.nombre as nombre_rol')
+                ->get();
+
+            return response()->json($roles);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error al mostrar roles',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }
