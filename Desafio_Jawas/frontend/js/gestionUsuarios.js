@@ -65,7 +65,7 @@ export function _Init() {
     limpiarLocalStorage();
 
     getUsuarios().then(data => {
-        cabeceraTabla();
+        cabeceraTablaUsuarios();
         tablaUsuarios.innerHTML += crearFilasTablaUsuario(data);
 
         let checkboxes = document.querySelectorAll('.checkbox-usuario');

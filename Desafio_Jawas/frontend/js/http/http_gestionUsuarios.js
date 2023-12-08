@@ -2,6 +2,7 @@ export async function getUsuarios() {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
