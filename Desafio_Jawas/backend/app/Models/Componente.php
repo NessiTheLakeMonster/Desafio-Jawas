@@ -15,4 +15,9 @@ class Componente extends Model
         'nombre',
         'hardware',
     ];
+
+    public function getHardwareAttribute($value)
+    {
+        return $value == 1 ? 'SI' : 'NO';
+    }
 }

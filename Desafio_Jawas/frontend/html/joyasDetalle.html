@@ -1,75 +1,75 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
-        <link rel="stylesheet" type="text/css" href="../css/despieceLote.css">
-        <title>Componentes</title>
-    </head>
 
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
+    <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
+    <title>Crear Joya</title>
+</head>
 
-        <header>
-            <a href="../html/home.html" id="inicio">
-                <img src="../assets/Jawas.webp" alt="logo" width="40px" >
-            </a>
-            <h1>JAWAS JOYAS</h1>
-            <a href="../html/perfil.html" id="perfil">
-                <img src="../assets/perfil.png" alt="logo" width="35px" >
-            </a>
-        </header>
+<body>
 
-        <div>
-            <input type="search" id="searchBar" placeholder="Buscar componente">
-            <button id="searchButton">Buscar</button>
-        </div>
-        
-       
-            <table id="tablaComponentes">
-                <h2>Componentes</h2>
-            </table>
-    
+    <header>
+        <a href="../html/home.html" id="inicio">
+            <img src="../assets/Jawas.webp" alt="logo" width="40px">
+        </a>
+        <h1>JAWAS JOYAS</h1>
+        <a href="../html/perfil.html" id="perfil">
+            <img src="../assets/perfil.png" alt="logo" width="35px">
+        </a>
+    </header>
 
-        <div id="crearComponente">
-            <h2>Crear nuevo componente</h2>
-            <label for="nombreComponente"></label>
-            <input type="text" id="nombreComponente" placeholder="Nombre componente">
-                <br>
-            <label for="esHardware"></label>
-            <input type="text" id="hardware" placeholder="¿Es hardware?">
+    <h1>GENERADOR DE JOYA ALEATORIA</h1>
+    <h4>Debes seleccionar que tipo de joya deseas crear, que receta utilizar e insertar una imágen de referencia</h4>
+    <div id="generadorJoya">
+        <select id="selectJoya"></select>
+        <select id="selectReceta"></select>
+        <input type="file" id="inputImagen" name="inputImagen" accept="image/*">
+        <div id="respuesta"></div>
+        <img>
 
-        </div>
+        <input type="button" value="Generar Joya" id="btnGenerarJoya">
+        <input type="button" value="Crear otra Joya" id="btnVolverIntento">
 
-        <div>
-            <span id="msgErrorComponente"></span>
-        </div>
+        <span id="msgsuficientesComponentes"></span>
+    </div>
 
-        <div>
-            <input type="button" value="Guardar Componente" id="btnGuardarComponente">
-        </div>
+    <div id="inventario">
+        <h1>INVENTARIO</h1>
+        <table id="tablaInventario"> </table>
+    </div>
 
-        <video autoplay muted loop id="myVideo">
-            <source src="../assets/video.mp4" type="video/mp4">
-        </video> 
-    
-        <footer>
-            <div class="footer-contenido">
-                <div class="redes-sociales">
-                    <p>Puedes encontrarnos en:</p>
-                    <a href="https://www.instagram.com/" target="_blank"><img src="../assets/icono_instagram.webp" alt="Instagram" height="68px"></a>
-                    <a href="https://twitter.com/?lang=es " target="_blank"><img src="../assets/icono_twitter.png" alt="Twitter" height="55px"></a>
-                    <a href="https://www.facebook.com/?locale=es_ES" target="_blank"><img src="../assets/icono_facebook.png" alt="Facebook" height="55px"></a>
-                </div>
-                <div class="politica-privacidad">
-                    <a href="politica-de-privacidad.html">Política de Privacidad</a>
-                </div>
-                <div class="copyright">
-                    <span>&copy; 2023 Jawas Joyas</span>
-                </div> 
+
+
+    <input type="button" value="Ver Joyas" id="btnVolverJoyas">
+
+    <video autoplay muted loop id="myVideo">
+        <source src="../assets/video.mp4" type="video/mp4">
+    </video>
+
+    <footer>
+        <div class="footer-contenido">
+            <div class="redes-sociales">
+                <p>Puedes encontrarnos en:</p>
+                <a href="https://www.instagram.com/" target="_blank"><img src="../assets/icono_instagram.webp"
+                        alt="Instagram" height="68px"></a>
+                <a href="https://twitter.com/?lang=es " target="_blank"><img src="../assets/icono_twitter.png"
+                        alt="Twitter" height="55px"></a>
+                <a href="https://www.facebook.com/?locale=es_ES" target="_blank"><img src="../assets/icono_facebook.png"
+                        alt="Facebook" height="55px"></a>
             </div>
-        </footer>
-        
-    </body>
-    <script type="module" src="../js/joyasDetalle.js"></script>
+            <div class="politica-privacidad">
+                <a href="politica-de-privacidad.html">Política de Privacidad</a>
+            </div>
+            <div class="copyright">
+                <span>&copy; 2023 Jawas Joyas</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<script type="module" src="../js/joyasDetalle.js"></script>
+
 </html>

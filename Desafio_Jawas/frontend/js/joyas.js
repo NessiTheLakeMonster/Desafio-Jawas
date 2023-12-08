@@ -1,8 +1,9 @@
 import { getJoyas, modificarImg, getJoya } from "./http/http_joyas.js";
 
 //barra de busqueda
-let searchBar = document.getElementById("searchBar"); 
-let searchButton = document.getElementById("searchButton");
+let buscador = document.getElementById("buscador");
+let btnBuscar = document.getElementById("btnBuscar");
+let msgErrorBuscar = document.getElementById("msgErrorBuscar");
 
 //tabla de joyas
 const tablaJoyas = document.getElementById("tablaJoyas")
@@ -10,32 +11,36 @@ const tablaModificarJoya = document.getElementById("tablaModificarJoya")
 
 //mensaje de error
 let msgErrorJoya = document.getElementById("msgErrorJoya");
-let msgErrorBuscar = document.getElementById("msgErrorBuscar");
-
-//foto
-let inputImagenUrl = document.getElementById('inputImagenUrl');
 
 //botones
 const btnModificarJoya = document.getElementById("btnModificarJoya");
 const btnGenerarJoya = document.getElementById("btnGenerarJoya");
 
-//cabecera tabla joyas
-export function cabeceraTabla(data) {
+
+/**
+ * @author Patricia Mota
+ * @summary Función que se encarga de crear la cabecera de la tabla de joyas
+ */
+
+export function cabeceraTablaJoyas(data) {
     let cabecera = document.createElement('tr');
-    let headers = ['','IMÁGEN','TIPO JOYA'];
+    let headers = ['', 'IMÁGEN', 'TIPO JOYA'];
 
     headers.forEach(header => {
-         let th = document.createElement('th');
-         th.textContent = header;
-         cabecera.appendChild(th);
+        let th = document.createElement('th');
+        th.textContent = header;
+        cabecera.appendChild(th);
 
     });
-
     tablaJoyas.appendChild(cabecera);
 }
 
-//tabla recetas
-export function crearFilasJoyas(data) {
+/**
+ * @author Patricia Mota
+ * @summary Función que se encarga de crear las filas de la tabla de joyas
+ */
+
+export function filaTablaJoyas(data) {
     return data.map(joya => `
         <tr>
             <td><input class="checkbox-joya" type="checkbox" name="joya" value="${joya.id}"></td>
@@ -45,42 +50,54 @@ export function crearFilasJoyas(data) {
     `).join('');
 }
 
-//cabecera tabla modificar joya
+/**
+ * @author Patricia Mota
+ * @summary Función que se encarga de crear la cabecera de la tabla de modificar joyas
+ */
+
 export function cabeceraTablaModificarJoya(data) {
     let cabecera = document.createElement('tr');
-    let headers = ['','IMÁGEN','TIPO JOYA'];
+    let headers = ['IMÁGEN', 'TIPO JOYA'];
 
     headers.forEach(header => {
-         let th = document.createElement('th');
-         th.textContent = header;
-         cabecera.appendChild(th);
+        let th = document.createElement('th');
+        th.textContent = header;
+        cabecera.appendChild(th);
 
     });
-
     tablaJoyas.appendChild(cabecera);
 }
 
-//tabla modificar joya
+/**
+ * @author Patricia Mota
+ * @summary Función que se encarga de crear las filas de la tabla de modificar joyas
+ */
+
 export function crearFilasModificarJoya(data) {
     return data.map(joya => `
         <tr>
-            <td><input class="checkbox-joya" type="checkbox" name="joya" value="${joya.id}"></td>
             <td><img src= "${joya.foto}" width = "20px"></td>
             <td>${joya.tipo_joya}</td>
             <td><input type="file" id="inputImagen-${joya.id}" name="inputImagen" accept="image/*"></td>
+            <td><button onclick="guardarCambios(${joya.id})" class="btn btn-primary">Guardar cambios</button></td>
         </tr>
     `).join('');
 }
 
-export function _Init(){
-    getJoyas().then (data => {
-        cabeceraTabla(data);
-        tablaJoyas.innerHTML += crearFilasJoyas(data);
+/**
+ * @author Patricia Mota
+ * @summary Función que se encarga de inicializar la página de joyas
+ */
+
+export function _Init() {
+    getJoyas().then(data => {
+        cabeceraTablaJoyas(data);
+        tablaJoyas.innerHTML += filaTablaJoyas(data);
 
         let checkboxes = document.querySelectorAll('.checkbox-joya');
 
         checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
+            checkbox.addEventListener('change', function () {
                 if (this.checked) {
 
                     checkboxes.forEach(otherCheckbox => {
@@ -89,79 +106,92 @@ export function _Init(){
                         }
                     });
                     localStorage.setItem('joyaId', checkbox.value);
-                
                 } else {
                     localStorage.removeItem('joyaId');
-                    location.reload();
                 }
             });
         });
-    }).catch(error => {
-        console.error('error al obtener las joyas:', error);
-    });
-    
-}
-//TODO: COMO MODIFICAR FOTO
-// botón modificar foto
-btnModificarJoya.addEventListener('click', async function (){
 
-    let idJoya = localStorage.getItem('joyaId');
+        // botón modificar foto
+        btnModificarJoya.addEventListener('click', async function () {
 
-    if (idJoya) {
-        let inputImagen = document.getElementById(`inputImagen-${idJoya}`);
+            let id = localStorage.getItem('joyaId');
 
-        if (inputImagen && inputImagen.files.length > 0) {
-            let nuevaImagen = inputImagen.files[0];
+            if (id) {
+                getJoya(id).then(joya => {
+                    btnModificarJoya.disabled = true;
 
-            let datos = {
-                foto: nuevaImagen
+                    let data = Array.isArray(joya) ? joya : [joya];
+
+                    cabeceraTablaModificarJoya(data);
+                    tablaModificarJoya.innerHTML = "";
+
+                    tablaModificarJoya.innerHTML += crearFilasModificarJoya(data);
+                    msgErrorJoya.textContent = "";
+
+                }).catch(error => {
+                    console.log('Error al cargar la tabla de joyas', error);
+                });
+            } else {
+                tablaModificarJoya.innerHTML = "";
+                msgErrorJoya.textContent = "Selecciona una joya de la lista";
+                msgErrorJoya.style.color = "red";
             }
 
-            modificarImg(datos)
-                .then(response => {
-                    console.log(response);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+            //TODO: modificar la imagen de la joya
+            //botón guardar cambios
+            window.guardarCambios = function (id) {
+                let inputImagen = document.getElementById(`inputImagen-${id}`);
 
-            getJoyas().then (data => {
-                tablaModificarJoya.innerHTML = "";
+                if (inputImagen && inputImagen.files.length > 0) {
+                    let nuevaImagen = inputImagen.files[0];
 
-                cabeceraTablaModificarJoya(data);
-                tablaModificarJoya.innerHTML += crearFilasModificarJoya(data);
-                msgErrorJoya.textContent = "";
+                    let formData = new FormData();
+                    formData.append('foto', nuevaImagen);
 
-            }).catch(error => {
-                console.error('error al obtener las joyas:', error);
-            });
-        } else {
-            console.error('No se seleccionó ninguna imagen');
-        }
-    }else{
-        tablaModificarJoya.innerHTML = "";
-        msgErrorJoya.textContent = "Selecciona una joya de la lista";
-        msgErrorJoya.style.color = "red";
-    }
-});
+                    // Comprueba si el archivo de imagen se adjunta correctamente al objeto FormData
+                    console.log(formData.get('foto'));
+
+                    // Llama a modificarImg y muestra un mensaje cuando se complete
+                    modificarImg(formData)
+                        .then(response => {
+                            console.log(response);
+                            msgErrorJoya.textContent = "La imagen se ha modificado correctamente";
+                            msgErrorJoya.style.color = "green";
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                }
+
+            }
+        });
+
+    })
+};
+
+/**
+ * @author Patricia Mota
+ * @summary Manejador de eventos que se ejecuta cuando se hace clic en el botón de búsqueda
+ */
 
 //Botón de buscar
-searchButton.addEventListener('click', async function() {
-    let id = searchBar.value;
+btnBuscar.addEventListener('click', async function () {
+    let id = buscador.value;
 
     if (id === "") {
         let data = await getJoyas();
         tablaJoyas.innerHTML = "";
-        cabeceraTabla(data);
-        tablaJoyas.innerHTML += crearFilasJoyas(data);
+        cabeceraTablaJoyas(data);
+        tablaJoyas.innerHTML += filaTablaJoyas(data);
     } else {
         let data = await getJoya(id);
         tablaJoyas.innerHTML = "";
 
         if (data && data.id !== undefined) {
             data = Array.isArray(data) ? data : [data];
-            cabeceraTabla(data);
-            tablaJoyas.innerHTML += crearFilasJoyas(data);
+            cabeceraTablaJoyas(data);
+            tablaJoyas.innerHTML += filaTablaJoyas(data);
         } else {
             msgErrorBuscar.textContent = "La joya que buscas no existe, selecciona una joya de la lista";
             msgErrorBuscar.style.color = "red";
@@ -170,17 +200,24 @@ searchButton.addEventListener('click', async function() {
     }
 });
 
-//TECLA ENTER
-searchBar.addEventListener('keyup', async function(event) {
+/**
+ * @author Patricia Mota
+ * @summary Manejador de eventos que se ejecuta cuando se presiona la tecla Enter en el campo de búsqueda
+ */
+
+buscador.addEventListener('keyup', async function (event) {
     if (event.keyCode === 13) {
         event.preventDefault();
-        searchButton.click();
+        btnBuscar.click();
     }
 });
 
-//Botón crear joya
-btnGenerarJoya.addEventListener('click', async function() {
-    //let data = await recetaNueva();
+/**
+ * @author Patricia Mota
+ * @summary Manejador de eventos que se ejecuta cuando se hace clic en el botón de generar joya y redirige a la página de detalle de joya
+ */
+
+btnGenerarJoya.addEventListener('click', async function () {
     window.location.href = './joyasDetalle.html'
 });
 

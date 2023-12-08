@@ -173,6 +173,8 @@ Route::prefix('receta')->group(function () {
     Route::get('/listar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'listar']);
     //CREAR RECETA NUEVA -> BOTÓN DE CREAR RECETA
     Route::post('/crear', [App\Http\Controllers\RecetaController::class, 'crear']);
+    //SACA LAS RECETAS DE UN TIPO DE JOYA CONCRETO
+    Route::get('/tipo/{idTipoJoya}', [App\Http\Controllers\RecetaController::class, 'getRecetasPorJoya']);
 
     
     //TODO: NO SE USA

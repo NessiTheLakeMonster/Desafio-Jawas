@@ -1,24 +1,34 @@
+//Importaciones
 import { getComponente, getComponentes, addComponente } from "./http/http_componentes.js";
+import { validarHardware,  validarNombreHardware} from "./utils/validaciones.js";
 
-//tabla 
+//Tabla de componentes 
 let tablaComponentes = document.getElementById("tablaComponentes");
 
-//botones
+//Botón añadir componente
 let btnAddComponente = document.getElementById("btnGuardarComponente");
 
-//inputs
+//Datos del componente
 const nombre = document.getElementById("nombreComponente");
 const hardware = document.getElementById("hardware");
 
+let msgErrorNombre = document.getElementById("msgErrorNombre");
+let msgErrorHardware = document.getElementById("msgErrorHardware");
+
 //barra de busqueda
-let searchBar = document.getElementById("searchBar"); 
-let searchButton = document.getElementById("searchButton");
+let buscador = document.getElementById("buscador");
+let btnBuscar = document.getElementById("btnBuscar");
+let msgErrorBuscar = document.getElementById("msgErrorBuscar");
 
 //mensaje de error
 let msgErrorComponente = document.getElementById("msgErrorComponente");
 let msgComponenteInsertado = document.getElementById("msgComponenteInsertado");
 
-//cabecera de la tabla componentes
+/**
+ * @author Patricia Mota
+ * @summary Función que se encarga de crear la cabecera de la tabla de componentes
+ */
+
 export function cabeceraTablaComponentes(data) {
     let cabecera = document.createElement('tr');
     let headers = ['ID','NOMBRE', 'HARDWARE'];
@@ -33,8 +43,12 @@ export function cabeceraTablaComponentes(data) {
     tablaComponentes.appendChild(cabecera);
 }
 
-//tabla componentes
-export function createTableRows(data) {
+/**
+ * @author Patricia Mota
+ * @summary Función que se encarga de crear las filas de la tabla de componentes
+ */
+
+export function filaComponentes(data) {
     return data.map(componente => `
         <tr>
             <td>${componente.id}</td>
@@ -45,10 +59,14 @@ export function createTableRows(data) {
     `).join('');
 }
 
+/**
+ * @author Patricia Mota
+ * @summary Función que se encarga de guardar los datos del componente
+ */
+
 function guardarComponente() {
 
     let datos = {
-
         nombre: nombre.value,
         hardware: hardware.value,
     };
@@ -56,19 +74,31 @@ function guardarComponente() {
     return datos;
 }
 
+/**
+ * @author Patricia Mota
+ * @summary Función que se encarga de mostrar la tabla de los componentes
+ */
+
+
 export function _Init(){
     getComponentes()
         .then(data => {
             cabeceraTablaComponentes(data);
-            tablaComponentes.innerHTML += createTableRows(data);
+            tablaComponentes.innerHTML += filaComponentes(data);
         })
         .catch(error => {
             console.log(error);
         });
 }
 
+/**
+ * @author Patricia Mota
+ * @summary Botón que se encarga de añadir un componente
+ */
+
+
 btnAddComponente.addEventListener('click',  function(e) {
-    e.preventDefault();
+
     let datos = guardarComponente();
     addComponente(datos)
 
@@ -77,7 +107,6 @@ btnAddComponente.addEventListener('click',  function(e) {
             if (data.nombre) {
                 msgErrorComponente.innerHTML = "Componente añadido con éxito";
                 msgErrorComponente.style.color = "green";
-                window.location.reload();
         
             } else {
                 msgErrorComponente.innerHTML = "Error al añadir el componente";
@@ -87,18 +116,21 @@ btnAddComponente.addEventListener('click',  function(e) {
         .catch(error => {
             console.log(error);
         });
-
 });
 
-//Botón de busca
-searchButton.addEventListener('click', async function() {
-    let id = searchBar.value;
+/**
+ * @author Patricia Mota
+ * @summary Botón que se encarga de buscar un componente
+ */
+
+btnBuscar.addEventListener('click', async function() {
+    let id = buscador.value;
 
     if (id === "") {
         let data = await getComponentes();
         tablaComponentes.innerHTML = "";
         cabeceraTablaComponentes(data);
-        tablaComponentes.innerHTML += createTableRows(data);
+        tablaComponentes.innerHTML += filaComponentes(data);
     } else {
         let data = await getComponente(id);
         tablaComponentes.innerHTML = "";
@@ -106,21 +138,44 @@ searchButton.addEventListener('click', async function() {
         if (data && data.id !== undefined) {
             data = Array.isArray(data) ? data : [data];
             cabeceraTablaComponentes(data);
-            tablaComponentes.innerHTML += createTableRows(data);
+            tablaComponentes.innerHTML += filaComponentes(data);
         } else {
-            msgErrorComponente.textContent = "El componente que buscas no existe, selecciona un componente de la lista";
-            msgErrorComponente.style.color = "red";
+            msgErrorBuscar.textContent = "El componente que buscas no existe, selecciona un componente de la lista";
+            msgErrorBuscar.style.color = "red";
             _Init();
         }
     }
 });
 
-//TECLA ENTER
-searchBar.addEventListener('keyup', async function(event) {
+/**
+ * @author Patricia Mota
+ * @summary Botón de enter que se encarga de buscar un componente
+ */
+
+buscador.addEventListener('keyup', async function(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
-        searchButton.click();
+        btnBuscar.click();
     }
 });
+
+function limpiarErrores() {
+    msgErrorNombre.textContent = "";
+    msgErrorHardware.textContent = "";
+}
+
+function validar() {
+    limpiarErrores();
+    var esValido = true;
+
+    if (!validarNombreHardware(nombre, msgErrorNombre)) {
+        esValido = false;
+    }
+    if (!validarHardware(hardware, msgErrorHardware)) {
+        esValido = false;
+    }
+
+    return esValido;
+}
 
 _Init();

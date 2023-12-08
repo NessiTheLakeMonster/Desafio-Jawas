@@ -1,3 +1,8 @@
+/**
+ * @author Patricia Mota
+ * @summary llamadas a la api de joyas
+ */
+
 //MOSTRAR LISTA DE TODAS LAS JOYAS
 export async function getJoyas() {
     var options = {
@@ -8,6 +13,19 @@ export async function getJoyas() {
         }
     };
     const response = await fetch(`http://localhost:8000/api/joya/listar`, options);
+    const data = await response.json();
+    return data;
+}
+
+//MOSTRAR LISTA DE JOYAS
+export async function getTipos() {
+    var options = {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
+    const response = await fetch(`http://localhost:8000/api/joya/tipos`, options);
     const data = await response.json();
     return data;
 }
@@ -31,31 +49,26 @@ export async function modificarImg(datos) {
 
     let id = localStorage.getItem('joyaId');
 
-    let bodyJson = JSON.stringify(
-        {
-            "foto": datos.foto
-        }
-    );
-
     var options = {
         method: 'PUT',
         headers: {
-            "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
-        body: bodyJson
+        body: datos
     };
     const response = await fetch(`http://localhost:8000/api/joya/modificar/${id}`, options);
     const data = await response.json();
     return data;
 }
 
- //GENERADOR DE JOYAS ALEATORIAS
+//GENERADOR DE JOYAS ALEATORIAS
 export async function generarJoya(datos) {
 
     let bodyJson = JSON.stringify(
         {
-            "nombre": datos.nombre,
+            "idTipoJoya": datos.idTipoJoya,
+            "idReceta": datos.idReceta,
+            "foto": datos.foto
 
         }
     );
@@ -73,25 +86,6 @@ export async function generarJoya(datos) {
     return data;
 }
 
- //VERIFICAR SI HAY SUFICIENTES COMPONENTES EN EL INVENTARIO Y CUANTAS JOYAS PUEDE HACER
-
-export async function verificarComponentes() {
-
-    let idReceta = localStorage.getItem('idReceta');
-
-    var options = {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        }
-    };
-    const response = await fetch(`http://localhost:8000/api/joya/componentes/${idReceta}`, options);
-    const data = await response.json();
-    return data;
-
-}
-
 //MOSTRAR INVENTARIO
 export async function getInventario() {
     var options = {
@@ -104,4 +98,36 @@ export async function getInventario() {
     const response = await fetch(`http://localhost:8000/api/inventario/mostrar`, options);
     const data = await response.json();
     return data;
+}
+
+
+//MOSTRAR LISTA DE RECETAS PARA ESA JOYA
+export async function getRecetas(idTipoJoya) {
+
+    var options = {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    };
+    const response = await fetch(`http://localhost:8000/api/receta/tipo/${idTipoJoya}`, options);
+    const data = await response.json();
+    return data;
+}
+
+//VERIFICAR SI HAY SUFICIENTES COMPONENTES EN EL INVENTARIO Y CUANTAS JOYAS PUEDE HACER
+export async function verificarComponentes(idReceta) {
+
+    var options = {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    };
+    const response = await fetch(`http://localhost:8000/api/joya/componentes/${idReceta}`, options);
+    const data = await response.json();
+    return data;
+
 }

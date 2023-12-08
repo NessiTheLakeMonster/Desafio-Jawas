@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
-        <link rel="stylesheet" type="text/css" href="../css/despieceLote.css">
+        <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
         <title>Componentes</title>
     </head>
 
@@ -19,25 +19,28 @@
                 <img src="../assets/perfil.png" alt="logo" width="35px" >
             </a>
         </header>
-
+        <h1>COMPONENTES</h1>
         <div>
-            <input type="search" id="searchBar" placeholder="Buscar componente">
-            <button id="searchButton">Buscar</button>
+            <input type="search" id="buscador" placeholder="Buscar componente">
+            <button id="btnBuscar">Buscar</button>
+            <span id="msgErrorBuscar"></span>
         </div>
         
-       
-            <table id="tablaComponentes">
-                <h2>Componentes</h2>
-            </table>
+            <table id="tablaComponentes"></table>
     
 
         <div id="crearComponente">
             <h2>Crear nuevo componente</h2>
+            <h4>Añade un componente, insertando su nombre</h4>
+            <h5>- Si es componente, inserta un [1]</h5>
+            <h5>- Si NO es componente, inserta un [0]</h5>
             <label for="nombreComponente"></label>
             <input type="text" id="nombreComponente" placeholder="Nombre componente">
+            <span id="msgErrorNombre"></span>
                 <br>
             <label for="esHardware"></label>
             <input type="text" id="hardware" placeholder="¿Es hardware?">
+            <span id="msgErrorHardware"></span>
 
         </div>
 
