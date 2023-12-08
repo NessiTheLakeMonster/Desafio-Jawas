@@ -3,11 +3,14 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\LoteController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
+use App\Http\Controllers\RolAsignadoController;
 use App\Http\Controllers\InventarioController;
-use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,19 +27,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-/* Route::middleware(['auth:sanctum'])->group(function () {
-    Route::prefix('colaborador')->group(function () {
-    });
+Route::get('', function () {
+    return response()->json("No autorizado", 203);
+})->name('nologin');
 
-    Route::prefix('administrador')->group(function () {
-    });
-
-    Route::prefix('clasificador')->group(function () {
-    });
-
-    Route::prefix('diseñador')->group(function () {
-    });
-}); */
+//-------------------------RUTAS DE ASIGNACIÓN DE ROL-------------------------
+Route::post('/asignarAdmin/{id}', [RolAsignadoController::class, 'asignarAdministrador']);
 
 // RUTAS DE REGISTRO, LOGIN Y LOGOUT
 
@@ -47,23 +43,26 @@ Route::post('/logout', [AuthController::class, 'logout']);
 //-------------------------RUTAS ADMINISTRADOR-------------------------
 
 //GESTIONAR USUARIOS
-Route::prefix('usuario')->group(function () {
 
-    //LISTAR USUARIOS
-    Route::get('/listar', [UserController::class, 'listar']);
-    //MOSTRAR USUARIO BUSCADO POR ID
-    Route::get('/mostrar/{id}', [UserController::class, 'buscar']);
-    //MODIFICAR USUARIO
-    Route::put('/modificar/{id}', [UserController::class, 'modificar']);
-    //ELIMINAR USUARIO
-    Route::delete('/eliminar/{id}', [UserController::class, 'delete']);
-    // MODIFICAR CONTRASEÑA
-    Route::put('/modPasswd/{id}', [UserController::class, 'modificarPasswd']);
-    //CREAR USUARIO
-    /* Route::post('/crear', [UserController::class, 'crear']); */
-    Route::post('/registro', [AuthController::class, 'registro']);
-
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('usuario')->group(function () {
+        //LISTAR USUARIOS
+        /* Route::get('/listar', [UserController::class, 'listar'])->middleware(['midAdmin', 'midColaborador', 'midClasificador', 'midDisenador']); */
+        Route::get('/listar', [UserController::class, 'listar']);
+        //MOSTRAR USUARIO BUSCADO POR ID
+        Route::get('/mostrar/{id}', [UserController::class, 'buscar']);
+        //MODIFICAR USUARIO
+        Route::put('/modificar/{id}', [UserController::class, 'modificar']);
+        //ELIMINAR USUARIO
+        Route::delete('/eliminar/{id}', [UserController::class, 'delete']);
+        // MODIFICAR CONTRASEÑA
+        Route::put('/modPasswd/{id}', [UserController::class, 'modificarPasswd']);
+        //CREAR USUARIO
+        /* Route::post('/crear', [UserController::class, 'crear']); */
+        Route::post('/registro', [AuthController::class, 'registro']);
+    });
 });
+
 
 //GESTIONAR COMPONENTES
 Route::prefix('componentes')->group(function () {
@@ -78,7 +77,6 @@ Route::prefix('componentes')->group(function () {
     ///TODO: NO SE USA
     Route::put('/modificar/{id}', [App\Http\Controllers\ComponenteController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [App\Http\Controllers\ComponenteController::class, 'eliminar']);
-
 });
 
 //GESTIONAR INVENTARIO
@@ -87,7 +85,7 @@ Route::prefix('inventario')->group(function () {
     Route::get('/mostrar', [InventarioController::class, 'mostrar']);
     //MODIFICAR INVENTARIO (solo cantidades)
     Route::put('/modificar/{id}', [InventarioController::class, 'modificarCantidad']);
-    
+
     //TODO: NO SE USA
     //MOSTRAR INVENTARIO BUSCADO POR ID
     //ELIMINAR INVENTARIO
@@ -113,14 +111,13 @@ Route::prefix('lote')->group(function () {
     Route::get('/listar', [LoteController::class, 'listar']);
     Route::put('/modificar/{id}', [LoteController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [LoteController::class, 'eliminar']);
-
 });
 
 //-------------------------RUTAS CLASIFICADOR-------------------------
 
 //GESTIONAR DESGUACES
 Route::prefix('info_lote')->group(function () {
-    
+
     //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS PARA CLASIFICAR
     Route::get('/listar', [LoteController::class, 'listar']);
     //MOSTRAR LOTE ENTREGADO BUSCADO POR ID 
@@ -133,8 +130,7 @@ Route::prefix('info_lote')->group(function () {
     Route::get('/listar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'listar']);
 
     //TODO:NO SE USA
-    Route::get('/mostrarr/{id}', [App\Http\Controllers\InfoLoteController::class, 'mostrar']); 
-
+    Route::get('/mostrarr/{id}', [App\Http\Controllers\InfoLoteController::class, 'mostrar']);
 });
 
 
@@ -176,7 +172,7 @@ Route::prefix('receta')->group(function () {
     //CREAR RECETA NUEVA -> BOTÓN DE CREAR RECETA
     Route::post('/crear', [App\Http\Controllers\RecetaController::class, 'crear']);
 
-    
+
     //TODO: NO SE USA
     Route::put('/modificar/{id}', [App\Http\Controllers\RecetaController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [App\Http\Controllers\RecetaController::class, 'eliminar']);
@@ -184,7 +180,7 @@ Route::prefix('receta')->group(function () {
 
 //GESTIONAR INGREDIENTES (CRUD INGREDIENTE_ASIGNADO)
 Route::prefix('ingrediente')->group(function () {
-    
+
     //AÑADIR INGREDIENTE A LA RECETA 
     Route::post('/crear/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'crear']);
     //VER INGREDIENTES DE LA RECETA CONCRETA
@@ -195,8 +191,4 @@ Route::prefix('ingrediente')->group(function () {
     //TODO: NO SE USA
     Route::get('/mostrar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'mostrar']);
     Route::delete('/eliminar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'eliminar']);
-
 });
-
-
-
