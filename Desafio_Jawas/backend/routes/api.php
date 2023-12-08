@@ -32,7 +32,9 @@ Route::get('', function () {
 })->name('nologin');
 
 //-------------------------RUTAS DE ASIGNACIÓN DE ROL-------------------------
-Route::post('/asignarAdmin/{id}', [RolAsignadoController::class, 'asignarAdministrador']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/asignarAdmin/{id}', [RolAsignadoController::class, 'asignarAdministrador']);
+});
 
 // RUTAS DE REGISTRO, LOGIN Y LOGOUT
 

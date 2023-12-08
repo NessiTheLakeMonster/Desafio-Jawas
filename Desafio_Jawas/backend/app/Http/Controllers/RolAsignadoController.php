@@ -13,35 +13,45 @@ class RolAsignadoController extends Controller
     public function asignarAdministrador(Request $request, $id)
     {
         try {
-            $auth = Auth::user();
+            $usuario = User::findOrFail($id);
 
-            $rol = DB::table('rol_asignado')->insert([
-                'id_usuario' => $id,
-                'id_rol' => 2
-            ]);
+            if ($usuario == null) {
 
-            $user = $request->user();
-
-            if (!$user) {
                 return response()->json([
-                    'message' => 'No authenticated user',
-                    'status' => 401,
+                    'message' => 'Usuario no encontrado',
+                    'status' => 404,
                     'ok' => false
-                ], 401);
+                ], 404);
+            } else {
+
+                $rolAsignado = RolAsignado::where('id_usuario', $usuario->id)
+                    ->where('id_rol', 2)
+                    ->first();
+
+                if ($rolAsignado != null) {
+
+                    return response()->json([
+                        'message' => 'Usuario ya es administrador',
+                        'status' => 200,
+                        'ok' => true
+                    ], 200);
+                } else {
+
+                    $rolAsignado = new RolAsignado();
+                    $rolAsignado->id_usuario = $usuario->id;
+                    $rolAsignado->id_rol = 2;
+                    $rolAsignado->save();
+
+                    return response()->json([
+                        'message' => 'Usuario asignado como administrador',
+                        'status' => 200,
+                        'ok' => true
+                    ], 200);
+                }
             }
-
-            $success['token'] =  $user->createToken('access_token', ["administrador"])->plainTextToken;
-
-            return response()->json([
-                'usuario' => $success,
-                'message' => 'Rol asignado correctamente',
-                'status' => 200,
-                'ok' => true
-            ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error en el servidor',
+                'message' => 'Error al asignar usuario como administrador',
                 'error' => $e->getMessage()
             ], 500);
         }
