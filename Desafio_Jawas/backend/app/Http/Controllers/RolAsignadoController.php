@@ -3,51 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Models\RolAsignado;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 class RolAsignadoController extends Controller
 {
-    public function asignarAdministrador(Request $request, $id)
+    /**
+     * @author Inés Mª Barrera Llerena
+     * @summary Asignar roles a los usuarios
+     *
+     * @param int $idUsuario
+     * @param int $idRol
+     * @return void
+     */
+    public function asignarRol($idUsuario, $idRol)
     {
         try {
-            $usuario = User::findOrFail($id);
+            $usuario = User::findOrFail($idUsuario);
 
-            if ($usuario == null) {
+            $rolAsignado = RolAsignado::where('id_usuario', $usuario->id)
+                ->where('id_rol', $idRol)
+                ->first();
+
+            if ($rolAsignado != null) {
+
+                $message = $this->mensajeError($idRol);
 
                 return response()->json([
-                    'message' => 'Usuario no encontrado',
-                    'status' => 404,
-                    'ok' => false
-                ], 404);
+                    'message' => $message,
+                    'status' => 200,
+                    'ok' => true
+                ], 200);
             } else {
 
-                $rolAsignado = RolAsignado::where('id_usuario', $usuario->id)
-                    ->where('id_rol', 2)
-                    ->first();
+                $rolAsignado = new RolAsignado();
+                $rolAsignado->id_usuario = $usuario->id;
+                $rolAsignado->id_rol = $idRol;
+                $rolAsignado->save();
 
-                if ($rolAsignado != null) {
+                $success = $this->creacionTokens($idRol, $usuario);
+                $message = $this->mensajeExito($idRol);
 
-                    return response()->json([
-                        'message' => 'Usuario ya es administrador',
-                        'status' => 200,
-                        'ok' => true
-                    ], 200);
-                } else {
-
-                    $rolAsignado = new RolAsignado();
-                    $rolAsignado->id_usuario = $usuario->id;
-                    $rolAsignado->id_rol = 2;
-                    $rolAsignado->save();
-
-                    return response()->json([
-                        'message' => 'Usuario asignado como administrador',
-                        'status' => 200,
-                        'ok' => true
-                    ], 200);
-                }
+                return response()->json([
+                    'usuario' => $success,
+                    'message' => $message,
+                    'status' => 200,
+                    'ok' => true
+                ], 200);
             }
         } catch (\Exception $e) {
             return response()->json([
@@ -55,5 +56,77 @@ class RolAsignadoController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function mensajeExito($idRol)
+    {
+        $message = '';
+
+        switch ($idRol) {
+            case 1:
+                $message = 'Usuario asignado como colaborador';
+                break;
+            case 2:
+                $message = 'Usuario asignado como administrador';
+                break;
+            case 3:
+                $message = 'Usuario asignado como diseñador';
+                break;
+            case 4:
+                $message = 'Usuario asignado como clasificador';
+                break;
+            default:
+                $message = 'Rol no reconocido';
+                break;
+        }
+        return $message;
+    }
+
+    public function mensajeError($idRol)
+    {
+        $message = '';
+
+        switch ($idRol) {
+            case 1:
+                $message = 'El usuario ya es colaborador';
+                break;
+            case 2:
+                $message = 'El usuario ya es administrador';
+                break;
+            case 3:
+                $message = 'El usuario ya es diseñador';
+                break;
+            case 4:
+                $message = 'El usuario ya es clasificador';
+                break;
+            default:
+                $message = 'Rol no reconocido';
+                break;
+        }
+
+        return $message;
+    }
+
+    public function creacionTokens($idRol, $usuario)
+    {
+        switch ($idRol) {
+            case 1:
+                $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken;
+                break;
+            case 2:
+                $success['token'] =  $usuario->createToken('access_token', ["administrador"])->plainTextToken;
+                break;
+            case 3:
+                $success['token'] =  $usuario->createToken('access_token', ["disenador"])->plainTextToken;
+                break;
+            case 4:
+                $success['token'] =  $usuario->createToken('access_token', ["clasificador"])->plainTextToken;
+                break;
+            default:
+                $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken;
+                break;
+        }
+
+        return $success;
     }
 }
