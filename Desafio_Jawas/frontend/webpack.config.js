@@ -7,6 +7,7 @@ module.exports = {
         login: './js/login.js',
         registro: './js/registro.js',
         home: './js/home.js',
+        preHome: './js/preHome.js',
         gestionUsuarios: './js/gestionUsuarios.js',
         donaciones: './js/gestion_lotes.js',
         modificarCrearUsuario: './js/modificarCrearUsuario.js',

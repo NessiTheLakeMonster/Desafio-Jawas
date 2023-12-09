@@ -2,7 +2,7 @@ export async function getUsuarios() {
     var options = {
         method: 'GET',
         headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token"),
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -16,6 +16,7 @@ export async function getUsuarioById(id) {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -29,6 +30,7 @@ export async function deleteUsuario(id) {
     var options = {
         method: 'DELETE',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }

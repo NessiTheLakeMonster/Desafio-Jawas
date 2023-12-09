@@ -1,4 +1,3 @@
-import { Usuario } from "./utils/clases.js";
 import { validarNombre, validarApellido, validarEmail, validarPasswd } from "./utils/validaciones.js";
 import { guardarUsuario } from "./http/http_registro.js";
 
@@ -78,7 +77,9 @@ btnRegistro.addEventListener("click", function (e) {
     if (validar()) {
         guardarUsuario(cogerDatos())
             .then(data => {
+                console.log(data);
                 if (data.status == 200) {
+                    /* sessionStorage.setItem("token", data.usuario.token); */
                     msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
                     msgCuentaCreada.style.color = "green";
                     window.location.href = "login.html";

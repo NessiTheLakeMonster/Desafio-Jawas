@@ -3,45 +3,158 @@
 namespace App\Http\Controllers;
 
 use App\Models\RolAsignado;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 class RolAsignadoController extends Controller
 {
-    public function asignarAdministrador(Request $request, $id)
+    /**
+     * @author Inés Mª Barrera Llerena
+     * @summary Asignar roles a los usuarios
+     *
+     * @param int $idUsuario
+     * @param int $idRol
+     * @return void
+     */
+    public function asignarRol($idUsuario, $idRol)
     {
         try {
-            $auth = Auth::user();
+            $usuario = User::findOrFail($idUsuario);
 
-            $rol = DB::table('rol_asignado')->insert([
-                'id_usuario' => $id,
-                'id_rol' => 2
-            ]);
+            $rolAsignado = RolAsignado::where('id_usuario', $usuario->id)
+                ->where('id_rol', $idRol)
+                ->first();
 
-            $user = $request->user();
+            if ($rolAsignado != null) {
 
-            if (!$user) {
+                $message = $this->mensajeError($idRol);
+
                 return response()->json([
-                    'message' => 'No authenticated user',
-                    'status' => 401,
-                    'ok' => false
-                ], 401);
+                    'message' => $message,
+                    'status' => 200,
+                    'ok' => true
+                ], 200);
+            } else {
+
+                $rolAsignado = new RolAsignado();
+                $rolAsignado->id_usuario = $usuario->id;
+                $rolAsignado->id_rol = $idRol;
+                $rolAsignado->save();
+
+                // TODO creo que ya no se necesitan crear los tokens
+                /* $success = $this->creacionTokens($idRol, $usuario); */
+                $message = $this->mensajeExito($idRol);
+
+                return response()->json([
+                    /* 'usuario' => $success, */
+                    'message' => $message,
+                    'status' => 200,
+                    'ok' => true
+                ], 200);
             }
-
-            $success['token'] =  $user->createToken('access_token', ["administrador"])->plainTextToken;
-
-            return response()->json([
-                'usuario' => $success,
-                'message' => 'Rol asignado correctamente',
-                'status' => 200,
-                'ok' => true
-            ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error en el servidor',
+                'message' => 'Error al asignar usuario como administrador',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function mensajeExito($idRol)
+    {
+        $message = '';
+
+        switch ($idRol) {
+            case 1:
+                $message = 'Usuario asignado como colaborador';
+                break;
+            case 2:
+                $message = 'Usuario asignado como administrador';
+                break;
+            case 3:
+                $message = 'Usuario asignado como diseñador';
+                break;
+            case 4:
+                $message = 'Usuario asignado como clasificador';
+                break;
+            default:
+                $message = 'Rol no reconocido';
+                break;
+        }
+        return $message;
+    }
+
+    public function mensajeError($idRol)
+    {
+        $message = '';
+
+        switch ($idRol) {
+            case 1:
+                $message = 'El usuario ya es colaborador';
+                break;
+            case 2:
+                $message = 'El usuario ya es administrador';
+                break;
+            case 3:
+                $message = 'El usuario ya es diseñador';
+                break;
+            case 4:
+                $message = 'El usuario ya es clasificador';
+                break;
+            default:
+                $message = 'Rol no reconocido';
+                break;
+        }
+
+        return $message;
+    }
+
+    public function creacionTokens($idRol, $usuario)
+    {
+        switch ($idRol) {
+            case 1:
+                $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken;
+                break;
+            case 2:
+                $success['token'] =  $usuario->createToken('access_token', ["administrador"])->plainTextToken;
+                break;
+            case 3:
+                $success['token'] =  $usuario->createToken('access_token', ["diseñador"])->plainTextToken;
+                break;
+            case 4:
+                $success['token'] =  $usuario->createToken('access_token', ["clasificador"])->plainTextToken;
+                break;
+            default:
+                $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken;
+                break;
+        }
+
+        return $success;
+    }
+
+    /**
+     * @author Inés Mª Barrera Llerena
+     * @summary Mostrar los roles de un usuario
+     *
+     * @param int $idUsuario
+     * @return void
+     */
+    public function mostrarRoles($idUsuario)
+    {
+        try {
+            $usuario = DB::table('users')->where('id', $idUsuario)->first();
+
+            $roles = DB::table('rol_asignado')
+                ->join('rol', 'rol_asignado.id_rol', '=', 'rol.id')
+                ->where('rol_asignado.id_usuario', $usuario->id)
+                ->select('rol_asignado.*', 'rol.nombre as nombre_rol')
+                ->get();
+
+            return response()->json($roles);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error al mostrar roles',
                 'error' => $e->getMessage()
             ], 500);
         }

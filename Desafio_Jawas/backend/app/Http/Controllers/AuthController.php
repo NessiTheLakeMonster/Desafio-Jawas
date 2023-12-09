@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
+
+    /**
+     * @author Inés Mª Barrera Llerena
+     * @summary Inicio de sesión
+     * 
+     * @param Request $request
+     * @return void
+     */
     public function login(Request $request)
     {
 
@@ -41,11 +49,11 @@ class AuthController extends Controller
                 ], 401);
             } else {
 
-                /* $success['token'] =  $usuario->createToken('access_token', ["user"])->plainTextToken; */
-                $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken; // crear token
+                $success = $this->crearToken($usuario);
 
                 return response()->json([
-                    'usuario' => $success,
+                    'token' => $success['token'],
+                    'usuario' => $usuario,
                     'message' => 'Inicio de sesión',
                     'status' => 200,
                     'ok' => true
@@ -59,27 +67,39 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    /**
+     * @author Inés Mª Barrera Llerena
+     * @summary Creación del token mirando los roles asignados al usuario
+     * 
+     * @param User $usuario
+     * @return success, el cual contiene el token
+     */
+    public function crearToken($usuario)
     {
-        try {
-            $auth = Auth::user();
+        $permisos = [];
+        $rolAsignado = DB::table('rol_asignado')->where('id_usuario', $usuario->id)->get();
+        $rolesTotales = DB::table('rol')->get();
 
-            $nombre = $auth->nombre; // ejemplo de como seria util usar -> $auth = Auth::user(); para acceder a los datos del usuario que ha iniciado sesion
-
-            $request->user()->tokens()->delete();
-
-            return response()->json([
-                'message' => 'sesion cerrada',
-                'nombre' => $nombre
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error en el servidor',
-                'error' => $e->getMessage()
-            ], 500);
+        for ($i = 0; $i < count($rolAsignado); $i++) {
+            for ($j = 0; $j < count($rolesTotales); $j++) {
+                if ($rolAsignado[$i]->id_rol == $rolesTotales[$j]->id) {
+                    $permisos[] = $rolesTotales[$j]->nombre;
+                }
+            }
         }
+
+        $success['token'] =  $usuario->createToken('access_token', $permisos)->plainTextToken;
+
+        return $success;
     }
 
+    /**
+     * @author Inés Mª Barrera Llerena
+     * @summary Registro de un nuevo usuario
+     * 
+     * @param Request $request
+     * @return void
+     */
     public function registro(Request $request)
     {
 
@@ -98,11 +118,11 @@ class AuthController extends Controller
 
             ];
 
-            $validator = Validator::make($request->all(), [ // validacion de los campos
+            $validator = Validator::make($request->all(), [ 
                 'fotoPerfil' => 'string',
                 'nombre' => 'required|string|min:2|max:55',
                 'apellido' => 'required|string|min:2|max:55',
-                'email' => 'required|string|email|max:55|unique:users',
+                'email' => 'required|string|email|max:55|unique:users', // El email debe ser único
                 'password' => 'required|string|min:8|confirmed',
 
             ], $message);
@@ -118,19 +138,45 @@ class AuthController extends Controller
                 $usuario->password = Hash::make($request->password);
                 $usuario->save();
 
+                // Por defecto se asigna el rol de colaborador
                 DB::table('rol_asignado')->insert([
                     'id_Usuario' => $usuario->id,
                     'id_Rol' => 1
                 ]);
 
-                $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken;
-
                 return response()->json([
-                    'usuario' => $success,
                     'message' => 'usuario creado',
                     'status' => 200
                 ], 200);
             }
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error en el servidor',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * @author Inés Mª Barrera Llerena
+     * @summary Cierre de sesión de un usuario
+     * 
+     * @param Request $request
+     * @return void
+     */
+    public function logout(Request $request)
+    {
+        try {
+            $auth = Auth::user();
+
+            $nombre = $auth->nombre;
+
+            $request->user()->tokens()->delete();
+
+            return response()->json([
+                'message' => 'sesion cerrada',
+                'nombre' => $nombre
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error en el servidor',
