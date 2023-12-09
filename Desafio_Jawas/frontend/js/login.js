@@ -60,7 +60,6 @@ btnLogin.addEventListener("click", function (e) {
                     // TODO guardar el token en el local storage
                     /* localStorage.setItem("token", data.usuario.token); */
                     localStorage.setItem("usuarioId", data.usuario.id);
-                    console.log(data.usuario.id);
                     
                     sessionStorage.setItem("token", data.token);
                     msgInicioSesion.innerHTML = "Inicio de sesión correcto";

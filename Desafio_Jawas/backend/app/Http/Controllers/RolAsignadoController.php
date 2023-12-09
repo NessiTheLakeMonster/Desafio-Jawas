@@ -119,7 +119,7 @@ class RolAsignadoController extends Controller
                 $success['token'] =  $usuario->createToken('access_token', ["administrador"])->plainTextToken;
                 break;
             case 3:
-                $success['token'] =  $usuario->createToken('access_token', ["disenador"])->plainTextToken;
+                $success['token'] =  $usuario->createToken('access_token', ["diseñador"])->plainTextToken;
                 break;
             case 4:
                 $success['token'] =  $usuario->createToken('access_token', ["clasificador"])->plainTextToken;

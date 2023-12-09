@@ -33,7 +33,7 @@ Route::get('', function () {
 
 //-------------------------RUTAS DE ASIGNACIÓN DE ROL-------------------------
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/asignarRol/{idUsuario}/{idRol}', [RolAsignadoController::class, 'asignarRol'])->middleware(['midAdmin']);
+    Route::post('/asignarRol/{idUsuario}/{idRol}', [RolAsignadoController::class, 'asignarRol'])/* ->middleware(['midAdmin']) */;
     Route::get('/roles/{id}', [RolAsignadoController::class, 'mostrarRoles']);
 });
 

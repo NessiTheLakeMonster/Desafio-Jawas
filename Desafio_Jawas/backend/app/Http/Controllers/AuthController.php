@@ -41,11 +41,25 @@ class AuthController extends Controller
                 ], 401);
             } else {
 
-                /* $success['token'] =  $usuario->createToken('access_token', ["user"])->plainTextToken; */
-                $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken; // crear token
+                /* $rolAsignado = DB::table('rol_asignado')->where('id_usuario', $usuario->id)->get();
+                $permisos = [];
+                $rolesTotales = DB::table('rol')->get();
+
+                for ($i = 0; $i < count($rolAsignado); $i++) {
+                    for ($j = 0; $j < count($rolesTotales); $j++) {
+                        if ($rolAsignado[$i]->id_rol == $rolesTotales[$j]->id) {
+                            $permisos[] = $rolesTotales[$j]->nombre;
+                        }
+                    }
+                }
+
+                $success['token'] =  $usuario->createToken('access_token', $permisos)->plainTextToken; */
+
+                
+                $success = $this->crearToken($usuario);
 
                 return response()->json([
-                    'token' => $success['token'], // retornar token
+                    'token' => $success['token'],
                     'usuario' => $usuario,
                     'message' => 'Inicio de sesión',
                     'status' => 200,
@@ -60,12 +74,30 @@ class AuthController extends Controller
         }
     }
 
+    public function crearToken($usuario)
+    {
+        $permisos = [];
+        $rolAsignado = DB::table('rol_asignado')->where('id_usuario', $usuario->id)->get();
+        $rolesTotales = DB::table('rol')->get();
+
+        for ($i = 0; $i < count($rolAsignado); $i++) {
+            for ($j = 0; $j < count($rolesTotales); $j++) {
+                if ($rolAsignado[$i]->id_rol == $rolesTotales[$j]->id) {
+                    $permisos[] = $rolesTotales[$j]->nombre;
+                }
+            }
+        }
+        $success['token'] =  $usuario->createToken('access_token', $permisos)->plainTextToken;
+
+        return $success;
+    }
+
     public function logout(Request $request)
     {
         try {
             $auth = Auth::user();
 
-            $nombre = $auth->nombre; // ejemplo de como seria util usar -> $auth = Auth::user(); para acceder a los datos del usuario que ha iniciado sesion
+            $nombre = $auth->nombre;
 
             $request->user()->tokens()->delete();
 
@@ -124,10 +156,10 @@ class AuthController extends Controller
                     'id_Rol' => 1
                 ]);
 
-                $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken;
+                /* $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken; */
 
                 return response()->json([
-                    'usuario' => $success,
+                    /* 'usuario' => $success, */
                     'message' => 'usuario creado',
                     'status' => 200
                 ], 200);
