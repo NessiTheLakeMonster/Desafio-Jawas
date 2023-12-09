@@ -41,4 +41,33 @@ export function ocultarBotones() {
     btnClasificador.hidden = true;
 }
 
+// Botones
+btnAdmin.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    localStorage.setItem("rol", "administrador");
+    window.location.href = "home.html";
+});
+
+btnColaborador.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    localStorage.setItem("rol", "colaborador");
+    window.location.href = "home.html";
+});
+
+btnDisenador.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    localStorage.setItem("rol", "diseñador");
+    window.location.href = "home.html";
+});
+
+btnClasificador.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    localStorage.setItem("rol", "clasificador");
+    window.location.href = "home.html";
+});
+
 _Init();

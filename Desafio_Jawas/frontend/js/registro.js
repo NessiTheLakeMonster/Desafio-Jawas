@@ -77,8 +77,9 @@ btnRegistro.addEventListener("click", function (e) {
     if (validar()) {
         guardarUsuario(cogerDatos())
             .then(data => {
+                console.log(data);
                 if (data.status == 200) {
-                    sessionStorage.setItem("token", data.usuario.token);
+                    /* sessionStorage.setItem("token", data.usuario.token); */
                     msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
                     msgCuentaCreada.style.color = "green";
                     window.location.href = "login.html";

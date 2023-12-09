@@ -42,11 +42,12 @@ class RolAsignadoController extends Controller
                 $rolAsignado->id_rol = $idRol;
                 $rolAsignado->save();
 
-                $success = $this->creacionTokens($idRol, $usuario);
+                // TODO creo que ya no se necesitan crear los tokens
+                /* $success = $this->creacionTokens($idRol, $usuario); */
                 $message = $this->mensajeExito($idRol);
 
                 return response()->json([
-                    'usuario' => $success,
+                    /* 'usuario' => $success, */
                     'message' => $message,
                     'status' => 200,
                     'ok' => true
@@ -132,6 +133,13 @@ class RolAsignadoController extends Controller
         return $success;
     }
 
+    /**
+     * @author Inés Mª Barrera Llerena
+     * @summary Mostrar los roles de un usuario
+     *
+     * @param int $idUsuario
+     * @return void
+     */
     public function mostrarRoles($idUsuario)
     {
         try {
