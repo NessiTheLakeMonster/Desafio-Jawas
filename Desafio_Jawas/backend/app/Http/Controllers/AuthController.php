@@ -45,7 +45,8 @@ class AuthController extends Controller
                 $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken; // crear token
 
                 return response()->json([
-                    'usuario' => $success,
+                    'token' => $success['token'], // retornar token
+                    'usuario' => $usuario,
                     'message' => 'Inicio de sesión',
                     'status' => 200,
                     'ok' => true

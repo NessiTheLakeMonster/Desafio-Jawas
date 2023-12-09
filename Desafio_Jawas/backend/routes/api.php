@@ -33,7 +33,7 @@ Route::get('', function () {
 
 //-------------------------RUTAS DE ASIGNACIÓN DE ROL-------------------------
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/asignarRol/{idUsuario}/{idRol}', [RolAsignadoController::class, 'asignarRol']);
+    Route::post('/asignarRol/{idUsuario}/{idRol}', [RolAsignadoController::class, 'asignarRol'])->middleware(['midAdmin']);
     Route::get('/roles/{id}', [RolAsignadoController::class, 'mostrarRoles']);
 });
 
@@ -50,8 +50,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('usuario')->group(function () {
         //LISTAR USUARIOS
-        /* Route::get('/listar', [UserController::class, 'listar'])->middleware(['midAdmin', 'midColaborador', 'midClasificador', 'midDisenador']); */
-        Route::get('/listar', [UserController::class, 'listar']);
+        Route::get('/listar', [UserController::class, 'listar'])->middleware(['midAdmin']);
         //MOSTRAR USUARIO BUSCADO POR ID
         Route::get('/mostrar/{id}', [UserController::class, 'buscar']);
         //MODIFICAR USUARIO
