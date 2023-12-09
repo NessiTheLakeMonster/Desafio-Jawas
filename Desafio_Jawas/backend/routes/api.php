@@ -85,18 +85,16 @@ Route::prefix('componentes')->group(function () {
     Route::delete('/eliminar/{id}', [App\Http\Controllers\ComponenteController::class, 'eliminar']);
 });
 
-//GESTIONAR INVENTARIO
-Route::prefix('inventario')->group(function () {
-    //LISTAR INVENTARIO
-    Route::get('/mostrar', [InventarioController::class, 'mostrar']);
-    //MODIFICAR INVENTARIO (solo cantidades)
-    Route::put('/modificar/{id}', [InventarioController::class, 'modificarCantidad']);
+Route::middleware(['auth:sanctum', 'midAdmin'])->group(function () {
 
-    //TODO: NO SE USA
-    //MOSTRAR INVENTARIO BUSCADO POR ID
-    //ELIMINAR INVENTARIO
-    //CREAR INVENTARIO
-
+    //GESTIONAR INVENTARIO
+    Route::prefix('inventario')->group(function () {
+        
+        //LISTAR INVENTARIO
+        Route::get('/mostrar', [InventarioController::class, 'mostrar']);
+        //MODIFICAR INVENTARIO (solo cantidades)
+        Route::put('/modificar/{id}', [InventarioController::class, 'modificarCantidad']);
+    });
 });
 
 //-------------------------RUTAS COLABORADOR-------------------------
