@@ -41,7 +41,8 @@ class AuthController extends Controller
                 ], 401);
             } else {
 
-                $success['token'] =  $usuario->createToken('access_token', ["user"])->plainTextToken; // crear token
+                /* $success['token'] =  $usuario->createToken('access_token', ["user"])->plainTextToken; */
+                $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken; // crear token
 
                 return response()->json([
                     'usuario' => $success,
@@ -122,7 +123,7 @@ class AuthController extends Controller
                     'id_Rol' => 1
                 ]);
 
-                $success['token'] =  $usuario->createToken('access_token', ["user"])->plainTextToken;
+                $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken;
 
                 return response()->json([
                     'usuario' => $success,
