@@ -31,23 +31,30 @@ Route::get('', function () {
     return response()->json("No autorizado", 203);
 })->name('nologin');
 
-//-------------------------RUTAS DE ASIGNACIÓN DE ROL-------------------------
-Route::post('/asignarAdmin/{id}', [RolAsignadoController::class, 'asignarAdministrador']);
-
-// RUTAS DE REGISTRO, LOGIN Y LOGOUT
+// ----------------------RUTAS DE REGISTRO, LOGIN Y LOGOUT----------------------
 
 Route::post('/registro', [AuthController::class, 'registro']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
+
+//-------------------------RUTAS DE ASIGNACIÓN DE ROL-------------------------
+
+Route::middleware('auth:sanctum')->group(function () {
+    //ASIGNAR UN NUEVO ROL AL USUARIO
+    Route::post('/asignarRol/{idUsuario}/{idRol}', [RolAsignadoController::class, 'asignarRol'])->middleware(['midAdmin']);
+    //VER LOS ROLES ASIGNADOS AL USUARIO
+    Route::get('/roles/{id}', [RolAsignadoController::class, 'mostrarRoles']);
+});
+
 //-------------------------RUTAS ADMINISTRADOR-------------------------
 
 //GESTIONAR USUARIOS
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'midAdmin'])->group(function () {
+
     Route::prefix('usuario')->group(function () {
         //LISTAR USUARIOS
-        /* Route::get('/listar', [UserController::class, 'listar'])->middleware(['midAdmin', 'midColaborador', 'midClasificador', 'midDisenador']); */
         Route::get('/listar', [UserController::class, 'listar']);
         //MOSTRAR USUARIO BUSCADO POR ID
         Route::get('/mostrar/{id}', [UserController::class, 'buscar']);
@@ -58,7 +65,6 @@ Route::middleware('auth:sanctum')->group(function () {
         // MODIFICAR CONTRASEÑA
         Route::put('/modPasswd/{id}', [UserController::class, 'modificarPasswd']);
         //CREAR USUARIO
-        /* Route::post('/crear', [UserController::class, 'crear']); */
         Route::post('/registro', [AuthController::class, 'registro']);
     });
 });

@@ -19,6 +19,7 @@ export async function modificar(datos, idUsuario) {
     var options = {
         method: 'PUT',
         headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
@@ -48,6 +49,7 @@ export async function modificarPasswd(datos, idUsuario) {
     var options = {
         method: 'PUT',
         headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },

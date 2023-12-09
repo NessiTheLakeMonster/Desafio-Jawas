@@ -86,7 +86,6 @@ export function _Init() {
                     localStorage.removeItem('usuarioSeleccionado');
 
                     location.reload();
-
                 }
             });
         });

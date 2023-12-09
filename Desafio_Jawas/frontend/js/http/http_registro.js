@@ -26,7 +26,7 @@ export async function guardarUsuario(datos) {
         body: bodyJson 
     };
 
-    const response = await fetch("http://127.0.0.1:8000/api/registro", options);
+    const response = await fetch("http://localhost:8000/api/registro", options);
     const data = await response.json();
     return data;
 }
