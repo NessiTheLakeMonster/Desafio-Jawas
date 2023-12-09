@@ -22,7 +22,7 @@ let msgErrorBuscar = document.getElementById("msgErrorBuscar");
 
 //mensaje de error
 let msgErrorComponente = document.getElementById("msgErrorComponente");
-let msgComponenteInsertado = document.getElementById("msgComponenteInsertado");
+
 
 /**
  * @author Patricia Mota
@@ -98,16 +98,28 @@ export function _Init(){
 
 
 btnAddComponente.addEventListener('click',  function(e) {
+    e.preventDefault();
+
+    if (!validar()) {
+        msgErrorComponente.innerHTML = "Los datos ingresados no son válidos, por favor revise los campos";
+        msgErrorComponente.style.color = "red";
+        return;
+    } else {
+        msgErrorComponente.innerHTML = "";
+    }
 
     let datos = guardarComponente();
     addComponente(datos)
-
         .then(data => {
-        
             if (data.nombre) {
                 msgErrorComponente.innerHTML = "Componente añadido con éxito";
                 msgErrorComponente.style.color = "green";
-        
+                document.getElementById("nombreComponente").value = "";
+                document.getElementById("hardware").value = "";
+
+                tablaComponentes.innerHTML = "";
+                _Init();
+            
             } else {
                 msgErrorComponente.innerHTML = "Error al añadir el componente";
                 msgErrorComponente.style.color = "red";

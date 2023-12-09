@@ -153,6 +153,8 @@ export function validarNombreHardware(nombre, msgErrorNombre) {
         nombre.style.borderColor = "green";
     }
 
+    return esValido;
+
 
 }
 
@@ -171,4 +173,6 @@ export function validarHardware(hardware, msgErrorHardware) {
         esValido = true;
         hardware.style.borderColor = "green";
     }
+
+    return esValido;
 }
