@@ -23,29 +23,38 @@
 
         <h1>Bienvenido, elige con que función trabajar</h1>
 
-            <button>
-            <a href="gestionUsuarios.html">Gestionar Usuarios</a>
-            </button>
-            
-            <button>
-            <a href="donacion.html">Donar un lote</a>
-            </button>
-            
-            <button>
-            <a href="despieceLote.html">Despiezar lote</a>
-            </button>
-            
-            <button>
-            <a href="recetas.html">Gestionar Recetas</a>
-            </button>
-            
-            <button>
-            <a href="componentes.html"> Gestionar componentes</a>
+        <!-- BOTONES DE ADMINISTRADOR -->
+            <button id="btnGestUsuarios">
+                <a href="gestionUsuarios.html">Gestionar Usuarios</a>
             </button>
 
-            <button>
+            <button id="btnGestInventario">
                 <a href="inventario.html"> Gestionar inventarios</a>
-                </button>
+            </button>
+        
+        <!-- BOTONES DE COLABORADOR -->
+            <button id="btnDonacion">
+                <a href="donacion.html">Donar un lote</a>
+            </button>
+        
+        <!-- BOTONES DE CLASIFICADOR -->
+            <button id="btnDespieceLote">
+                <a href="despieceLote.html">Despiezar lote</a>
+            </button>
+        
+        <!-- BOTONES DE DISEÑADOR -->
+            <button id="btnGestJoyas">
+                <a href="joyas.html">Gestionar Joyas</a>
+            </button>
+
+            <button id="btnGestRecetas">
+                <a href="recetas.html">Gestionar Recetas</a>
+            </button>
+            
+        <!-- BOTONES DE ADMINISTRADOR Y CLASIFICADOR -->
+            <button id="btnGestComponentes">
+                <a href="componentes.html"> Gestionar componentes</a>
+            </button>
 
         <video autoplay muted loop id="myVideo">
             <source src="../assets/video.mp4" type="video/mp4">
@@ -69,5 +78,6 @@
         </footer>
         
     </body>
-    <script type="module" src="../js/recetas.js"></script>
+    <!-- <script type="module" src="../js/recetas.js"></script> -->
+    <script type="module" src="../js/home.js"></script>
 </html>
