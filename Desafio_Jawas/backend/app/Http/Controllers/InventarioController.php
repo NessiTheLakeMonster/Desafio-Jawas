@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Inventario;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 
 class InventarioController extends Controller
@@ -11,7 +15,11 @@ class InventarioController extends Controller
     public function listar($id)
     {
         try {
-            $inventario = Inventario::where('id_componente', $id)->get();
+            $inventario = DB::table('inventario')
+            ->join('componente', 'inventario.idComponente', '=', 'componente.id')
+            ->select('inventario.*', 'componente.nombre as nombre_componente')
+            ->where('inventario.idComponente', '=', $id)
+            ->get();
             return response()->json($inventario);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

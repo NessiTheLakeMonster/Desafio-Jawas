@@ -88,4 +88,14 @@ class RecetaController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function getRecetasPorJoya($idTipoJoya)
+    {
+        try {
+            $recetas = Receta::where('idTipoJoya', $idTipoJoya)->get();
+            return response()->json($recetas, 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }

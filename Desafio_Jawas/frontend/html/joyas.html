@@ -4,15 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
     <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
-
-    <link rel="icon" type="image/png" href="../assets/Jawas.webp">
-
-    <title>Lotes</title>
+    <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
+    <title>Joyas</title>
 </head>
 
 <body>
+
     <header>
         <a href="../html/home.html" id="inicio">
             <img src="../assets/Jawas.webp" alt="logo" width="40px">
@@ -22,25 +20,27 @@
             <img src="../assets/perfil.png" alt="logo" width="35px">
         </a>
     </header>
-
-    <h1> LOTES PARA CLASIFICAR </h1>
-
+    <h1>JOYAS</h1>
     <div>
-        <input type="search" id="buscador" placeholder="Buscar lote">
+        <input type="search" id="buscador" placeholder="Buscar Joya">
         <button id="btnBuscar">Buscar</button>
         <span id="msgErrorBuscar"></span>
     </div>
 
+    <table id="tablaJoyas"></table>
+
     <div>
-        <table id="tablaLoteClasificador"></table>
+        <span id="msgErrorJoya"></span>
+    </div>
+
+    <table id="tablaModificarJoya"></table>
+
+    <div>
+        <input type="button" value="Modificar Joya" id="btnModificarJoya">
     </div>
 
     <div>
-        <span id="msgErrorLote"></span>
-    </div>
-
-    <div>
-        <input type="button" value="Desguazar Lote" id="btnDesguazar">
+        <input type="button" value="Generar Joya" id="btnGenerarJoya">
     </div>
 
     <video autoplay muted loop id="myVideo">
@@ -68,6 +68,6 @@
     </footer>
 
 </body>
-<script type="module" src="../js/despieceLote.js"></script>
+<script type="module" src="../js/joyas.js"></script>
 
 </html>

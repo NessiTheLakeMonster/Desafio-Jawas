@@ -4,15 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
     <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
-
-    <link rel="icon" type="image/png" href="../assets/Jawas.webp">
-
-    <title>Lotes</title>
+    <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
+    <title>Crear Joya</title>
 </head>
 
 <body>
+
     <header>
         <a href="../html/home.html" id="inicio">
             <img src="../assets/Jawas.webp" alt="logo" width="40px">
@@ -23,25 +21,29 @@
         </a>
     </header>
 
-    <h1> LOTES PARA CLASIFICAR </h1>
+    <h1>GENERADOR DE JOYA ALEATORIA</h1>
+    <h4>Debes seleccionar que tipo de joya deseas crear, que receta utilizar e insertar una imágen de referencia</h4>
+    <div id="generadorJoya">
+        <select id="selectJoya"></select>
+        <select id="selectReceta"></select>
+        <input type="file" id="inputImagen" name="inputImagen" accept="image/*">
+        <div id="respuesta"></div>
+        <img>
 
-    <div>
-        <input type="search" id="buscador" placeholder="Buscar lote">
-        <button id="btnBuscar">Buscar</button>
-        <span id="msgErrorBuscar"></span>
+        <input type="button" value="Generar Joya" id="btnGenerarJoya">
+        <input type="button" value="Crear otra Joya" id="btnVolverIntento">
+
+        <span id="msgsuficientesComponentes"></span>
     </div>
 
-    <div>
-        <table id="tablaLoteClasificador"></table>
+    <div id="inventario">
+        <h1>INVENTARIO</h1>
+        <table id="tablaInventario"> </table>
     </div>
 
-    <div>
-        <span id="msgErrorLote"></span>
-    </div>
 
-    <div>
-        <input type="button" value="Desguazar Lote" id="btnDesguazar">
-    </div>
+
+    <input type="button" value="Ver Joyas" id="btnVolverJoyas">
 
     <video autoplay muted loop id="myVideo">
         <source src="../assets/video.mp4" type="video/mp4">
@@ -68,6 +70,6 @@
     </footer>
 
 </body>
-<script type="module" src="../js/despieceLote.js"></script>
+<script type="module" src="../js/joyasDetalle.js"></script>
 
 </html>
