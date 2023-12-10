@@ -76,19 +76,19 @@ class AuthController extends Controller
      */
     public function crearToken($usuario)
     {
-        $permisos = [];
+        $abilities = [];
         $rolAsignado = DB::table('rol_asignado')->where('id_usuario', $usuario->id)->get();
         $rolesTotales = DB::table('rol')->get();
 
         for ($i = 0; $i < count($rolAsignado); $i++) {
             for ($j = 0; $j < count($rolesTotales); $j++) {
                 if ($rolAsignado[$i]->id_rol == $rolesTotales[$j]->id) {
-                    $permisos[] = $rolesTotales[$j]->nombre;
+                    $abilities[] = $rolesTotales[$j]->nombre;
                 }
             }
         }
 
-        $success['token'] =  $usuario->createToken('access_token', $permisos)->plainTextToken;
+        $success['token'] =  $usuario->createToken('access_token', $abilities)->plainTextToken;
 
         return $success;
     }

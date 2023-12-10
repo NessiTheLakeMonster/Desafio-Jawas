@@ -1,63 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
-    <link rel="stylesheet" type="text/css" href="../css/despieceLote.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+        <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
+        <link rel="stylesheet" type="text/css" href="../css/despieceLote.css">
+  
+        <link rel="icon" type="image/png" href="../assets/Jawas.webp">
+        <title>Recetas</title>
+    </head>
 
-    <link rel="icon" type="image/png" href="../assets/Jawas.webp">
+    <body>
 
-    <title>Home</title>
-</head>
+        <header>
+            <a href="../html/home.html" id="inicio">
+                <img src="../assets/Jawas.webp" alt="logo" width="40px" >
+            </a>
+            <h1>JAWAS JOYAS</h1>
+            <a href="../html/perfil.html" id="perfil">
+                <img src="../assets/perfil.png" alt="logo" width="35px" >
+            </a>
+        </header>
 
-<body>
+        <h1>Bienvenido, elige con que función trabajar</h1>
 
-    <header>
-        <a href="../html/home.html" id="inicio">
-            <img src="../assets/Jawas.webp" alt="logo" width="40px">
-        </a>
-        <h1>JAWAS JOYAS</h1>
-        <a href="../html/perfil.html" id="perfil">
-            <img src="../assets/perfil.png" alt="logo" width="35px">
-        </a>
-    </header>
+        <!-- BOTONES DE ADMINISTRADOR -->
+            <button id="btnGestUsuarios">
+                <a href="gestionUsuarios.html">Gestionar Usuarios</a>
+            </button>
 
-    <h1>Bienvenido, elige con que función trabajar</h1>
+            <button id="btnGestInventario">
+                <a href="inventario.html"> Gestionar inventarios</a>
+            </button>
+        
+        <!-- BOTONES DE COLABORADOR -->
+            <button id="btnDonacion">
+                <a href="donacion.html">Donar un lote</a>
+            </button>
+        
+        <!-- BOTONES DE CLASIFICADOR -->
+            <button id="btnDespieceLote">
+                <a href="despieceLote.html">Despiezar lote</a>
+            </button>
+        
+        <!-- BOTONES DE DISEÑADOR -->
+            <button id="btnGestJoyas">
+                <a href="joyas.html">Gestionar Joyas</a>
+            </button>
 
-    <button>
-        <a href="gestionUsuarios.html">Gestionar Usuarios</a>
-    </button>
+            <button id="btnGestRecetas">
+                <a href="recetas.html">Gestionar Recetas</a>
+            </button>
+            
+        <!-- BOTONES DE ADMINISTRADOR Y CLASIFICADOR -->
+            <button id="btnGestComponentes">
+                <a href="componentes.html"> Gestionar componentes</a>
+            </button>
 
-    <button>
-        <a href="donacion.html">Donar un lote</a>
-    </button>
-
-    <button>
-        <a href="despieceLote.html">Despiezar lote</a>
-    </button>
-
-    <button>
-        <a href="recetas.html">Gestionar Recetas</a>
-    </button>
-
-    <button>
-        <a href="componentes.html"> Gestionar componentes</a>
-    </button>
-
-    <button>
-        <a href="inventario.html"> Gestionar inventarios</a>
-    </button>
-
-    <button>
-        <a href="joyas.html"> Gestionar Joyas</a>
-    </button>
-
-    <video autoplay muted loop id="myVideo">
-        <source src="../assets/video.mp4" type="video/mp4">
-    </video>
-
-    <footer>
+        <video autoplay muted loop id="myVideo">
+            <source src="../assets/video.mp4" type="video/mp4">
+        </video> 
+    
+        <footer>
         <div class="footer-contenido">
             <div class="redes-sociales">
                 <p>Puedes encontrarnos en:</p>
@@ -75,8 +80,7 @@
             </div>
         </div>
     </footer>
-
-</body>
-<script type="module" src="../js/home.js"></script>
-
+        
+  </body>
+    <script type="module" src="../js/home.js"></script>
 </html>

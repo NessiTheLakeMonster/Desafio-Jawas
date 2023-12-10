@@ -8,6 +8,7 @@ export async function getRecetas() {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -22,6 +23,7 @@ export async function getReceta(id) {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -37,6 +39,7 @@ export async function getIngredientes(id_receta) {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -62,6 +65,7 @@ export async function modificarIngrediente(datos) {
     var options = {
         method: 'PUT',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
@@ -87,6 +91,7 @@ export async function recetaNueva(idTipoJoya) {
     var option = {
         method: 'POST',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
@@ -106,7 +111,9 @@ export async function getJoyas() {
     var options = {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     };
     const response = await fetch(`http://localhost:8000/api/joya/tipos`, options);
@@ -119,7 +126,9 @@ export async function getComponentes() {
     var options = {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     };
     const response = await fetch(`http://localhost:8000/api/componentes/listar`, options);
@@ -140,6 +149,7 @@ export async function addIngrediente(id_receta, datos) {
     var options = {
         method: 'POST',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
@@ -156,6 +166,7 @@ export async function getIngredientesNuevos(id_receta) {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }

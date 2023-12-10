@@ -3,7 +3,9 @@ export async function getComponentes() {
     var options = {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     };
     const response = await fetch(`http://localhost:8000/api/componentes/listar`, options);
@@ -16,7 +18,9 @@ export async function getComponente(id) {
     var options = {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     };
     const response = await fetch(`http://localhost:8000/api/componentes/mostrar/${id}`, options);
@@ -36,7 +40,9 @@ export async function addComponente(datos) {
     var options = {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         },
         body: bodyJson
     };

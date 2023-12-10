@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RolAsignado;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
@@ -102,6 +103,7 @@ class UserController extends Controller
     public function delete($id)
     {
         try {
+            $rol = RolAsignado::where('id_usuario', $id)->delete();
             $usuario = User::findOrFail($id);
             $usuario->delete();
             return response()->json([
