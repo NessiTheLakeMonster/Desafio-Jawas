@@ -45,7 +45,7 @@ export async function getJoya(id) {
 }
 
 //MODIFICAR LA IMG DE LA JOYA
-export async function modificarImg(datos) {
+export async function modificarImg(formData) {
 
     let id = localStorage.getItem('joyaId');
 
@@ -54,7 +54,7 @@ export async function modificarImg(datos) {
         headers: {
             "Access-Control-Allow-Origin": "*"
         },
-        body: datos
+        body: formData
     };
     const response = await fetch(`http://localhost:8000/api/joya/modificar/${id}`, options);
     const data = await response.json();
@@ -64,25 +64,17 @@ export async function modificarImg(datos) {
 //GENERADOR DE JOYAS ALEATORIAS
 export async function generarJoya(datos) {
 
-    let bodyJson = JSON.stringify(
-        {
-            "idTipoJoya": datos.idTipoJoya,
-            "idReceta": datos.idReceta,
-            "foto": datos.foto
-
-        }
-    );
-
     var options = {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
-        body: bodyJson
+        body: datos
     };
     const response = await fetch(`http://localhost:8000/api/joya/generar`, options);
     const data = await response.json();
+
     return data;
 }
 
@@ -131,3 +123,24 @@ export async function verificarComponentes(idReceta) {
     return data;
 
 }
+
+export async function subirImagen(imagen) {
+    let headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)"
+       }
+       
+    //    let bodyContent = new FormData();
+    //    bodyContent.append("image", imagen);
+       
+       let response = await fetch("http://127.0.0.1:8000/api/joya/subir", { 
+         method: "POST",
+         body: imagen,
+         headers: headersList
+       });
+       
+       let data = await response.json();
+       console.log(data);
+       return data
+
+    }

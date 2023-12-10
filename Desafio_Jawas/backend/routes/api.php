@@ -9,7 +9,7 @@ use App\Http\Controllers\LoteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolAsignadoController;
 use App\Http\Controllers\InventarioController;
-
+use App\Http\Controllers\JoyaController;
 use App\Models\User;
 
 /*
@@ -166,6 +166,9 @@ Route::prefix('joya')->group(function () {
     //VERIFICAR SI HAY SUFICIENTES COMPONENTES EN EL INVENTARIO Y CUANTAS JOYAS PUEDE HACER
     Route::get('/componentes/{idReceta}', [App\Http\Controllers\JoyaController::class, 'componenteSuficiente']);
     //MOSTRAR INVENTARIO > /INVENTARIO/MOSTAR 
+
+    //SUBIR IMAGEN JOYA
+    Route::post('/subir', [JoyaController::class,'cargarImagen']);
 
     //TODO:NO SE USA
     //GESTIONAR CRUD JOYAS 
