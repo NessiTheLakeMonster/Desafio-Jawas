@@ -50,7 +50,7 @@ export async function modificarImg(formData) {
     let id = localStorage.getItem('joyaId');
 
     var options = {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             "Access-Control-Allow-Origin": "*"
         },
@@ -129,9 +129,6 @@ export async function subirImagen(imagen) {
         "Accept": "*/*",
         "User-Agent": "Thunder Client (https://www.thunderclient.com)"
        }
-       
-    //    let bodyContent = new FormData();
-    //    bodyContent.append("image", imagen);
        
        let response = await fetch("http://127.0.0.1:8000/api/joya/subir", { 
          method: "POST",

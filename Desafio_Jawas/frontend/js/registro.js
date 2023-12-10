@@ -1,5 +1,5 @@
 import { validarNombre, validarApellido, validarEmail, validarPasswd } from "./utils/validaciones.js";
-import { guardarUsuario } from "./http/http_registro.js";
+import { guardarUsuario, subirImagenUsuario } from "./http/http_registro.js";
 
 // Campos del formulario de registro
 let fotoPerfil = document.getElementById("fotoPerfilRegistro");
@@ -22,10 +22,14 @@ let msgCuentaCreada = document.getElementById("msgExito");
 // Botón de registro
 const btnRegistro = document.getElementById("btnRegistro");
 
+let formImagen = document.getElementById("formImagen");
+let inputImagen = formImagen.elements.namedItem("image");
+let msgErrorImagen = document.getElementById("msgErrorImagen");
+
 let usuario = [];
 
 // Funciones
-function cogerDatos() {
+/* function cogerDatos() {
     let datos = {
         fotoPerfil: fotoPerfil.value,
         nombre: nombre.value,
@@ -36,7 +40,7 @@ function cogerDatos() {
     };
 
     return datos;
-}
+} */
 
 function validar() {
     limpiarErrores();
@@ -70,27 +74,58 @@ function limpiarErrores() {
     msgCuentaCreada.textContent = "";
 }
 
+formImagen.addEventListener('submit', function (e) {
+    e.preventDefault();
+});
+
+
 // Eventos
 btnRegistro.addEventListener("click", function (e) {
     e.preventDefault();
 
-    if (validar()) {
-        guardarUsuario(cogerDatos())
-            .then(data => {
-                console.log(data);
-                if (data.status == 200) {
-                    /* sessionStorage.setItem("token", data.usuario.token); */
-                    msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
-                    msgCuentaCreada.style.color = "green";
-                    window.location.href = "login.html";
-                } else {
-                    msgCuentaCreada.innerHTML = "Error al crear la cuenta";
-                    msgCuentaCreada.style.color = "red";
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
+    if (inputImagen.files.length === 0) {
+        msgErrorImagen.textContent = 'Por favor, inserta una imagen.';
+        msgErrorImagen.style.color = 'red';
+    } else {
+        let fotoJoya = inputImagen.files[0];
 
+        let formData = new FormData();
+        formData.append('image', fotoJoya)
+
+        console.log(formData.get("image"))
+        subirImagenUsuario(formData)
+            .then(urlImagen => {
+                console.log(urlImagen);
+                let url = urlImagen.url;
+
+                let datos = JSON.stringify({
+                    fotoPerfil: url,
+                    nombre: nombre.value,
+                    apellido: apellido.value,
+                    email: email.value,
+                    passwd: passwd.value,
+                    confPasswd: confPasswd.value
+
+                });
+
+                guardarUsuario(datos)
+                    .then(data => {
+                        console.log(data);
+                        if (data.status == 200) {
+                            /* sessionStorage.setItem("token", data.usuario.token); */
+                            msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
+                            msgCuentaCreada.style.color = "green";
+                            window.location.href = "login.html";
+                        } else {
+                            msgCuentaCreada.innerHTML = "Error al crear la cuenta";
+                            msgCuentaCreada.style.color = "red";
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            });
+
+    }
 });
+

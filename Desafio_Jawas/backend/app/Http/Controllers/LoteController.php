@@ -37,14 +37,17 @@ class LoteController extends Controller
         $messages = [
             'required' => 'Campo obligatorio',
             'id_usuario.required' => 'El campo id_usuario es obligatorio',
-            'lugar_recogida.required' => 'El campo lugar_recogida es obligatorio',
+            'latitud.required' => 'El campo latitud es obligatorio',
+            'longitud.required' => 'El campo longitud es obligatorio',
             'id_usuario.integer' => 'El campo id_usuario debe ser un número entero',
             'id_usuario.exists' => 'El campo id_usuario no existe',
         ];
 
         $validator = Validator::make($request->all(), [
             'id_usuario' => 'required|integer|exists:users,id',
-            'lugar_recogida' => 'required|string',
+            'latitud' => 'required|string',
+            'longitud' => 'required|string',
+            //'lugar_recogida' => 'required|string',
         ], $messages);
 
         if ($validator->fails()) {
@@ -54,7 +57,9 @@ class LoteController extends Controller
         try {
             $lote = new Lote;
             $lote->id_usuario = $request->id_usuario;
-            $lote->lugar_recogida = $request->lugar_recogida;
+            $lote->latitud = $request->latitud;
+            $lote->longitud = $request->longitud;
+            ///$lote->lugar_recogida = $request->lugar_recogida;
             $lote->entregado = 1;
             $lote->cancelado = 0;
 
@@ -94,14 +99,18 @@ class LoteController extends Controller
         $messages = [
             'required' => 'Campo obligatorio',
             'id_usuario.required' => 'El campo id_usuario es obligatorio',
-            'lugar_recogida.required' => 'El campo lugar_recogida es obligatorio',
+            ///'lugar_recogida.required' => 'El campo lugar_recogida es obligatorio',
+            'latitud.required' => 'El campo latitud es obligatorio',
+            'longitud.required' => 'El campo longitud es obligatorio',
             'id_usuario.integer' => 'El campo id_usuario debe ser un número entero',
             'id_usuario.exists' => 'El campo id_usuario no existe',
         ];
 
         $validator = Validator::make($request->all(), [
             'id_usuario' => 'required|integer|exists:users,id',
-            'lugar_recogida' => 'required|string',
+            //'lugar_recogida' => 'required|string',
+            'latitud' => 'required|string',
+            'longitud' => 'required|string',
         ], $messages);
 
         if ($validator->fails()) {
@@ -113,7 +122,9 @@ class LoteController extends Controller
 
             if ($lote) {
                 $lote->id_usuario = $request->get('id_usuario');
-                $lote->lugar_recogida = $request->get('lugar_recogida');
+                $lote->latitud = $request->get('latitud');
+                $lote->longitud = $request->get('longitud');
+                //$lote->lugar_recogida = $request->get('lugar_recogida');
                 $lote->entregado = $request->get('entregado');
                 $lote->cancelado = $request->get('cancelado');
 

@@ -12,7 +12,9 @@ class Lote extends Model
 
     protected $fillable = [
         'id_usuario',
-        'lugar_recogida',
+        'latitud',
+        'longitud',
+        //'lugar_recogida',
         'entregado',
         'cancelado',
     ];

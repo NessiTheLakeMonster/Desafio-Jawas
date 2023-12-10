@@ -30,3 +30,20 @@ export async function guardarUsuario(datos) {
     const data = await response.json();
     return data;
 }
+export async function subirImagenUsuario(imagen) {
+    let headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)"
+       }
+       
+       let response = await fetch("http://localhost:8000/api/subir", { 
+         method: "POST",
+         body: imagen,
+         headers: headersList
+       });
+       
+       let data = await response.json();
+       console.log(data);
+       return data
+
+    }
