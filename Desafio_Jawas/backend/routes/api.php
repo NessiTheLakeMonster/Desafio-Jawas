@@ -9,7 +9,7 @@ use App\Http\Controllers\LoteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolAsignadoController;
 use App\Http\Controllers\InventarioController;
-
+use App\Http\Controllers\RolController;
 use App\Models\User;
 
 /*
@@ -45,6 +45,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/asignarRol/{idUsuario}/{idRol}', [RolAsignadoController::class, 'asignarRol'])->middleware(['midAdmin']);
     //VER LOS ROLES ASIGNADOS AL USUARIO
     Route::get('/roles/{id}', [RolAsignadoController::class, 'mostrarRoles']);
+    //LISTAR TODOS LOS ROLES
+    Route::get('/roles', [RolController::class, 'listar']);
 });
 
 //-------------------------RUTAS ADMINISTRADOR-------------------------
