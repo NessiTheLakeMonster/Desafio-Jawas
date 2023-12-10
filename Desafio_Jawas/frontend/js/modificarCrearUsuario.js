@@ -111,8 +111,12 @@ export function validarModificarFormulario() {
 export function crearUsuario() {
     titulo.textContent = 'Crear Usuario';
 
-    btnEnviar.value = 'Crear'
+    btnEnviar.hidden = true;
     btnCambiarPasswd.hidden = true;
+    btnCrearUsuario.value = 'Crear';
+    
+    selectRoles.hidden = true;
+    btnAddRol.hidden = true;
 
     lblPasswd.textContent = 'Contraseña: ';
     lblConfPasswd.textContent = 'Repite la contraseña: ';
