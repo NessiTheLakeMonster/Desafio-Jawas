@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 
 class AuthController extends Controller
@@ -94,7 +95,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @author Inés Mª Barrera Llerena
+     * @author Inés Mª Barrera Llerena ft. Patricia Mota
      * @summary Registro de un nuevo usuario
      * 
      * @param Request $request
@@ -115,15 +116,17 @@ class AuthController extends Controller
                 'min' => 'El campo :contraseña debe tener como mínimo :min caracteres',
                 'unique' => 'El campo :email ya existe',
                 'confirmed' => 'El campo :contraseña debe ser igual al campo de confirmación',
+                'max' => 'El campo se excede del tamaño máximo'
 
             ];
 
             $validator = Validator::make($request->all(), [ 
-                'fotoPerfil' => 'string',
+
                 'nombre' => 'required|string|min:2|max:55',
                 'apellido' => 'required|string|min:2|max:55',
                 'email' => 'required|string|email|max:55|unique:users', // El email debe ser único
                 'password' => 'required|string|min:8|confirmed',
+                //'fotoPerfil' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
 
             ], $message);
 
@@ -145,6 +148,7 @@ class AuthController extends Controller
                 ]);
 
                 return response()->json([
+                    'usuario' => $usuario,
                     'message' => 'usuario creado',
                     'status' => 200
                 ], 200);
@@ -156,8 +160,7 @@ class AuthController extends Controller
             ], 500);
         }
     }
-
-    /**
+        /**
      * @author Inés Mª Barrera Llerena
      * @summary Cierre de sesión de un usuario
      * 
@@ -183,5 +186,31 @@ class AuthController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+    
+    public function cargarImagenUsuario(Request $request)
+    {
+
+        $messages = [
+            'max' => 'El campo se excede del tamaño máximo'
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'fotoPerfil' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], $messages);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
+
+        if ($request->hasFile('fotoPerfil')) {
+            $file = $request->file('fotoPerfil');
+            $path = $file->store('usuarios', 's3'); // 'perfiles' es la carpeta en tu bucket. Este método le asigna un UID a la imagen.
+
+            //$path = $file->storeAs('joyas', $file->getClientOriginalName(), 's3');
+            $url = Storage::disk('s3')->url($path);
+            return response()->json(['path' => $path, 'url' => $url], 200);
+        }
+
+        return response()->json(['error' => 'No se recibió ningún archivo.'], 400);
     }
 }

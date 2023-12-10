@@ -138,7 +138,6 @@ export function _Init() {
                 msgErrorJoya.style.color = "red";
             }
 
-            //TODO: modificar la imagen de la joya
             //botón guardar cambios
             window.guardarCambios = function (id) {
                 let inputImagen = document.getElementById(`inputImagen-${id}`);
@@ -149,10 +148,6 @@ export function _Init() {
                     let formData = new FormData();
                     formData.append('foto', nuevaImagen);
 
-                    // Comprueba si el archivo de imagen se adjunta correctamente al objeto FormData
-                    console.log(formData.get('foto'));
-
-                    // Llama a modificarImg y muestra un mensaje cuando se complete
                     modificarImg(formData)
                         .then(response => {
                             console.log(response);

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
+
+    <link rel="icon" type="image/png" href="../assets/Jawas.webp">
+    
     <title>Registro</title>
 </head>
 <body>
@@ -22,7 +25,11 @@
 
     <span id="msgExito"></span><br>
 
-    <input type="text" id="fotoPerfilRegistro" placeholder="foto"><br>
+    <form id="formImagen" action="http://127.0.0.1:8000/api/subir" method="post" enctype="multipart/form-data">
+        Añadir imagen: <input name="image" type="file" accept="image/*"/>
+        <input type="submit" name="subir" value="Subir imagen"/>
+        <span id="msgErrorImagen"></span><br>
+    </form>
 
     <input type="text" id="nombreRegistro">
     <label for="nombreRegistro">Nombre</label>
