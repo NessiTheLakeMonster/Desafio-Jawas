@@ -2,7 +2,9 @@ export async function getInventario() {
     var options = {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     };
 
@@ -21,7 +23,9 @@ export async function modificarInventario(id, data) {
     var options = {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         },
         body: bodyJSON
     };

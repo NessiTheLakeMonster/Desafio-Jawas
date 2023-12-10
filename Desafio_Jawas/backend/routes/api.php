@@ -69,27 +69,29 @@ Route::middleware(['auth:sanctum', 'midAdmin'])->group(function () {
     });
 });
 
+Route::middleware(['auth:sanctum', 'midAdmin', 'midClasificador'])->group(function () {
 
-//GESTIONAR COMPONENTES
-Route::prefix('componentes')->group(function () {
+    //GESTIONAR COMPONENTES
+    Route::prefix('componentes')->group(function () {
 
-    //LISTAR COMPONENTES
-    Route::get('/listar', [App\Http\Controllers\ComponenteController::class, 'listar']);
-    //MOSTRAR COMPONENTE BUSCADO POR ID
-    Route::get('/mostrar/{id}', [App\Http\Controllers\ComponenteController::class, 'mostrar']);
-    //CREAR COMPONENTE
-    Route::post('/crear', [App\Http\Controllers\ComponenteController::class, 'crear']);
+        //LISTAR COMPONENTES
+        Route::get('/listar', [App\Http\Controllers\ComponenteController::class, 'listar']);
+        //MOSTRAR COMPONENTE BUSCADO POR ID
+        Route::get('/mostrar/{id}', [App\Http\Controllers\ComponenteController::class, 'mostrar']);
+        //CREAR COMPONENTE
+        Route::post('/crear', [App\Http\Controllers\ComponenteController::class, 'crear']);
 
-    ///TODO: NO SE USA
-    Route::put('/modificar/{id}', [App\Http\Controllers\ComponenteController::class, 'modificar']);
-    Route::delete('/eliminar/{id}', [App\Http\Controllers\ComponenteController::class, 'eliminar']);
+        ///TODO: NO SE USA
+        Route::put('/modificar/{id}', [App\Http\Controllers\ComponenteController::class, 'modificar']);
+        Route::delete('/eliminar/{id}', [App\Http\Controllers\ComponenteController::class, 'eliminar']);
+    });
 });
 
 Route::middleware(['auth:sanctum', 'midAdmin'])->group(function () {
 
     //GESTIONAR INVENTARIO
     Route::prefix('inventario')->group(function () {
-        
+
         //LISTAR INVENTARIO
         Route::get('/mostrar', [InventarioController::class, 'mostrar']);
         //MODIFICAR INVENTARIO (solo cantidades)
@@ -98,6 +100,8 @@ Route::middleware(['auth:sanctum', 'midAdmin'])->group(function () {
 });
 
 //-------------------------RUTAS COLABORADOR-------------------------
+
+/* Route::middleware(['auth:sanctum', 'midColaborador'])->group(function () { */
 
 //GESTIONAR LOTES
 Route::prefix('lote')->group(function () {
@@ -116,29 +120,35 @@ Route::prefix('lote')->group(function () {
     Route::put('/modificar/{id}', [LoteController::class, 'modificar']);
     Route::delete('/eliminar/{id}', [LoteController::class, 'eliminar']);
 });
+/* }); */
 
 //-------------------------RUTAS CLASIFICADOR-------------------------
 
-//GESTIONAR DESGUACES
-Route::prefix('info_lote')->group(function () {
+Route::middleware(['auth:sanctum', 'midClasificador'])->group(function () {
 
-    //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS PARA CLASIFICAR
-    Route::get('/listar', [LoteController::class, 'listar']);
-    //MOSTRAR LOTE ENTREGADO BUSCADO POR ID 
-    Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
-    //CREAR COMPONENTE
-    Route::post('/crear', [App\Http\Controllers\ComponenteController::class, 'crear']);
-    //DESGUAZARÁ Y CLASIFICARÁ EL LOTE
-    Route::post('/desguazar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'crear']);
-    //MOSTRAR COMPONENTES DEL LOTE DESGUAZADO
-    Route::get('/listar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'listar']);
+    //GESTIONAR DESGUACES
+    Route::prefix('info_lote')->group(function () {
 
-    //TODO:NO SE USA
-    Route::get('/mostrarr/{id}', [App\Http\Controllers\InfoLoteController::class, 'mostrar']);
+        //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS PARA CLASIFICAR
+        Route::get('/listar', [LoteController::class, 'listar']);
+        //MOSTRAR LOTE ENTREGADO BUSCADO POR ID 
+        Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
+        //CREAR COMPONENTE
+        Route::post('/crear', [App\Http\Controllers\ComponenteController::class, 'crear']);
+        //DESGUAZARÁ Y CLASIFICARÁ EL LOTE
+        Route::post('/desguazar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'crear']);
+        //MOSTRAR COMPONENTES DEL LOTE DESGUAZADO
+        Route::get('/listar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'listar']);
+
+        //TODO:NO SE USA
+        Route::get('/mostrarr/{id}', [App\Http\Controllers\InfoLoteController::class, 'mostrar']);
+    });
 });
 
 
 //-------------------------RUTAS DISEÑADOR-------------------------
+
+/* Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () { */
 
 //GESTIONAR JOYAS
 Route::prefix('joya')->group(function () {
@@ -163,36 +173,43 @@ Route::prefix('joya')->group(function () {
     Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']); //TODO:NO SE USA
 
 });
+/* }); */
 
-//GESTIONAR RECETAS
-Route::prefix('receta')->group(function () {
+Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
 
-    //MOSTRAR LISTA DE TODAS LAS RECETAS
-    Route::get('/listar', [App\Http\Controllers\RecetaController::class, 'listar']);
-    //MOSTRAR RECETA BUSCADA POR ID
-    Route::get('/mostrar/{id}', [App\Http\Controllers\RecetaController::class, 'mostrar']);
-    //VER INGREDIENTES DE LA RECETA CONCRETA
-    Route::get('/listar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'listar']);
-    //CREAR RECETA NUEVA -> BOTÓN DE CREAR RECETA
-    Route::post('/crear', [App\Http\Controllers\RecetaController::class, 'crear']);
+    //GESTIONAR RECETAS
+    Route::prefix('receta')->group(function () {
+
+        //MOSTRAR LISTA DE TODAS LAS RECETAS
+        Route::get('/listar', [App\Http\Controllers\RecetaController::class, 'listar']);
+        //MOSTRAR RECETA BUSCADA POR ID
+        Route::get('/mostrar/{id}', [App\Http\Controllers\RecetaController::class, 'mostrar']);
+        //VER INGREDIENTES DE LA RECETA CONCRETA
+        Route::get('/listar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'listar']);
+        //CREAR RECETA NUEVA -> BOTÓN DE CREAR RECETA
+        Route::post('/crear', [App\Http\Controllers\RecetaController::class, 'crear']);
 
 
-    //TODO: NO SE USA
-    Route::put('/modificar/{id}', [App\Http\Controllers\RecetaController::class, 'modificar']);
-    Route::delete('/eliminar/{id}', [App\Http\Controllers\RecetaController::class, 'eliminar']);
+        //TODO: NO SE USA
+        Route::put('/modificar/{id}', [App\Http\Controllers\RecetaController::class, 'modificar']);
+        Route::delete('/eliminar/{id}', [App\Http\Controllers\RecetaController::class, 'eliminar']);
+    });
 });
 
-//GESTIONAR INGREDIENTES (CRUD INGREDIENTE_ASIGNADO)
-Route::prefix('ingrediente')->group(function () {
+Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
 
-    //AÑADIR INGREDIENTE A LA RECETA 
-    Route::post('/crear/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'crear']);
-    //VER INGREDIENTES DE LA RECETA CONCRETA
-    Route::get('/listar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'listar']);
-    //MODIFICAR LA CANTIDAD DE INGREDIENTE DE LA RECETA
-    Route::put('/modificar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'modificarCantidad']);
+    //GESTIONAR INGREDIENTES (CRUD INGREDIENTE_ASIGNADO)
+    Route::prefix('ingrediente')->group(function () {
 
-    //TODO: NO SE USA
-    Route::get('/mostrar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'mostrar']);
-    Route::delete('/eliminar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'eliminar']);
+        //AÑADIR INGREDIENTE A LA RECETA 
+        Route::post('/crear/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'crear']);
+        //VER INGREDIENTES DE LA RECETA CONCRETA
+        Route::get('/listar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'listar']);
+        //MODIFICAR LA CANTIDAD DE INGREDIENTE DE LA RECETA
+        Route::put('/modificar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'modificarCantidad']);
+
+        //TODO: NO SE USA
+        Route::get('/mostrar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'mostrar']);
+        Route::delete('/eliminar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'eliminar']);
+    });
 });

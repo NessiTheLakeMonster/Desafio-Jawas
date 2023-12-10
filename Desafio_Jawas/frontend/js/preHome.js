@@ -23,7 +23,7 @@ function _Init() {
                     btnAdmin.hidden = false;
                 } else if (rol.nombre_rol == "colaborador") {
                     btnColaborador.hidden = false;
-                } else if (rol.nombre_rol == "diseñador") {
+                } else if (rol.nombre_rol == "disenador") {
                     btnDisenador.hidden = false;
                 } else if (rol.nombre_rol == "clasificador") {
                     btnClasificador.hidden = false;
@@ -59,7 +59,7 @@ btnColaborador.addEventListener("click", function (e) {
 btnDisenador.addEventListener("click", function (e) {
     e.preventDefault();
 
-    localStorage.setItem("rol", "diseñador");
+    localStorage.setItem("rol", "disenador");
     window.location.href = "home.html";
 });
 

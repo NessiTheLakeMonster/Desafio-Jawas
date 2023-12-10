@@ -17,7 +17,7 @@ class midDisenador
     {
         $user = $request->user();
 
-        if ($user->tokenCan('diseñador')) {
+        if ($user->tokenCan('disenador')) {
             return $next($request);
         } else {
             return response()->json([

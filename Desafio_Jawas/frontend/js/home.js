@@ -45,7 +45,7 @@ function _Init() {
         funcionesAdmin();
     } else if (localStorage.getItem("rol") == "colaborador") {
         funcionesColaborador();
-    } else if (localStorage.getItem("rol") == "diseñador") {
+    } else if (localStorage.getItem("rol") == "disenador") {
         funcionesDisenador();
     } else if (localStorage.getItem("rol") == "clasificador") {
         funcionesClasificador();

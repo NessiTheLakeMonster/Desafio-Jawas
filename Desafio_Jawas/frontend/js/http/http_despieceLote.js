@@ -3,7 +3,9 @@ export async function getLotes() {
     var options = {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     };
     const response = await fetch(`http://localhost:8000/api/info_lote/listar`, options);
@@ -16,7 +18,9 @@ export async function getLote(id) {
     var options = {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     };
     const response = await fetch(`http://localhost:8000/api/info_lote/mostrar/${id}`, options);
@@ -29,7 +33,9 @@ export async function getLoteComponentes() {
     var options = {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     };
     const response = await fetch(`http://localhost:8000/api/componentes/listar`, options);
@@ -52,6 +58,7 @@ export async function desguaceLote(datos) {
     var option = {
         method: 'POST',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
@@ -69,6 +76,7 @@ export async function getComponentes(idLote) {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
