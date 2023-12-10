@@ -138,7 +138,7 @@ export function _Init() {
                 msgErrorJoya.style.color = "red";
             }
 
-            //TODO: modificar la imagen de la joya
+            //TODO: modificar la imagen de la joya 
             //botón guardar cambios
             window.guardarCambios = function (id) {
                 let inputImagen = document.getElementById(`inputImagen-${id}`);
