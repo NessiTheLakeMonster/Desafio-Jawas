@@ -149,10 +149,6 @@ export function _Init() {
                     let formData = new FormData();
                     formData.append('foto', nuevaImagen);
 
-                    // Comprueba si el archivo de imagen se adjunta correctamente al objeto FormData
-                    console.log(formData.get('foto'));
-
-                    // Llama a modificarImg y muestra un mensaje cuando se complete
                     modificarImg(formData)
                         .then(response => {
                             console.log(response);

@@ -1,4 +1,4 @@
-import { generarJoya, verificarComponentes, getInventario, getTipos, getRecetas } from "./http/http_joyas.js";
+import { generarJoya, verificarComponentes, getInventario, getTipos, getRecetas, subirImagen } from "./http/http_joyas.js";
 
 //select elegir tipo joya
 let selectJoya = document.getElementById("selectJoya");
@@ -15,7 +15,9 @@ let btnVolverIntento = document.getElementById("btnVolverIntento");
 //tabla de inventario
 let tablaInventario = document.getElementById("tablaInventario");
 
-let inputImagen = document.getElementById('inputImagen');
+//formulario de imagen
+let formImagen = document.getElementById("formImagen");
+let inputImagen = formImagen.elements.namedItem("image");
 
 let respuesta = document.getElementById('respuesta');
 
@@ -44,7 +46,7 @@ export function cabeceraTablaComponentes(data) {
 
 /**
  * @author Patricia Mota
- * @summary FFunción que se encarga de inicializar la página de creacion de joyas
+ * @summary Función que se encarga de inicializar la página de creacion de joyas
  */
 
 export function crearFilasComponentes(data) {
@@ -154,57 +156,75 @@ btnVolverIntento.addEventListener('click', function () {
 
 btnGenerarJoya.disabled = true;
 
+inputImagen.addEventListener('change', function () {
+    if (inputImagen.files.length !== 0) {
+        btnGenerarJoya.disabled = false;
+    }
+});
+
+formImagen.addEventListener('submit', function (e) {
+    e.preventDefault();
+});
+
+
 //Botón generar joya
 btnGenerarJoya.addEventListener('click', function (e) {
+    e.preventDefault();
 
     if (inputImagen.files.length === 0) {
         respuesta.textContent = 'Por favor, inserta una imagen.';
         respuesta.style.color = 'red';
     } else {
-        e.preventDefault();
+        let fotoJoya = inputImagen.files[0];
+        
+        let formData = new FormData();
+        formData.append('image', fotoJoya)
 
-        let fotoJoya = document.querySelector('#inputImagen').files[0];
-        let fotoUrl = URL.createObjectURL(fotoJoya);
+        console.log(formData.get("image"))
+        subirImagen(formData)
+            .then(urlImagen => {
+                let url =  urlImagen.url;
 
-        let datos = {
-            idTipoJoya: parseInt(selectJoya.value),
-            idReceta: parseInt(selectReceta.value),
-            foto: fotoUrl
-        };
+                let datos = JSON.stringify({
+                    idTipoJoya: parseInt(selectJoya.value),
+                    idReceta: parseInt(selectReceta.value),
+                    foto: url
+                });
 
+                recetaSeleccionada = localStorage.getItem('recetaSeleccionada');
 
-        recetaSeleccionada = localStorage.getItem('recetaSeleccionada');
+                if (recetaSeleccionada) {
+                    verificarComponentes(recetaSeleccionada)
+                        .then(data => {
+                            console.log(data);
+                            let respuesta = document.getElementById('respuesta');
+                            let formattedData = '';
+                            if (data.error) {
+                                formattedData = `${data.error}<br>Componente: ${data.componente}<br>Cantidad Necesaria: ${data['cantidad Necesaria']}<br>Cantidad Inventario: ${data['cantidad Inventario']}<br>Cantidad Faltante: ${data['cantidad Faltante']}`;
+                                respuesta.style.color = 'red';
+                                msgsuficientesComponentes.innerHTML = 'No hay suficientes componentes para generar la joya';
+                                msgsuficientesComponentes.style.color = 'red';
+                            } else {
+                                formattedData = `${data.message}<br>Cantidad de Joyas que puedes realizar: ${data['Cantidad de Joyas que puedes realizar']}`;
+                                respuesta.style.color = 'yellow';
+                                generarJoya(datos)
 
-        if (recetaSeleccionada) {
-            verificarComponentes(recetaSeleccionada)
-                .then(data => {
-                    console.log(data);
-                    let respuesta = document.getElementById('respuesta');
-                    let formattedData = '';
-                    if (data.error) {
-                        formattedData = `${data.error}<br>Componente: ${data.componente}<br>Cantidad Necesaria: ${data['cantidad Necesaria']}<br>Cantidad Inventario: ${data['cantidad Inventario']}<br>Cantidad Faltante: ${data['cantidad Faltante']}`;
-                        respuesta.style.color = 'red';
-                        msgsuficientesComponentes.innerHTML = 'No hay suficientes componentes para generar la joya';
-                        msgsuficientesComponentes.style.color = 'red';
-                    } else {
-                        formattedData = `${data.message}<br>Cantidad de Joyas que puedes realizar: ${data['Cantidad de Joyas que puedes realizar']}`;
-                        respuesta.style.color = 'yellow';
-                        generarJoya(datos)
+                                    .then(data => {
+                                        console.log(data);
+                                        msgsuficientesComponentes.innerHTML = 'Joya generada con éxito';
+                                        msgsuficientesComponentes.style.color = 'green';
+                                        localStorage.removeItem('recetaSeleccionada');
+                                        btnGenerarJoya.disabled = true;
 
-                            .then(data => {
-                                console.log(data);
-                                msgsuficientesComponentes.innerHTML = 'Joya generada con éxito';
-                                msgsuficientesComponentes.style.color = 'green';
-                                localStorage.removeItem('recetaSeleccionada');
-                                btnGenerarJoya.disabled = true;
-
-                                _Init();
-                            })
-                    }
-                    respuesta.innerHTML = formattedData;
-                })
-                .catch(error => console.error('Error:', error));
-        }
+                                        _Init();
+                                    })
+                            }
+                            respuesta.innerHTML = formattedData;
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            })
+            .catch(error => console.error('Error:', error));
     }
 });
 

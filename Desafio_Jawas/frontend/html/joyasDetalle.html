@@ -26,7 +26,11 @@
     <div id="generadorJoya">
         <select id="selectJoya"></select>
         <select id="selectReceta"></select>
-        <input type="file" id="inputImagen" name="inputImagen" accept="image/*">
+        <form id="formImagen" action="http://127.0.0.1:8000/api/joya/subir" method="post" enctype="multipart/form-data">
+            Añadir imagen: <input name="image" type="file" accept="image/*"/>
+            <input type="submit" name="subir" value="Subir imagen"/>
+        </form>
+
         <div id="respuesta"></div>
         <img>
 
