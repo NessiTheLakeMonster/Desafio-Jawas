@@ -1,71 +1,88 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="../css/despieceLote.css">
-        <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
-        <title>Desguazar</title>
-    </head>
 
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
+    <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
 
-        <header>
-            <a href="../html/home.html" id="inicio">
-                <img src="../assets/Jawas.webp" alt="logo" width="40px" >
-            </a>
-            <h1>JAWAS JOYAS</h1>
-            <a href="../html/perfil.html" id="perfil">
-                <img src="../assets/perfil.png" alt="logo" width="35px" >
-            </a>
-        </header>
+    <link rel="icon" type="image/png" href="../assets/Jawas.webp">
 
-        <h1> DESGUAZAR LOTE </h1>
+    <title>Desguazar Lote</title>
+</head>
 
-        <span id="msgExito"></span><br>
-        
+<body>
+
+    <header>
+        <a href="../html/home.html" id="inicio">
+            <img src="../assets/Jawas.webp" alt="logo" width="40px">
+        </a>
+        <h1>JAWAS JOYAS</h1>
+        <a href="../html/perfil.html" id="perfil">
+            <img src="../assets/perfil.png" alt="logo" width="35px">
+        </a>
+    </header>
+
+    <h1> DESGUAZAR LOTE </h1>
+
+    <div id="introducirComponentes">
+
         <select id="selectComponentes"></select>
-        
+
         <label for="descripcionComponente"></label>
         <input type="text" id="descripcionComponente" placeholder="Descripción">
+        <span id="msgErrorDescripcion"></span>
+
 
         <label for="cantidadComponente"></label>
         <input type="text" id="cantidadComponente" placeholder="Cantidad">
+        <span id="msgErrorCantidad"></span>
 
-        <span id="msgLote"></span>
 
         <input type="button" value="Añadir" id="btnAñadirComponente">
 
+        <span id="msgComponente"></span>
+
+        <span id="msgExito"></span><br>
+
+    </div>
+
+    <div id="interiorLote">
+
         <h1> INTERIOR LOTE</h1>
 
-        <table id="tablaInfoLotes">
+        <table id="tablaInfoLotes"></table>
 
-        </table>
-        
         <input type="button" value="Seleccionar otro lote" id="btnOtroLote">
 
+    </div>
 
-        <video autoplay muted loop id="myVideo">
-            <source src="../assets/video.mp4" type="video/mp4">
-        </video> 
-    
-        <footer>
-            <div class="footer-contenido">
-                <div class="redes-sociales">
-                    <p>Puedes encontrarnos en:</p>
-                    <a href="https://www.instagram.com/" target="_blank"><img src="../assets/icono_instagram.webp" alt="Instagram" height="68px"></a>
-                    <a href="https://twitter.com/?lang=es " target="_blank"><img src="../assets/icono_twitter.png" alt="Twitter" height="55px"></a>
-                    <a href="https://www.facebook.com/?locale=es_ES" target="_blank"><img src="../assets/icono_facebook.png" alt="Facebook" height="55px"></a>
-                </div>
-                <div class="politica-privacidad">
-                    <a href="politica-de-privacidad.html">Política de Privacidad</a>
-                </div>
-                <div class="copyright">
-                    <span>&copy; 2023 Jawas Joyas</span>
-                </div> 
+    <video autoplay muted loop id="myVideo">
+        <source src="../assets/video.mp4" type="video/mp4">
+    </video>
+
+    <footer>
+        <div class="footer-contenido">
+            <div class="redes-sociales">
+                <p>Puedes encontrarnos en:</p>
+                <a href="https://www.instagram.com/" target="_blank"><img src="../assets/icono_instagram.webp"
+                        alt="Instagram" height="68px"></a>
+                <a href="https://twitter.com/?lang=es " target="_blank"><img src="../assets/icono_twitter.png"
+                        alt="Twitter" height="55px"></a>
+                <a href="https://www.facebook.com/?locale=es_ES" target="_blank"><img src="../assets/icono_facebook.png"
+                        alt="Facebook" height="55px"></a>
             </div>
-        </footer>
-        
-    </body>
-    <script type="module" src="../js/despieceLoteDetalles.js"></script>
+            <div class="politica-privacidad">
+                <a href="politica-de-privacidad.html">Política de Privacidad</a>
+            </div>
+            <div class="copyright">
+                <span>&copy; 2023 Jawas Joyas</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<script type="module" src="../js/despieceLoteDetalles.js"></script>
+
 </html>

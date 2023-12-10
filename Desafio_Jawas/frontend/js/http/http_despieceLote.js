@@ -1,3 +1,9 @@
+/**
+ * @author Patricia Mota
+ * @summary llamadas a la api de lotes e info_lote
+ */
+
+
 //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS PARA CLASIFICAR
 export async function getLotes() {
     var options = {
@@ -50,11 +56,11 @@ export async function desguaceLote(datos) {
     let bodyJson = JSON.stringify(
         {
             idComponente: datos.idComponente,
-            descripcion: datos.descripcion, 
+            descripcion: datos.descripcion,
             cantidad: datos.cantidad
         }
     );
-    
+
     var option = {
         method: 'POST',
         headers: {
@@ -62,14 +68,12 @@ export async function desguaceLote(datos) {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
-        body: bodyJson 
+        body: bodyJson
     };
-    const response= await fetch(`http://localhost:8000/api/info_lote/desguazar/${idLote}`, option);
+    const response = await fetch(`http://localhost:8000/api/info_lote/desguazar/${idLote}`, option);
     const data = await response.json();
     return data;
-
 }
-
 
 //MOSTRAR COMPONENTES DEL LOTE DESGUAZADO
 export async function getComponentes(idLote) {

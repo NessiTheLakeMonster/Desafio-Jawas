@@ -18,6 +18,7 @@ module.exports = {
         recetasDetalles: './js/recetasDetalle.js',
         inventario: './js/inventario.js',
         componentes: './js/componentes.js',
+        joyas: './js/joyas.js',
     },
     output: {
         filename: '[name].js',

@@ -159,19 +159,19 @@ Route::prefix('joya')->group(function () {
     Route::get('/listar', [App\Http\Controllers\JoyaController::class, 'listar']);
     //MOSTRAR JOYA BUSCADA POR ID
     Route::get('/mostrar/{id}', [App\Http\Controllers\JoyaController::class, 'mostrar']);
-    //BORRAR JOYA
-    Route::delete('/eliminar/{id}', [App\Http\Controllers\JoyaController::class, 'eliminar']);
     //MODIFICAR LA IMG DE LA JOYA
     Route::put('/modificar/{id}', [App\Http\Controllers\JoyaController::class, 'modificar']);
     //GENERADOR DE JOYAS ALEATORIAS
     Route::post('/generar', [App\Http\Controllers\JoyaController::class, 'generarJoyaAleatoria']);
     //VERIFICAR SI HAY SUFICIENTES COMPONENTES EN EL INVENTARIO Y CUANTAS JOYAS PUEDE HACER
     Route::get('/componentes/{idReceta}', [App\Http\Controllers\JoyaController::class, 'componenteSuficiente']);
-    //MOSTRAR INVENTARIO > CREAR CONTROLADOR
+    //MOSTRAR INVENTARIO > /INVENTARIO/MOSTAR 
 
+    //TODO:NO SE USA
     //GESTIONAR CRUD JOYAS 
-    Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']); //TODO:NO SE USA
-
+    Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']); 
+    //BORRAR JOYA
+    Route::delete('/eliminar/{id}', [App\Http\Controllers\JoyaController::class, 'eliminar']);
 });
 /* }); */
 
@@ -179,7 +179,7 @@ Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
 
     //GESTIONAR RECETAS
     Route::prefix('receta')->group(function () {
-
+      
         //MOSTRAR LISTA DE TODAS LAS RECETAS
         Route::get('/listar', [App\Http\Controllers\RecetaController::class, 'listar']);
         //MOSTRAR RECETA BUSCADA POR ID
@@ -188,7 +188,8 @@ Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
         Route::get('/listar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'listar']);
         //CREAR RECETA NUEVA -> BOTÓN DE CREAR RECETA
         Route::post('/crear', [App\Http\Controllers\RecetaController::class, 'crear']);
-
+        //SACA LAS RECETAS DE UN TIPO DE JOYA CONCRETO
+        Route::get('/tipo/{idTipoJoya}', [App\Http\Controllers\RecetaController::class, 'getRecetasPorJoya']);
 
         //TODO: NO SE USA
         Route::put('/modificar/{id}', [App\Http\Controllers\RecetaController::class, 'modificar']);

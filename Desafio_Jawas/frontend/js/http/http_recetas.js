@@ -1,3 +1,8 @@
+/**
+ * @author Patricia Mota
+ * @summary llamadas a la api de recetas
+ */
+
 //MOSTRAR LISTA DE TODAS LAS RECETAS
 export async function getRecetas() {
     var options = {
