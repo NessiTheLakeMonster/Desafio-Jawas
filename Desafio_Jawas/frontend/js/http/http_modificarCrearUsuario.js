@@ -9,7 +9,6 @@
 export async function modificar(datos, idUsuario) {
     let bodyJson = JSON.stringify(
         {
-            fotoPerfil: datos.fotoPerfil,
             nombre: datos.nombre,
             apellido: datos.apellido,
             email: datos.email,
@@ -57,6 +56,53 @@ export async function modificarPasswd(datos, idUsuario) {
     };
 
     const response = await fetch(`http://localhost:8000/api/usuario/modPasswd/${idUsuario}`, options);
+    const data = await response.json();
+    return data;
+}
+
+export async function modificarFotoPerfil(formData) {
+
+    let idUsuario = localStorage.getItem("idUsuarioSeleccionado");
+
+    var options = {
+        method: 'POST',
+        body: formData,
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Access-Control-Allow-Origin": "*"
+        }
+    }
+
+    const response = await fetch(`http://localhost:8000/api/perfil/modificarFoto/${idUsuario}`, options);
+    const data = await response.json();
+    return data;
+}
+
+export async function getRoles() {
+    var options = {
+        method: 'GET',
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Access-Control-Allow-Origin": "*"
+        }
+    }
+
+    const response = await fetch('http://localhost:8000/api/roles', options);
+    const data = await response.json();
+    return data;
+}
+
+export async function asignarRol(idUsuario, idRol) {
+    var options = {
+        method: 'POST',
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        },
+    };
+
+    const response = await fetch(`http://localhost:8000/api/asignarRol/${idUsuario}/${idRol}`, options);
     const data = await response.json();
     return data;
 }

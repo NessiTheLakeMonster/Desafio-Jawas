@@ -79,10 +79,10 @@ export function _Init() {
                             otherCheckbox.checked = false;
                         }
                     });
-                    localStorage.setItem('idUsuario', this.value);
+                    localStorage.setItem('idUsuarioSeleccionado', this.value);
                     guardarUsuarioSeleccionado(this.value);
                 } else {
-                    localStorage.removeItem('idUsuario');
+                    localStorage.removeItem('idUsuarioSeleccionado');
                     localStorage.removeItem('usuarioSeleccionado');
 
                     location.reload();
@@ -94,7 +94,7 @@ export function _Init() {
 
 // Eventos de botones
 btnEliminar.addEventListener('click', function () {
-    let idUsuario = localStorage.getItem('idUsuario');
+    let idUsuario = localStorage.getItem('idUsuarioSeleccionado');
 
     deleteUsuario(idUsuario).then(data => {
 
@@ -108,7 +108,7 @@ btnEliminar.addEventListener('click', function () {
 });
 
 btnEditar.addEventListener('click', function () {
-    let idUsuario = localStorage.getItem('idUsuario');
+    let idUsuario = localStorage.getItem('idUsuarioSeleccionado');
     localStorage.removeItem('crear');
 
     if (idUsuario) {
@@ -120,7 +120,7 @@ btnEditar.addEventListener('click', function () {
 });
 
 btnCrear.addEventListener('click', function () {
-    let idUsuario = localStorage.getItem('idUsuario');
+    let idUsuario = localStorage.getItem('idUsuarioSeleccionado');
     localStorage.removeItem('modificar');
 
     if (!idUsuario) {
