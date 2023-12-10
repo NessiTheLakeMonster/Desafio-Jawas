@@ -1,96 +1,82 @@
+body {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(0, 89, 255);
+}
 
- body {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    background-color: #4b4b4b;
-    color: #FFFFFF;
-  }
 #myVideo {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%; 
-    min-height: 100%;
-    z-index: -1;
-    opacity: 0.7;
-  }
-  header {
-    background-color: rgba(213, 178, 91, 0.749);
-    color: #FFFFFF;
-    position: relative;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    margin: 0px;
-  }
-  img {
-    margin-right: 80px;
-    position: relative;
-    top: 0px;
-    left: 0;
-  }  
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -2;
+  opacity: 0.7;
+}
 
-  footer {
-    background-color:  rgba(213, 178, 91, 0.749);
-    color: #FFFFFF;
-    text-align: center;
-    padding: 20px 0;
-    position: relative;
-    font-family: "Formula1-Italic";
-    margin-top: 10%;
-    width: 100%;
-  }
-  
-  .footer-contenido {
-    margin: 20px 20px;
-  }
-  
-  .privacy-policy a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .copyright span {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  h2 {
-    padding-top: 20px;
-    text-align: center;
-    font-family: "Formula1-Bold";
-    font-size: 24px;
-    letter-spacing: 2px;
-    font-size: 24px;
-    letter-spacing: 2px;
-  }
-  
-  h3 {
-    padding-top: 20px;
-    text-align: center;
-    font-family: "Formula1-Bold";
-    font-size: 24px;
-    letter-spacing: 2px;
-    font-size: 24px;
-    letter-spacing: 2px;
-  }
- 
-  a {
-    text-decoration: none;
-    color: white;
-  }
 
-  button{
-    color: orange;
-    background-color: black;
-    border: 2px solid orange;
-    border-radius: 20px;
-    margin: 10px;
-    font-size: 20px; /* Ajusta el tamaño del texto del botón */
-    width: 150px;
-  }
+.titulo {
+  margin-left: 450px;
+  margin-right: 450px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-family: 'Arial Black', sans-serif;
+  color: rgb(28, 33, 42);
+  font-size: 50px;
+}
+
+.texto {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-family: 'Arial Black', sans-serif;
+  color: rgb(28, 33, 42);
+  font-size: 50px;
+}
+
+#buscador {
+  border-radius: 25px;
+  background-color: rgb(79, 117, 255);
+}
+
+#btnBuscar {
+  border-radius: 25px;
+  background-color: rgba(220, 255, 132, 0.855);
+  color: rgb(79, 117, 255);
+
+}
+
+.tabla-centro {
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+
+  border-radius: 0 3em 3em 0;
+  border-right: 4px solid  rgb(91, 148, 255);
+  border-top: 4px solid  rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  background-color:rgba(220, 255, 132, 0.494);
+  width: 50%;
+  margin: auto;
+}
+
+.tabla-centro td,
+.tabla-centro th {
+  border: 4px solid  rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color:  rgba(115, 146, 91, 0.753);
+}
+
+.tabla-centro tbody td {
+  background-color:  rgba(178, 218, 148, 0.432);
+
+}
+
+#tablaComponentes {
+  border-collapse: collapse;
+}
