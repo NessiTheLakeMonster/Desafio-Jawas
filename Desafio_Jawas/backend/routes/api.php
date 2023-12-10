@@ -36,6 +36,7 @@ Route::get('', function () {
 Route::post('/registro', [AuthController::class, 'registro']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/subir', [AuthController::class,'cargarImagenUsuario']);
 
 
 //-------------------------RUTAS DE ASIGNACIÓN DE ROL-------------------------
@@ -160,7 +161,7 @@ Route::prefix('joya')->group(function () {
     //MOSTRAR JOYA BUSCADA POR ID
     Route::get('/mostrar/{id}', [App\Http\Controllers\JoyaController::class, 'mostrar']);
     //MODIFICAR LA IMG DE LA JOYA
-    Route::put('/modificar/{id}', [App\Http\Controllers\JoyaController::class, 'modificar']);
+    Route::post('/modificar/{id}', [App\Http\Controllers\JoyaController::class, 'modificar']);
     //GENERADOR DE JOYAS ALEATORIAS
     Route::post('/generar', [App\Http\Controllers\JoyaController::class, 'generarJoyaAleatoria']);
     //VERIFICAR SI HAY SUFICIENTES COMPONENTES EN EL INVENTARIO Y CUANTAS JOYAS PUEDE HACER

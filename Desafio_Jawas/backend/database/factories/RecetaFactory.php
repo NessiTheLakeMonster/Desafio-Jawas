@@ -21,8 +21,8 @@ class RecetaFactory extends Factory
     public function definition(): array
     {
         return [
-            'idUsuario' => RolAsignado::where('id_rol', 3)->get('id_usuario')->random()->id_usuario,
-            'idTipoJoya' => TipoJoya::all()->random()->id, 
+            'idUsuario' => RolAsignado::where('id_rol', 1)->get('id_usuario')->random()->id_usuario,
+            'idTipoJoya' => TipoJoya::all()->random()->id,
         ];
     }
 }
