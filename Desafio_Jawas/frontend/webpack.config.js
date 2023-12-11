@@ -20,6 +20,7 @@ module.exports = {
         inventario: './js/inventario.js',
         componentes: './js/componentes.js',
         joyas: './js/joyas.js',
+        joyasDetalle: './js/joyasDetalle.js',
         lotes: './js/lotes.js',
     },
     output: {

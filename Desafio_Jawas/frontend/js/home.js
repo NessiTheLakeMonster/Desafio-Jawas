@@ -2,6 +2,7 @@
 const btnGestUsuarios = document.getElementById("btnGestUsuarios");
 const btnGestInventario = document.getElementById("btnGestInventario");
 const btnDonaciones = document.getElementById("btnDonacion");
+const btnLotes = document.getElementById("btnLotes");
 const btnDespieceLotes = document.getElementById("btnDespieceLote");
 const btnGestJoyas = document.getElementById("btnGestJoyas");
 const btnGestRecetas = document.getElementById("btnGestRecetas");
@@ -10,6 +11,7 @@ const btnGestComponentes = document.getElementById("btnGestComponentes");
 export function ocultarBotonesHome() {
     btnGestUsuarios.hidden = true;
     btnGestInventario.hidden = true;
+    btnLotes.hidden = true;
     btnDonaciones.hidden = true;
     btnDespieceLotes.hidden = true;
     btnGestJoyas.hidden = true;
@@ -24,6 +26,7 @@ export function funcionesAdmin() {
 }
 
 export function funcionesColaborador() {
+    btnLotes.hidden = false;
     btnDonaciones.hidden = false;
 }
 
