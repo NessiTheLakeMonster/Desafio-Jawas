@@ -81,15 +81,15 @@ export function rolLocalStorage() {
 
     if (localStorage.getItem('rol') === "administrador") {
         navbarComponentes.innerHTML = `
-        <button>
+        <button id= "btnUser">
             <a href="gestionUsuarios.html">Gestionar Usuarios</a>
         </button>
 
-        <button>
+        <button id= "btnUser">
             <a href="inventario.html"> Gestionar inventarios</a>
         </button>
 
-        <button>
+        <button id= "btnUser">
             <a href="componentes.html"> Gestionar componentes</a>
         </button>`;
 

@@ -14,7 +14,7 @@ localStorage.removeItem('idUsuarioSeleccionado');
 export function cabeceraTablaUsuarios() {
     let cabecera = document.createElement('tr');
 
-    let headers = ['', 'ID', 'Foto de Perfil', 'Nombre', 'Apellido', 'Email', 'email_verified_at', 'created_at', 'updated_at'];
+    let headers = ['', 'ID', 'Foto de Perfil', 'Nombre', 'Apellido', 'Email'];
 
     headers.forEach(header => {
         let th = document.createElement('th');
@@ -41,9 +41,6 @@ export function crearFilasTablaUsuario(data) {
                 <td>${user.nombre}</td>
                 <td>${user.apellido}</td>
                 <td>${user.email}</td>
-                <td>${user.email_verified_at}</td>
-                <td>${formattedCreatedAt}</td>
-                <td>${formattedUpdatedAt}</td>
             </tr>
         `;
     }).join('');
