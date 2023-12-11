@@ -1,4 +1,4 @@
-import { getUsuario, modificarDatosPerfil, modificarFotoPerfil, modificarPasswd } from "./http/http_perfil.js";
+import { getUsuario, modificarDatosPerfil, modificarFotoPerfil, modificarPasswd, cerrarSesion } from "./http/http_perfil.js";
 import { validarNombre, validarApellido, validarPasswdPerfil } from "./utils/validaciones.js";
 
 // Datos del html
@@ -13,6 +13,7 @@ let passwdPerfil = document.getElementById("passwdPerfil");
 const btnActualizarDatos = document.getElementById("btnActualizarDatos");
 const btnNewPasswd = document.getElementById("btnNewPasswd");
 const btnSubirImagen = document.getElementById("btnSubirImagen");
+const btnCerrarSesion = document.getElementById("btnCerrarSesion");
 
 // Mensajes de error y exito
 let msgExito = document.getElementById("msgExito");
@@ -155,6 +156,26 @@ btnNewPasswd.addEventListener("click", () => {
                 console.log(error);
             });
     }
+});
+
+btnCerrarSesion.addEventListener("click", () => {
+    let idUsuario = localStorage.getItem("usuarioId");
+
+    cerrarSesion(idUsuario)
+        .then(data => {
+            console.log(idUsuario);
+            console.log(data);
+            if (data.status == 200) {
+                msgExito.textContent = data.message;
+                window.location.href = "login.html";
+            } else {
+                msgExito.textContent = 'Error al cerrar sesión';
+                msgExito.style.color = "red";
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
 });
 
 _Init();

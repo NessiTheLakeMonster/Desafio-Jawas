@@ -31,11 +31,11 @@ export async function modificarFotoPerfil(formData) {
     return data;
 }
 
-export async function modificarDatosPerfil($datos, $idUsuario) {
+export async function modificarDatosPerfil(datos, idUsuario) {
     let bodyJson = JSON.stringify(
         {
-            nombre: $datos.nombre,
-            apellido: $datos.apellido,
+            nombre: datos.nombre,
+            apellido: datos.apellido,
         }
     );
 
@@ -49,15 +49,15 @@ export async function modificarDatosPerfil($datos, $idUsuario) {
         body: bodyJson
     }
 
-    const response = await fetch(`http://localhost:8000/api/perfil/modificar/${$idUsuario}`, options);
+    const response = await fetch(`http://localhost:8000/api/perfil/modificar/${idUsuario}`, options);
     const data = await response.json();
     return data;
 }
 
-export async function modificarPasswd($datos, $idUsuario) {
+export async function modificarPasswd(datos, idUsuario) {
     let bodyJson = JSON.stringify(
         {
-            password: $datos.password,
+            password: datos.password,
         }
     );
 
@@ -71,7 +71,22 @@ export async function modificarPasswd($datos, $idUsuario) {
         body: bodyJson
     }
 
-    const response = await fetch(`http://localhost:8000/api/perfil/modPasswd/${$idUsuario}`, options);
+    const response = await fetch(`http://localhost:8000/api/perfil/modPasswd/${idUsuario}`, options);
+    const data = await response.json();
+    return data;
+}
+
+export async function cerrarSesion(idUsuario) {
+
+    var options = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        },
+    }
+
+    const response = await fetch(`http://localhost:8000/api/logout/${idUsuario}`, options);
     const data = await response.json();
     return data;
 }

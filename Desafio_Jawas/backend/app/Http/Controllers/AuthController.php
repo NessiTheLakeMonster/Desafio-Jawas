@@ -120,7 +120,7 @@ class AuthController extends Controller
 
             ];
 
-            $validator = Validator::make($request->all(), [ 
+            $validator = Validator::make($request->all(), [
 
                 'nombre' => 'required|string|min:2|max:55',
                 'apellido' => 'required|string|min:2|max:55',
@@ -160,32 +160,30 @@ class AuthController extends Controller
             ], 500);
         }
     }
-        /**
+    /**
      * @author Inés Mª Barrera Llerena
      * @summary Cierre de sesión de un usuario
      * 
      * @param Request $request
      * @return void
      */
-    public function logout(Request $request)
+    public function logout($id)
     {
-        $datos = [
-            'email' => $request->email, 
-            'password' => $request->password
-        ];
-
-        if(Auth::attempt($datos)){
-            Auth::user()->tokens()->delete();
+        try {
+            $usuario = User::findOrFail($id);
+            $usuario->tokens()->delete();
             return response()->json([
-                "msg"=>"Se ha cerrado sesión en todos sus dispositivos."
-            ],200);
+                'message' => 'Cierre de sesión',
+                'status' => 200
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error en el servidor',
+                'error' => $e->getMessage()
+            ], 500);
         }
-        else {
-            return response()->json("No estas autorizado para realizar esa acción",400);
-        }
-
     }
-    
+
     public function cargarImagenUsuario(Request $request)
     {
 
