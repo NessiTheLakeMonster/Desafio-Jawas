@@ -13,12 +13,12 @@ class LoginTest extends TestCase
      */
     public function test_example(): void
     {
-        $datos = [
+        $datosLogin = [
             'email' => 'inesmballe@gmail.com',
             'password' => 'admin123'
         ];
 
-        $this->json('POST', '/api/login', $datos)
+        $this->json('POST', '/api/login', $datosLogin)
             ->assertStatus(200)
             ->assertJsonStructure([
                 "token",
