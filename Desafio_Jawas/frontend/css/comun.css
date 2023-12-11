@@ -66,6 +66,7 @@ body {
 
 .tabla-centro td,
 .tabla-centro th {
+  border-radius: 0 3em 3em 0;
   border: 4px solid  rgba(10, 40, 5, 0.391);
   padding: 10px;
   -webkit-backdrop-filter: blur(10px);
@@ -75,8 +76,4 @@ body {
 .tabla-centro tbody td {
   background-color:  rgba(178, 218, 148, 0.432);
 
-}
-
-#tablaComponentes {
-  border-collapse: collapse;
 }

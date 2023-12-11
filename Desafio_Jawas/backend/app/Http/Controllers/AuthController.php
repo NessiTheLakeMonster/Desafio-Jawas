@@ -105,7 +105,7 @@ class AuthController extends Controller
     {
 
         try {
-
+            
             $message = [
                 'nombre.required' => 'El campo nombre es obligatorio',
                 'apellido.required' => 'El campo apellido es obligatorio',
@@ -125,14 +125,15 @@ class AuthController extends Controller
                 'nombre' => 'required|string|min:2|max:55',
                 'apellido' => 'required|string|min:2|max:55',
                 'email' => 'required|string|email|max:55|unique:users', // El email debe ser único
-                'password' => 'required|string|min:8|confirmed',
-                //'fotoPerfil' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'password' => 'required|string|min:8',
+                'fotoPerfil' => 'required',
 
             ], $message);
 
             if ($validator->fails()) {
-                return response()->json($validator->errors(), 304);
+                return response()->json($validator->errors(), 400);
             } else {
+                
                 $usuario = new User();
                 $usuario->fotoPerfil = $request->fotoPerfil;
                 $usuario->nombre = $request->nombre;
