@@ -120,7 +120,7 @@ class AuthController extends Controller
 
             ];
 
-            $validator = Validator::make($request->all(), [ 
+            $validator = Validator::make($request->all(), [
 
                 'nombre' => 'required|string|min:2|max:55',
                 'apellido' => 'required|string|min:2|max:55',
@@ -161,25 +161,21 @@ class AuthController extends Controller
             ], 500);
         }
     }
-        /**
+    /**
      * @author Inés Mª Barrera Llerena
      * @summary Cierre de sesión de un usuario
      * 
      * @param Request $request
      * @return void
      */
-    public function logout(Request $request)
+    public function logout($id)
     {
         try {
-            $auth = Auth::user();
-
-            $nombre = $auth->nombre;
-
-            $request->user()->tokens()->delete();
-
+            $usuario = User::findOrFail($id);
+            $usuario->tokens()->delete();
             return response()->json([
-                'message' => 'sesion cerrada',
-                'nombre' => $nombre
+                'message' => 'Cierre de sesión',
+                'status' => 200
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
@@ -188,7 +184,7 @@ class AuthController extends Controller
             ], 500);
         }
     }
-    
+
     public function cargarImagenUsuario(Request $request)
     {
 
