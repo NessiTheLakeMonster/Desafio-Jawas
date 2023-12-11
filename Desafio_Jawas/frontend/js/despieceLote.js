@@ -24,7 +24,7 @@ let msgErrorBuscar = document.getElementById("msgErrorBuscar");
 
 export function cabeceraTablaLotes(data) {
     let cabecera = document.createElement('tr');
-    let headers = ['', 'Nº DE LOTE', 'USUARIO', 'LUGAR RECOGIDA', 'ENTREGADO', 'CANCELADO'];
+    let headers = ['', 'Nº DE LOTE', 'USUARIO', 'LONGITUD','LATITUD', 'ENTREGADO', 'CANCELADO'];
     headers.forEach(header => {
         let th = document.createElement('th');
         th.textContent = header;
@@ -44,7 +44,8 @@ export function filaTablaLotes(data) {
             <td><input class="checkbox-lote" type="checkbox" name="lote" value="${lote.id}"></td>
             <td>${lote.id}</td>
             <td>${lote.nombre} ${lote.apellido}</td>
-            <td>${lote.lugar_recogida}</td>
+            <td>${lote.longitud}</td>
+            <td>${lote.latitud}</td>
             <td>${lote.entregado}</td>
             <td>${lote.cancelado}</td>
         </tr>
