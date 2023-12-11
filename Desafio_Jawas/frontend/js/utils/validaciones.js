@@ -134,6 +134,25 @@ export function validarPasswd(passwdCampo, confPasswdCampo, msgErrorPasswd, msgE
     return esValido;
 }
 
+export function validarPasswdPerfil(passwdCampo, msgErrorPasswd) {
+    var esValido = false;
+
+    if (passwdCampo.value == "") {
+        msgErrorPasswd.innerHTML = "El campo contraseña es obligatorio";
+        msgErrorPasswd.style.color = "red";
+        passwdCampo.style.borderColor = "red";
+    } else if (!regexPasswd.test(passwdCampo.value)) {
+        msgErrorPasswd.innerHTML = "El campo contraseña no es válido";
+        msgErrorPasswd.style.color = "red";
+        passwdCampo.style.borderColor = "red";
+    } else {
+        esValido = true;
+        passwdCampo.style.borderColor = "green";
+    }
+
+    return esValido;
+}
+
 //Función para validar las descripciones de los componentes
 export function validarDescripcion(descripcionCampo, msgErrorDescripcion) {
     var esValido = false;

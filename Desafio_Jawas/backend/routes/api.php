@@ -9,6 +9,7 @@ use App\Http\Controllers\LoteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolAsignadoController;
 use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\RolController;
 use App\Http\Controllers\JoyaController;
 use App\Models\User;
 
@@ -46,6 +47,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/asignarRol/{idUsuario}/{idRol}', [RolAsignadoController::class, 'asignarRol'])->middleware(['midAdmin']);
     //VER LOS ROLES ASIGNADOS AL USUARIO
     Route::get('/roles/{id}', [RolAsignadoController::class, 'mostrarRoles']);
+    //LISTAR TODOS LOS ROLES
+    Route::get('/roles', [RolController::class, 'listar']);
 });
 
 //-------------------------RUTAS ADMINISTRADOR-------------------------
@@ -183,7 +186,7 @@ Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
 
     //GESTIONAR RECETAS
     Route::prefix('receta')->group(function () {
-      
+    
         //MOSTRAR LISTA DE TODAS LAS RECETAS
         Route::get('/listar', [App\Http\Controllers\RecetaController::class, 'listar']);
         //MOSTRAR RECETA BUSCADA POR ID
@@ -216,5 +219,21 @@ Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
         //TODO: NO SE USA
         Route::get('/mostrar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'mostrar']);
         Route::delete('/eliminar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'eliminar']);
+    });
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    //GESTIONAR PERFIL
+    Route::prefix('perfil')->group(function () {
+
+        // BUSCAR USUARIO QUE VA A EDITAR SU PERFIL
+        Route::get('/buscar/{id}', [UserController::class, 'buscar']);
+        // MODIFICAR IMAGENT DE PERFIL
+        Route::post('/modificarFoto/{id}', [UserController::class, 'modificarFoto']);
+        // MODIFICAR PERFIL
+        Route::put('/modificar/{id}', [UserController::class, 'modificar']);
+        // MODIFICAR CONTRASEÑA
+        Route::put('/modPasswd/{id}', [UserController::class, 'modificarPasswd']);
     });
 });

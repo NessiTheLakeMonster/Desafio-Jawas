@@ -32,9 +32,9 @@ class RolAsignadoController extends Controller
 
                 return response()->json([
                     'message' => $message,
-                    'status' => 200,
+                    'status' => 400,
                     'ok' => true
-                ], 200);
+                ], 400);
             } else {
 
                 $rolAsignado = new RolAsignado();
@@ -42,12 +42,9 @@ class RolAsignadoController extends Controller
                 $rolAsignado->id_rol = $idRol;
                 $rolAsignado->save();
 
-                // TODO creo que ya no se necesitan crear los tokens
-                /* $success = $this->creacionTokens($idRol, $usuario); */
                 $message = $this->mensajeExito($idRol);
 
                 return response()->json([
-                    /* 'usuario' => $success, */
                     'message' => $message,
                     'status' => 200,
                     'ok' => true

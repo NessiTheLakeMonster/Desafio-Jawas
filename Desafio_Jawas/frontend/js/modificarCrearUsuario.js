@@ -1,4 +1,4 @@
-import { modificar, modificarPasswd } from "./http/http_modificarCrearUsuario.js";
+import { modificar, modificarPasswd, modificarFotoPerfil, getRoles, asignarRol } from "./http/http_modificarCrearUsuario.js";
 import { guardarUsuario } from "./http/http_registro.js";
 import { validarNombre, validarApellido, validarPasswd, validarEmail } from "./utils/validaciones.js";
 
@@ -12,6 +12,8 @@ let email = document.getElementById('emailUsuario');
 let password = document.getElementById('passwdUsuario');
 let confPassword = document.getElementById('passwdUsuario2');
 
+let selectRoles = document.getElementById('selectRoles');
+
 // Labels
 let lblNewFoto = document.getElementById('lblNewFoto');
 let lblPasswd = document.getElementById('lblPasswdUsuario');
@@ -20,6 +22,9 @@ let lblConfPasswd = document.getElementById('lblPasswdUsuario2');
 // Botones
 const btnEnviar = document.getElementById('btnEnviar');
 const btnCambiarPasswd = document.getElementById('cambioPasswd');
+const btnCrearUsuario = document.getElementById('btnCrearUsuario');
+const btnAddRol = document.getElementById('btnAddRol');
+const btnSubirImagen = document.getElementById('btnSubirImagen');
 
 // Mensajes de error
 let msgFoto = document.getElementById("msgErrorFoto");
@@ -48,9 +53,11 @@ export function modificarUsuario() {
 
         btnEnviar.value = 'Actualizar Datos';
         btnCambiarPasswd.value = 'Cambiar contraseña';
+        btnCrearUsuario.hidden = true;
+        btnAddRol.value = 'Añadir rol';
 
         imgUsuario.src = usuario.fotoPerfil;
-        newImgUsuario.value = usuario.fotoPerfil;
+        /* newImgUsuario.value = usuario.fotoPerfil; */
         nombre.value = usuario.nombre;
         apellido.value = usuario.apellido;
         email.value = usuario.email;
@@ -104,8 +111,12 @@ export function validarModificarFormulario() {
 export function crearUsuario() {
     titulo.textContent = 'Crear Usuario';
 
-    btnEnviar.value = 'Crear'
+    btnEnviar.hidden = true;
     btnCambiarPasswd.hidden = true;
+    btnCrearUsuario.value = 'Crear';
+    
+    selectRoles.hidden = true;
+    btnAddRol.hidden = true;
 
     lblPasswd.textContent = 'Contraseña: ';
     lblConfPasswd.textContent = 'Repite la contraseña: ';
@@ -174,11 +185,27 @@ export function _Init() {
     if (localStorage.getItem('modificar') === 'true') {
         usuario = JSON.parse(localStorage.getItem('usuarioSeleccionado'));
         modificarUsuario();
+        cargarRoles();
     }
 
     if (localStorage.getItem('crear') === 'true') {
         crearUsuario();
     }
+}
+
+export function cargarRoles() {
+    getRoles().then(data => {
+        console.log(data);
+        selectRoles.innerHTML = crearSelectRoles(data);
+    });
+}
+
+export function crearSelectRoles(roles) {
+    return roles.map(rol => {
+        return `
+            <option value="${rol.id}">${rol.nombre}</option>
+        `;
+    }).join('');
 }
 
 // Eventos de los botones
@@ -195,6 +222,8 @@ btnEnviar.addEventListener('click', function () {
                     msgExito.textContent = "Usuario creado correctamente";
                     msgExito.style.display = "block";
                     msgExito.style.color = "green";
+
+                    localStorage.setItem('usuarioSeleccionado', JSON.stringify(data.usuario));
                 }
             });
         } else {
@@ -216,6 +245,8 @@ btnEnviar.addEventListener('click', function () {
                     msgExito.textContent = "Usuario modificado correctamente";
                     msgExito.style.display = "block";
                     msgExito.style.color = "green";
+
+                    localStorage.setItem('usuarioSeleccionado', JSON.stringify(data.usuario));
                 }
             });
         } else {
@@ -250,6 +281,50 @@ btnCambiarPasswd.addEventListener('click', function () {
     } else {
         msgExito.textContent = "La contraseña no pudo ser modificada";
     }
+});
+
+btnSubirImagen.addEventListener('click', function () {
+    let idUsuario = localStorage.getItem("idUsuarioSeleccionado");
+    console.log(idUsuario);
+
+    let formData = new FormData();
+    formData.append("fotoPerfil", newImgUsuario.files[0]);
+
+    modificarFotoPerfil(formData)
+        .then(data => {
+            if (data.status == 200) {
+                msgExito.textContent = data.message;
+                msgExito.style.color = "green";
+            } else {
+                msgExito.textContent = 'Error al subir la imagen';
+                msgExito.style.color = "red";
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+});
+
+btnAddRol.addEventListener('click', function () {
+    let idUsuario = localStorage.getItem("idUsuarioSeleccionado");
+    let idRol = selectRoles.value;
+
+    asignarRol(idUsuario, idRol)
+        .then(data => {
+            if (data.status == 200) {
+                msgExito.textContent = data.message;
+                msgExito.style.color = "green";
+            } else if (data.status == 400) {
+                msgExito.textContent = data.message;
+                msgExito.style.color = "red";
+            } else {
+                msgExito.textContent = 'Error al asignar el rol';
+                msgExito.style.color = "red";
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
 });
 
 _Init();

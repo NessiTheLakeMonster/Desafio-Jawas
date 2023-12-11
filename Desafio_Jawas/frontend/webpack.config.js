@@ -8,6 +8,7 @@ module.exports = {
         registro: './js/registro.js',
         home: './js/home.js',
         preHome: './js/preHome.js',
+        perfil: './js/perfil.js',
         gestionUsuarios: './js/gestionUsuarios.js',
         donaciones: './js/gestion_lotes.js',
         modificarCrearUsuario: './js/modificarCrearUsuario.js',
