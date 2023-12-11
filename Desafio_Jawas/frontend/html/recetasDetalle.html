@@ -4,10 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
     <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
     <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
 
-    <link rel="icon" type="image/png" href="../assets/Jawas.webp">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- icon -->
+    <link rel="icon" type="image/png" href="../assets/Imagen 1.png">
 
     <title>Crear Receta</title>
 </head>
@@ -29,14 +35,14 @@
     <h4>Elige una joya de la que quieres hacer tu receta</h4>
 
     <div id="contenedorPrincipal">
-        
+
         <select id="selectTiposJoyas"></select>
         <input type="button" value="Crear receta" id="btnAñadirJoya">
         <span id="msgJoya"></span><br>
     </div>
 
 
-    <div id="contenedorSecundario"> 
+    <div id="contenedorSecundario">
         <h4>Elige los ingredientes</h4>
         <select id="selectComponentes"></select>
 
@@ -65,21 +71,22 @@
         <source src="../assets/video.mp4" type="video/mp4">
     </video>
 
-    <footer>
-        <div class="footer-contenido">
-            <div class="redes-sociales">
-                <p>Puedes encontrarnos en:</p>
-                <a href="https://www.instagram.com/" target="_blank"><img src="../assets/icono_instagram.webp"
-                        alt="Instagram" height="68px"></a>
-                <a href="https://twitter.com/?lang=es " target="_blank"><img src="../assets/icono_twitter.png"
-                        alt="Twitter" height="55px"></a>
-                <a href="https://www.facebook.com/?locale=es_ES" target="_blank"><img src="../assets/icono_facebook.png"
-                        alt="Facebook" height="55px"></a>
+    <footer class="d-flex flex-column align-items-center p-3"
+        style="background-color: rgba(220, 255, 132, 0.855); color: rgb(0, 0, 0);">
+        <div class="footer-contenido d-flex flex-column align-items-center justify-content-center">
+            <div class="redes-sociales mb-3 mt-3">
+                <p class="text-center mb-3">Puedes encontrarnos en:</p>
+                <a href="https://www.instagram.com/" target="_blank" class="mr-4"><img
+                        src="../assets/icono_instagram.webp" alt="Instagram" height="68px"></a>
+                <a href="https://twitter.com/?lang=es " target="_blank" class="mr-4"><img
+                        src="../assets/icono_twitter.png" alt="Twitter" height="55px"></a>
+                <a href="https://www.facebook.com/?locale=es_ES" target="_blank" class="mr-4"><img
+                        src="../assets/icono_facebook.png" alt="Facebook" height="55px"></a>
             </div>
-            <div class="politica-privacidad">
+            <div class="politica-privacidad mb-3">
                 <a href="politica-de-privacidad.html">Política de Privacidad</a>
             </div>
-            <div class="copyright">
+            <div class="copyright mb-3">
                 <span>&copy; 2023 Jawas Joyas</span>
             </div>
         </div>

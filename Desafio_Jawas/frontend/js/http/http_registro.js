@@ -6,16 +6,7 @@
  * @returns data
  */
 export async function guardarUsuario(datos) {
-    let bodyJson = JSON.stringify(
-        {
-            fotoPerfil: datos.fotoPerfil,
-            nombre: datos.nombre,
-            apellido: datos.apellido,
-            email: datos.email,
-            password: datos.passwd,
-            password_confirmation: datos.confPasswd
-        }
-    );
+
 
     var options = {
         method: 'POST',
@@ -23,7 +14,7 @@ export async function guardarUsuario(datos) {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
-        body: bodyJson 
+        body: datos 
     };
 
     const response = await fetch("http://localhost:8000/api/registro", options);

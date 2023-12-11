@@ -1,81 +1,97 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
-        <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
 
-        <link rel="icon" type="image/png" href="../assets/Jawas.webp">
-        
-        <title>Componentes</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <body>
+    <!-- CSS -->
+    <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
 
-        <header>
-            <a href="../html/home.html" id="inicio">
-                <img src="../assets/Jawas.webp" alt="logo" width="40px" >
-            </a>
-            <h1>JAWAS JOYAS</h1>
-            <a href="../html/perfil.html" id="perfil">
-                <img src="../assets/perfil.png" alt="logo" width="35px" >
-            </a>
-        </header>
-        <h1>COMPONENTES</h1>
-        <div>
-            <input type="search" id="buscador" placeholder="Buscar componente">
-            <button id="btnBuscar">Buscar</button>
-            <span id="msgErrorBuscar"></span>
-        </div>
-        
-            <table id="tablaComponentes"></table>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- icon -->
+    <link rel="icon" type="image/png" href="../assets/Imagen 1.png">
+
+    <title>Componentes</title>
+</head>
+
+<body>
+
+    <header class="d-flex flex-column align-items-center p-3 " style="background-color: rgba(220, 255, 132, 0.855); color: rgb(0, 0, 0);">
+        <div class="header-contenido d-flex align-items-center justify-content-center">
+        <a href="../html/home.html" id="inicio">
+            <img src="../assets/Imagen 1.png" alt="logo" width="110px">
+        </a>
+        <h1 class="titulo">JAWAS GEMS</h1>
+        <a href="../html/perfil.html" id="perfil">
+            <img src="../assets/jawaperfil.png" alt="logo" width="100px">
+        </a>
+    </header>
     
+    <h1 class=" texto text-center mb-3 ">COMPONENTES</h1>
+    <div class="text-center">
+        <input type="search" id="buscador" placeholder="Buscar componente">
+        <button id="btnBuscar">Buscar</button>
+        <span id="msgErrorBuscar"></span>
+    </div>
+    <div class="tabla-centro text-center mb-4 mt-4">
+        <table id="tablaComponentes" class="text-center"></table>
+    </div>
 
-        <div id="crearComponente">
-            <h2>Crear nuevo componente</h2>
-            <h4>Añade un componente, insertando su nombre</h4>
-            <h5>- Si es componente, inserta un [1]</h5>
-            <h5>- Si NO es componente, inserta un [0]</h5>
-            <label for="nombreComponente"></label>
-            <input type="text" id="nombreComponente" placeholder="Nombre componente">
-            <span id="msgErrorNombre"></span>
-                <br>
-            <label for="esHardware"></label>
-            <input type="text" id="hardware" placeholder="¿Es hardware?">
-            <span id="msgErrorHardware"></span>
 
-        </div>
+    <div id="crearComponente">
+        <h2>Crear nuevo componente</h2>
+        <h4>Añade un componente, insertando su nombre</h4>
+        <h5>- Si es componente, inserta un [1]</h5>
+        <h5>- Si NO es componente, inserta un [0]</h5>
+        <label for="nombreComponente"></label>
+        <input type="text" id="nombreComponente" placeholder="Nombre componente">
+        <span id="msgErrorNombre"></span>
+        <br>
+        <label for="esHardware"></label>
+        <input type="text" id="hardware" placeholder="¿Es hardware?">
+        <span id="msgErrorHardware"></span>
 
-        <div>
-            <span id="msgErrorComponente"></span>
-        </div>
+    </div>
 
-        <div>
-            <input type="button" value="Guardar Componente" id="btnGuardarComponente">
-        </div>
+    <div>
+        <span id="msgErrorComponente"></span>
+    </div>
 
-        <video autoplay muted loop id="myVideo">
-            <source src="../assets/video.mp4" type="video/mp4">
-        </video> 
-    
-        <footer>
-            <div class="footer-contenido">
-                <div class="redes-sociales">
-                    <p>Puedes encontrarnos en:</p>
-                    <a href="https://www.instagram.com/" target="_blank"><img src="../assets/icono_instagram.webp" alt="Instagram" height="68px"></a>
-                    <a href="https://twitter.com/?lang=es " target="_blank"><img src="../assets/icono_twitter.png" alt="Twitter" height="55px"></a>
-                    <a href="https://www.facebook.com/?locale=es_ES" target="_blank"><img src="../assets/icono_facebook.png" alt="Facebook" height="55px"></a>
-                </div>
-                <div class="politica-privacidad">
-                    <a href="politica-de-privacidad.html">Política de Privacidad</a>
-                </div>
-                <div class="copyright">
-                    <span>&copy; 2023 Jawas Joyas</span>
-                </div> 
+    <div>
+        <input type="button" value="Guardar Componente" id="btnGuardarComponente">
+    </div>
+
+    <video autoplay muted loop id="myVideo">
+        <source src="../assets/f.mp4" type="video/mp4">
+    </video>
+
+    <!-- Pie de página -->
+    <footer class="d-flex flex-column align-items-center p-3"
+        style="background-color: rgba(220, 255, 132, 0.855); color: rgb(0, 0, 0);">
+        <div class="footer-contenido d-flex flex-column align-items-center justify-content-center">
+            <div class="redes-sociales mb-3 mt-3">
+                <p class="text-center mb-3">Puedes encontrarnos en:</p>
+                <a href="https://www.instagram.com/" target="_blank" class="mr-4"><img
+                        src="../assets/icono_instagram.webp" alt="Instagram" height="68px"></a>
+                <a href="https://twitter.com/?lang=es " target="_blank" class="mr-4"><img
+                        src="../assets/icono_twitter.png" alt="Twitter" height="55px"></a>
+                <a href="https://www.facebook.com/?locale=es_ES" target="_blank" class="mr-4"><img
+                        src="../assets/icono_facebook.png" alt="Facebook" height="55px"></a>
             </div>
-        </footer>
-        
-    </body>
-    <script type="module" src="../js/componentes.js"></script>
+            <div class="politica-privacidad mb-3">
+                <a href="politica-de-privacidad.html">Política de Privacidad</a>
+            </div>
+            <div class="copyright mb-3">
+                <span>&copy; 2023 Jawas Joyas</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<script type="module" src="../js/componentes.js"></script>
+
 </html>

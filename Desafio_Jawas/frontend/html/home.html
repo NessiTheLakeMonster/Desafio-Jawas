@@ -1,86 +1,97 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-        <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
-        <link rel="stylesheet" type="text/css" href="../css/despieceLote.css">
-  
-        <link rel="icon" type="image/png" href="../assets/Jawas.webp">
-        <title>Recetas</title>
-    </head>
 
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <header>
-            <a href="../html/home.html" id="inicio">
-                <img src="../assets/Jawas.webp" alt="logo" width="40px" >
-            </a>
-            <h1>JAWAS JOYAS</h1>
-            <a href="../html/perfil.html" id="perfil">
-                <img src="../assets/perfil.png" alt="logo" width="35px" >
-            </a>
-        </header>
+    <!-- CSS -->
+    <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
+    <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
 
-        <h1>Bienvenido, elige con que función trabajar</h1>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-        <!-- BOTONES DE ADMINISTRADOR -->
-            <button id="btnGestUsuarios">
-                <a href="gestionUsuarios.html">Gestionar Usuarios</a>
-            </button>
+    <!-- icon -->
+    <link rel="icon" type="image/png" href="../assets/Imagen 1.png">
 
-            <button id="btnGestInventario">
-                <a href="inventario.html"> Gestionar inventarios</a>
-            </button>
-        
-        <!-- BOTONES DE COLABORADOR -->
-            <button id="btnDonacion">
-                <a href="donacion.html">Donar un lote</a>
-            </button>
-        
-        <!-- BOTONES DE CLASIFICADOR -->
-            <button id="btnDespieceLote">
-                <a href="despieceLote.html">Despiezar lote</a>
-            </button>
-        
-        <!-- BOTONES DE DISEÑADOR -->
-            <button id="btnGestJoyas">
-                <a href="joyas.html">Gestionar Joyas</a>
-            </button>
+    <title>Inicio</title>
+</head>
 
-            <button id="btnGestRecetas">
-                <a href="recetas.html">Gestionar Recetas</a>
-            </button>
-            
-        <!-- BOTONES DE ADMINISTRADOR Y CLASIFICADOR -->
-            <button id="btnGestComponentes">
-                <a href="componentes.html"> Gestionar componentes</a>
-            </button>
+<body>
 
-        <video autoplay muted loop id="myVideo">
-            <source src="../assets/video.mp4" type="video/mp4">
-        </video> 
-    
-        <footer>
-        <div class="footer-contenido">
-            <div class="redes-sociales">
-                <p>Puedes encontrarnos en:</p>
-                <a href="https://www.instagram.com/" target="_blank"><img src="../assets/icono_instagram.webp"
-                        alt="Instagram" height="68px"></a>
-                <a href="https://twitter.com/?lang=es " target="_blank"><img src="../assets/icono_twitter.png"
-                        alt="Twitter" height="55px"></a>
-                <a href="https://www.facebook.com/?locale=es_ES" target="_blank"><img src="../assets/icono_facebook.png" alt="Facebook" height="55px"></a>
+    <header>
+        <a href="../html/home.html" id="inicio">
+            <img src="../assets/Jawas.webp" alt="logo" width="40px">
+        </a>
+        <h1>JAWAS JOYAS</h1>
+        <a href="../html/perfil.html" id="perfil">
+            <img src="../assets/perfil.png" alt="logo" width="35px">
+        </a>
+    </header>
+
+    <h1>Bienvenido, elige con que función trabajar</h1>
+
+    <!-- BOTONES DE ADMINISTRADOR -->
+    <button id="btnGestUsuarios">
+        <a href="gestionUsuarios.html">Gestionar Usuarios</a>
+    </button>
+
+    <button id="btnGestInventario">
+        <a href="inventario.html"> Gestionar inventarios</a>
+    </button>
+
+    <!-- BOTONES DE COLABORADOR -->
+    <button id="btnDonacion">
+        <a href="donacion.html">Donar un lote</a>
+    </button>
+
+    <!-- BOTONES DE CLASIFICADOR -->
+    <button id="btnDespieceLote">
+        <a href="despieceLote.html">Despiezar lote</a>
+    </button>
+
+    <!-- BOTONES DE DISEÑADOR -->
+    <button id="btnGestJoyas">
+        <a href="joyas.html">Gestionar Joyas</a>
+    </button>
+
+    <button id="btnGestRecetas">
+        <a href="recetas.html">Gestionar Recetas</a>
+    </button>
+
+    <!-- BOTONES DE ADMINISTRADOR Y CLASIFICADOR -->
+    <button id="btnGestComponentes">
+        <a href="componentes.html"> Gestionar componentes</a>
+    </button>
+
+    <video autoplay muted loop id="myVideo">
+        <source src="../assets/video.mp4" type="video/mp4">
+    </video>
+
+    <!-- Pie de página -->
+    <footer class="d-flex flex-column align-items-center p-3"
+        style="background-color: rgba(220, 255, 132, 0.855); color: rgb(0, 0, 0);">
+        <div class="footer-contenido d-flex flex-column align-items-center justify-content-center">
+            <div class="redes-sociales mb-3 mt-3">
+                <p class="text-center mb-3">Puedes encontrarnos en:</p>
+                <a href="https://www.instagram.com/" target="_blank" class="mr-4"><img
+                        src="../assets/icono_instagram.webp" alt="Instagram" height="68px"></a>
+                <a href="https://twitter.com/?lang=es " target="_blank" class="mr-4"><img
+                        src="../assets/icono_twitter.png" alt="Twitter" height="55px"></a>
+                <a href="https://www.facebook.com/?locale=es_ES" target="_blank" class="mr-4"><img
+                        src="../assets/icono_facebook.png" alt="Facebook" height="55px"></a>
             </div>
-            <div class="politica-privacidad">
+            <div class="politica-privacidad mb-3">
                 <a href="politica-de-privacidad.html">Política de Privacidad</a>
             </div>
-            <div class="copyright">
+            <div class="copyright mb-3">
                 <span>&copy; 2023 Jawas Joyas</span>
             </div>
         </div>
     </footer>
-        
-  </body>
-    <script type="module" src="../js/home.js"></script>
+
+</body>
+<script type="module" src="../js/home.js"></script>
+
 </html>

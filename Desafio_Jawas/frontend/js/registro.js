@@ -90,9 +90,12 @@ btnRegistro.addEventListener("click", function (e) {
         let fotoJoya = inputImagen.files[0];
 
         let formData = new FormData();
-        formData.append('image', fotoJoya)
+        formData.append('fotoPerfil', fotoJoya)
 
-        console.log(formData.get("image"))
+        console.log(formData.get("fotoPerfil"))
+            let formulario=document.getElementById('formImagen')
+            console.log(formData)
+
         subirImagenUsuario(formData)
             .then(urlImagen => {
                 console.log(urlImagen);
@@ -103,11 +106,9 @@ btnRegistro.addEventListener("click", function (e) {
                     nombre: nombre.value,
                     apellido: apellido.value,
                     email: email.value,
-                    passwd: passwd.value,
-                    confPasswd: confPasswd.value
-
+                    password: passwd.value,
                 });
-
+                console.log(datos)
                 guardarUsuario(datos)
                     .then(data => {
                         console.log(data);
