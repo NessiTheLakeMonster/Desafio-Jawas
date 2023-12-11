@@ -21,11 +21,11 @@
 <body>
     <header>
         <a href="../html/home.html" id="inicio">
-            <img src="../assets/Jawas.webp" alt="logo" width="40px">
+            <img src="../assets/Imagen 1.png" alt="logo" width="40px">
         </a>
         <h1>JAWAS JOYAS</h1>
         <a href="../html/perfil.html" id="perfil">
-            <img src="../assets/perfil.png" alt="logo" width="35px">
+            <img src="../assets/jawaperfil.png" alt="logo" width="35px">
         </a>
 
         <nav>
@@ -47,9 +47,16 @@
 
     <span id="msgExito"></span><br>
 
+    <form id="formImagen" action="http://127.0.0.1:8000/api/subir" method="post" enctype="multipart/form-data">
+        <label for="imagenCrear" id="lblImagenCrear"></label><input name="image" type="file" accept="image/*" id="imagenCrear"/>
+        <input id="btnCrearImagen" type="submit" name="subir" value="Subir imagen" />
+        <span id="msgErrorImagen"></span><br>
+    </form>
+
     <img src="" id="fotoUsuario" width="200"><br>
     <label for="nuevaFoto" id="lblNewFoto"></label><input type="file" id="nuevaFoto"><input type="button" value="Subir Imagen" id="btnSubirImagen"> <br>
     <span id="msgErrorFoto"></span><br>
+    
     Nombre:<input type="text" id="nombreUsuario"><br>
     <span id="msgErrorNombre"></span><br>
     Apellido:<input type="text" id="apellidoUsuario"><br>
@@ -57,15 +64,13 @@
     Email:<input type="text" id="emailUsuario"><br>
     <span id="msgErrorEmail"></span><br>
 
-    <input type="button" id="btnEnviar"><br>
-
     <label for="passwdUsuario" id="lblPasswdUsuario"></label><input type="text" id="passwdUsuario"><br>
     <span id="msgErrorPasswd"></span><br>
     <label for="passwdUsuario" id="lblPasswdUsuario2"></label><input type="text" id="passwdUsuario2"><br>
     <span id="msgErrorPasswd2"></span><br>
 
     <input type="button" id="cambioPasswd">
-
+    <input type="button" id="btnEnviar"><br>
     <input type="button" id="btnCrearUsuario"><br>
 
     <select name="" id="selectRoles"></select>

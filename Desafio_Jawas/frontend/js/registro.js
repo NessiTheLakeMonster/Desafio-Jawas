@@ -93,8 +93,7 @@ btnRegistro.addEventListener("click", function (e) {
         formData.append('fotoPerfil', fotoJoya)
 
         console.log(formData.get("fotoPerfil"))
-            let formulario=document.getElementById('formImagen')
-            console.log(formData)
+        console.log(formData)
 
         subirImagenUsuario(formData)
             .then(urlImagen => {
@@ -109,22 +108,28 @@ btnRegistro.addEventListener("click", function (e) {
                     password: passwd.value,
                 });
                 console.log(datos)
-                guardarUsuario(datos)
-                    .then(data => {
-                        console.log(data);
-                        if (data.status == 200) {
-                            /* sessionStorage.setItem("token", data.usuario.token); */
-                            msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
-                            msgCuentaCreada.style.color = "green";
-                            window.location.href = "login.html";
-                        } else {
-                            msgCuentaCreada.innerHTML = "Error al crear la cuenta";
-                            msgCuentaCreada.style.color = "red";
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+
+                if (validar()) {
+                    guardarUsuario(datos)
+                        .then(data => {
+                            console.log(data);
+                            if (data.status == 200) {
+                                /* sessionStorage.setItem("token", data.usuario.token); */
+                                msgCuentaCreada.innerHTML = "Cuenta creada con éxito";
+                                msgCuentaCreada.style.color = "green";
+                                window.location.href = "login.html";
+                            } else {
+                                msgCuentaCreada.innerHTML = "Error al crear la cuenta";
+                                msgCuentaCreada.style.color = "red";
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                }else{
+                    msgCuentaCreada.innerHTML = "Error al crear la cuenta";
+                    msgCuentaCreada.style.color = "red";
+                }
             });
 
     }

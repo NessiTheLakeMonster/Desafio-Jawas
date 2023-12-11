@@ -68,6 +68,7 @@ export function _Init() {
     btnEditar.disabled = true;
 
     getUsuarios().then(data => {
+        tablaUsuarios.innerHTML = "";
         cabeceraTablaUsuarios();
         tablaUsuarios.innerHTML += crearFilasTablaUsuario(data);
 
@@ -88,8 +89,6 @@ export function _Init() {
                 } else {
                     localStorage.removeItem('idUsuarioSeleccionado');
                     localStorage.removeItem('usuarioSeleccionado');
-
-                    location.reload();
                 }
             });
         });
@@ -104,7 +103,8 @@ btnEliminar.addEventListener('click', function () {
 
         if (data.status === 200) {
             alert(data.message);
-            window.location.reload();
+            //window.location.reload();
+            _Init();
         } else {
             alert(data.message);
         }

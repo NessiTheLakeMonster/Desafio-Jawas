@@ -35,7 +35,7 @@ export function move() {
     function frame() {
         if (width >= 100) {
             clearInterval(id)
-            window.location.reload()
+            _Init()
         } else {
             width++
             elem.style.width = width + "%"
@@ -88,6 +88,7 @@ export function filaTablaLotesColaborador(data) {
 export function _Init() {
     getLotesEntregados(usuario)
         .then(data => {
+            tablaLotes.innerHTML = "";
             cabeceraTablaLotesColaborador(data);
             tablaLotes.innerHTML += filaTablaLotesColaborador(data);
         });
@@ -144,7 +145,7 @@ btnCancelarLote.addEventListener('click', async function () {
         if (data.status === 200) {
             msgLote.textContent = 'Lote cancelado correctamente'
             msgLote.style.color = 'green'
-            location.reload()
+            _Init()
         } else {
             msgLote.textContent = 'Error al cancelar el lote'
             msgLote.style.color = 'red'

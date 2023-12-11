@@ -1,5 +1,5 @@
 import { modificar, modificarPasswd, modificarFotoPerfil, getRoles, asignarRol } from "./http/http_modificarCrearUsuario.js";
-import { guardarUsuario } from "./http/http_registro.js";
+import { guardarUsuario, subirImagenUsuario } from "./http/http_registro.js";
 import { validarNombre, validarApellido, validarPasswd, validarEmail } from "./utils/validaciones.js";
 
 // Variables de los campos del formulario del HTML
@@ -13,11 +13,12 @@ let password = document.getElementById('passwdUsuario');
 let confPassword = document.getElementById('passwdUsuario2');
 
 let selectRoles = document.getElementById('selectRoles');
-
 // Labels
 let lblNewFoto = document.getElementById('lblNewFoto');
 let lblPasswd = document.getElementById('lblPasswdUsuario');
 let lblConfPasswd = document.getElementById('lblPasswdUsuario2');
+let lblImagenCrear = document.getElementById('lblImagenCrear');
+let imagenCrear = document.getElementById('imagenCrear');
 
 // Botones
 const btnEnviar = document.getElementById('btnEnviar');
@@ -25,6 +26,7 @@ const btnCambiarPasswd = document.getElementById('cambioPasswd');
 const btnCrearUsuario = document.getElementById('btnCrearUsuario');
 const btnAddRol = document.getElementById('btnAddRol');
 const btnSubirImagen = document.getElementById('btnSubirImagen');
+const btnCrearImagen = document.getElementById('btnCrearImagen');
 
 // Mensajes de error
 let msgFoto = document.getElementById("msgErrorFoto");
@@ -36,6 +38,10 @@ let msgConfPasswd = document.getElementById("msgErrorPasswd2");
 
 // Mensajes de exito
 let msgExito = document.getElementById("msgExito");
+
+let formImagen = document.getElementById("formImagen");
+let inputImagen = formImagen.elements.namedItem("image");
+let msgErrorImagen = document.getElementById("msgErrorImagen");
 
 let usuario;
 
@@ -62,6 +68,10 @@ export function modificarUsuario() {
         apellido.value = usuario.apellido;
         email.value = usuario.email;
 
+        lblImagenCrear.hidden = true;
+        imagenCrear.hidden = true;
+        btnCrearImagen.hidden = true;
+        
         password.hidden = true;
         email.disabled = true;
 
@@ -110,32 +120,39 @@ export function validarModificarFormulario() {
 
 export function crearUsuario() {
     titulo.textContent = 'Crear Usuario';
+    lblImagenCrear.textContent = 'Añade una foto de perfil ';
 
     btnEnviar.hidden = true;
     btnCambiarPasswd.hidden = true;
     btnCrearUsuario.value = 'Crear';
-    
+
     selectRoles.hidden = true;
     btnAddRol.hidden = true;
+
+    btnSubirImagen.hidden = true;
+    lblNewFoto.hidden = true;
+    imgUsuario.hidden = true;
+    msgFoto.hidden = true;
+    newImgUsuario.hidden = true;
 
     lblPasswd.textContent = 'Contraseña: ';
     lblConfPasswd.textContent = 'Repite la contraseña: ';
     lblNewFoto.textContent = 'Foto de perfil: ';
 }
 
-export function agregarUsuario() {
+/* export function agregarUsuario() {
     let datos = {
-        /* fotoPerfil: imgUsuario.src, */ // FIXME queda pendiente meter la foto
+        /* fotoPerfil: imgUsuario.src,  // FIXME queda pendiente meter la foto
         fotoPerfil: newImgUsuario.value,
         nombre: nombre.value,
         apellido: apellido.value,
         email: email.value,
-        passwd: password.value,
-        confPasswd: confPassword.value
+        password: password.value,
+
     };
 
     return datos;
-}
+}*/
 
 export function validarCrearFormulario() {
     limpiarErrores();
@@ -167,12 +184,6 @@ export function limpiarErrores() {
     msgPasswd.textContent = "";
     msgConfPasswd.textContent = "";
     msgExito.textContent = "";
-
-    nombre.style.borderColor = "none";
-    apellido.style.borderColor = "none";
-    password.style.borderColor = "none";
-    confPassword.style.borderColor = "none";
-    email.style.borderColor = "none";
 }
 
 
@@ -208,54 +219,87 @@ export function crearSelectRoles(roles) {
     }).join('');
 }
 
+formImagen.addEventListener('submit', function (e) {
+    e.preventDefault();
+});
+
 // Eventos de los botones
 btnEnviar.addEventListener('click', function () {
-    if (btnEnviar.value === 'Crear') {
 
-        if (validarCrearFormulario()) {
-            guardarUsuario(agregarUsuario()).then(data => {
-                console.log(data);
-                if (data.status === 200) {
-                    localStorage.removeItem('crear');
+    if (validarModificarFormulario()) {
+        modificar(cargarUsuario(), usuario.id).then(data => {
+            console.log(data);
+            if (data.status === 200) {
+                localStorage.removeItem('usuarioSeleccionado');
+                localStorage.removeItem('modificar');
 
-                    /* window.location.href = 'gestionUsuarios.html'; */
-                    msgExito.textContent = "Usuario creado correctamente";
-                    msgExito.style.display = "block";
-                    msgExito.style.color = "green";
+                /* window.location.href = 'gestionUsuarios.html'; */
+                msgExito.textContent = "Usuario modificado correctamente";
+                msgExito.style.display = "block";
+                msgExito.style.color = "green";
 
-                    localStorage.setItem('usuarioSeleccionado', JSON.stringify(data.usuario));
-                }
-            });
-        } else {
-            msgExito.textContent = "Por favor, rellene los campos correctamente";
-            msgExito.style.display = "block";
-            msgExito.style.color = "red";
-        }
-
-    } else if (btnEnviar.value === 'Actualizar Datos') {
-
-        if (validarModificarFormulario()) {
-            modificar(cargarUsuario(), usuario.id).then(data => {
-                console.log(data);
-                if (data.status === 200) {
-                    localStorage.removeItem('usuarioSeleccionado');
-                    localStorage.removeItem('modificar');
-
-                    /* window.location.href = 'gestionUsuarios.html'; */
-                    msgExito.textContent = "Usuario modificado correctamente";
-                    msgExito.style.display = "block";
-                    msgExito.style.color = "green";
-
-                    localStorage.setItem('usuarioSeleccionado', JSON.stringify(data.usuario));
-                }
-            });
-        } else {
-            msgExito.textContent = "Por favor, rellene los campos correctamente";
-            msgExito.style.display = "block";
-            msgExito.style.color = "red";
-        }
+                localStorage.setItem('usuarioSeleccionado', JSON.stringify(data.usuario));
+            }
+        });
+    } else {
+        msgExito.textContent = "Por favor, rellene los campos correctamente";
+        msgExito.style.display = "block";
+        msgExito.style.color = "red";
     }
 });
+
+btnCrearUsuario.addEventListener('click', function () {
+   
+
+    if (inputImagen.files.length === 0) {
+        msgErrorImagen.textContent = 'Por favor, inserta una imagen.';
+        msgErrorImagen.style.color = 'red';
+    } else {
+        let fotoJoya = inputImagen.files[0];
+
+        let formData = new FormData();
+        formData.append('fotoPerfil', fotoJoya)
+
+        console.log(formData.get("fotoPerfil"))
+        console.log(formData)
+
+        subirImagenUsuario(formData)
+            .then(urlImagen => {
+                console.log(urlImagen);
+                let url = urlImagen.url;
+
+                let datos = JSON.stringify({
+                    fotoPerfil: url,
+                    nombre: nombre.value,
+                    apellido: apellido.value,
+                    email: email.value,
+                    password: password.value,
+                });
+                console.log(datos)
+
+                if (validarCrearFormulario()) {
+                    guardarUsuario(datos).then(data => {
+                        console.log(data);
+                        if (data.status === 200) {
+                            localStorage.removeItem('crear');
+
+                            /* window.location.href = 'gestionUsuarios.html'; */
+                            msgExito.textContent = "Usuario creado correctamente";
+                            msgExito.style.display = "block";
+                            msgExito.style.color = "green";
+
+                            localStorage.setItem('usuarioSeleccionado', JSON.stringify(data.usuario));
+                        }
+                    });
+                } else {
+                    msgExito.textContent = "Por favor, rellene los campos correctamente";
+                    msgExito.style.display = "block";
+                    msgExito.style.color = "red";
+                }
+            });
+    }
+});
+
 
 btnCambiarPasswd.addEventListener('click', function () {
     if (confPassword.value !== '') {

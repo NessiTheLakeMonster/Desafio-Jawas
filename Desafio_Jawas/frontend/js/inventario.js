@@ -36,6 +36,7 @@ export function crearFilasTablaInventario(data) {
 
 export async function _Init() {
     getInventario().then(data => {
+        tablaInventario.innerHTML = "";
         cabeceraTablaInventario();
         tablaInventario.innerHTML += crearFilasTablaInventario(data);
 
@@ -89,7 +90,7 @@ export async function _Init() {
                     this.nextSibling.textContent = cantidad;
                     let datos = { cantidad: cantidad };
                     modificarInventario(idInventario, datos).then(response => {
-                        console.log(response); // Imprime la respuesta de la API
+                        console.log(response); 
                     });
                 }
             });
@@ -104,7 +105,7 @@ export async function _Init() {
                     this.previousSibling.textContent = cantidad;
                     let datos = { cantidad: cantidad };
                     modificarInventario(idInventario, datos).then(response => {
-                        console.log(response); // Imprime la respuesta de la API
+                        console.log(response); 
                     });
                 }
             });
