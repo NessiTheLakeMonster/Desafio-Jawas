@@ -107,29 +107,6 @@ class RolAsignadoController extends Controller
         return $message;
     }
 
-    public function creacionTokens($idRol, $usuario)
-    {
-        switch ($idRol) {
-            case 1:
-                $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken;
-                break;
-            case 2:
-                $success['token'] =  $usuario->createToken('access_token', ["administrador"])->plainTextToken;
-                break;
-            case 3:
-                $success['token'] =  $usuario->createToken('access_token', ["diseñador"])->plainTextToken;
-                break;
-            case 4:
-                $success['token'] =  $usuario->createToken('access_token', ["clasificador"])->plainTextToken;
-                break;
-            default:
-                $success['token'] =  $usuario->createToken('access_token', ["colaborador"])->plainTextToken;
-                break;
-        }
-
-        return $success;
-    }
-
     /**
      * @author Inés Mª Barrera Llerena
      * @summary Mostrar los roles de un usuario

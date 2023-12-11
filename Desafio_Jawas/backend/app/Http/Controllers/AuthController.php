@@ -169,23 +169,21 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        try {
-            $auth = Auth::user();
+        $datos = [
+            'email' => $request->email, 
+            'password' => $request->password
+        ];
 
-            $nombre = $auth->nombre;
-
-            $request->user()->tokens()->delete();
-
+        if(Auth::attempt($datos)){
+            Auth::user()->tokens()->delete();
             return response()->json([
-                'message' => 'sesion cerrada',
-                'nombre' => $nombre
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error en el servidor',
-                'error' => $e->getMessage()
-            ], 500);
+                "msg"=>"Se ha cerrado sesión en todos sus dispositivos."
+            ],200);
         }
+        else {
+            return response()->json("No estas autorizado para realizar esa acción",400);
+        }
+
     }
     
     public function cargarImagenUsuario(Request $request)
