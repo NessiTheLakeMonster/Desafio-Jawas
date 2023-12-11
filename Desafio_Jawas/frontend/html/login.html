@@ -30,21 +30,24 @@
     <div class="col-5 ps-5 pe-5" style="background-color: rgba(220, 255, 132, 0.855);">
         <h1 class="mb-4 text-center">INICIA SESIÓN</h1>
 
-        <span id="msgExito"></span>
+        <div id="msgExito" class="alert alert-info d-none"></div>
 
         <div class="form-floating mb-3">
             <input class="form-control" type="email" id="mailLogin" placeholder="name@example.com">
             <label for="mailLogin">Correo Electrónico</label>
         </div>
         
-        <span id="msgErrorEmail"></span><br>
+        <div id="msgErrorEmail" class="alert alert-danger d-none"></div>
 
-        <div class="form-floating">
+        <div class="form-floating mb-3 d-flex">
             <input class="form-control" type="password" id="passwdLogin" placeholder="password">
             <label for="passwdLogin">Contraseña</label>
+            <button id="mostrarPasswd" class="btn btn-outline-secondary btn-light" type="button">
+                <img src="../assets/ojo_cerrado.png" width="40" id="imgMostrarPasswd">
+            </button>
         </div>
         
-        <span id="msgErrorPasswd"></span>
+        <div id="msgErrorPasswd" class="alert alert-danger d-none"></div>
 
         <p class="mb-3 ">¿Aún no tienes cuenta? Regístrate <a href="registro.html">aquí</a></p>
 
