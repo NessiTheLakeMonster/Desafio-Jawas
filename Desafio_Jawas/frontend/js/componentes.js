@@ -117,6 +117,7 @@ export function _Init() {
 
     getComponentes()
         .then(data => {
+            tablaComponentes.innerHTML = "";
             cabeceraTablaComponentes(data);
             tablaComponentes.innerHTML += filaComponentes(data);
         })

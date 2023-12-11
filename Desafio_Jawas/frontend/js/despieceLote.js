@@ -60,6 +60,7 @@ export function filaTablaLotes(data) {
 function _Init() {
     getLotes()
         .then(data => {
+            tablaLoteClasificador.innerHTML = "";
             cabeceraTablaLotes(data);
             tablaLoteClasificador.innerHTML += filaTablaLotes(data);
 

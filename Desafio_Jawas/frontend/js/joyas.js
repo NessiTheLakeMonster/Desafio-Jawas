@@ -91,6 +91,7 @@ export function crearFilasModificarJoya(data) {
 
 export function _Init() {
     getJoyas().then(data => {
+        tablaJoyas.innerHTML = "";
         cabeceraTablaJoyas(data);
         tablaJoyas.innerHTML += filaTablaJoyas(data);
 

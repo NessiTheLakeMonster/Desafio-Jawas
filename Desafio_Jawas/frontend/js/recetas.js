@@ -151,6 +151,7 @@ export function _Init() {
 
     getRecetas()
         .then(data => {
+            tablaRecetas.innerHTML = "";
             cabeceraTablaRecetas(data);
             tablaRecetas.innerHTML += filaTablaRecetas(data);
 
