@@ -8,6 +8,8 @@ const btnEliminar = document.getElementById('btnBorrar');
 const btnEditar = document.getElementById('btnModificar');
 const btnCrear = document.getElementById('btnAgregar');
 
+localStorage.removeItem('idUsuarioSeleccionado');
+
 // Funciones 
 export function cabeceraTablaUsuarios() {
     let cabecera = document.createElement('tr');
@@ -63,6 +65,7 @@ export function limpiarLocalStorage() {
 
 export function _Init() {
     limpiarLocalStorage();
+    btnEditar.disabled = true;
 
     getUsuarios().then(data => {
         cabeceraTablaUsuarios();
@@ -81,6 +84,7 @@ export function _Init() {
                     });
                     localStorage.setItem('idUsuarioSeleccionado', this.value);
                     guardarUsuarioSeleccionado(this.value);
+                    btnEditar.disabled = false;
                 } else {
                     localStorage.removeItem('idUsuarioSeleccionado');
                     localStorage.removeItem('usuarioSeleccionado');

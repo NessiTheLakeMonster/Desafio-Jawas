@@ -1,6 +1,6 @@
 //Importaciones
 import { getComponente, getComponentes, addComponente } from "./http/http_componentes.js";
-import { validarHardware,  validarNombreHardware} from "./utils/validaciones.js";
+import { validarHardware, validarNombreHardware } from "./utils/validaciones.js";
 
 //Tabla de componentes 
 let tablaComponentes = document.getElementById("tablaComponentes");
@@ -14,6 +14,8 @@ const hardware = document.getElementById("hardware");
 
 let msgErrorNombre = document.getElementById("msgErrorNombre");
 let msgErrorHardware = document.getElementById("msgErrorHardware");
+
+let navbarComponentes = document.getElementById("navbarComponentes");
 
 //barra de busqueda
 let buscador = document.getElementById("buscador");
@@ -31,12 +33,12 @@ let msgErrorComponente = document.getElementById("msgErrorComponente");
 
 export function cabeceraTablaComponentes(data) {
     let cabecera = document.createElement('tr');
-    let headers = ['ID','NOMBRE', 'HARDWARE'];
+    let headers = ['ID', 'NOMBRE', 'HARDWARE'];
 
     headers.forEach(header => {
-         let th = document.createElement('th');
-         th.textContent = header;
-         cabecera.appendChild(th);
+        let th = document.createElement('th');
+        th.textContent = header;
+        cabecera.appendChild(th);
 
     });
 
@@ -74,13 +76,45 @@ function guardarComponente() {
     return datos;
 }
 
+export function rolLocalStorage() {
+    console.log(localStorage.getItem('rol'));
+
+    if (localStorage.getItem('rol') === "administrador") {
+        navbarComponentes.innerHTML = `
+        <button>
+            <a href="gestionUsuarios.html">Gestionar Usuarios</a>
+        </button>
+
+        <button>
+            <a href="inventario.html"> Gestionar inventarios</a>
+        </button>
+
+        <button>
+            <a href="componentes.html"> Gestionar componentes</a>
+        </button>`;
+
+    } else if (localStorage.getItem('rol') === "clasificador") {
+
+        navbarComponentes.innerHTML = `
+        <button>
+            <a href="despieceLote.html">Despiezar lote</a>
+        </button>
+
+        <button>
+            <a href="componentes.html"> Gestionar componentes</a>
+        </button>`;
+    }
+}
+
 /**
  * @author Patricia Mota
  * @summary Función que se encarga de mostrar la tabla de los componentes
  */
 
 
-export function _Init(){
+export function _Init() {
+    rolLocalStorage();
+
     getComponentes()
         .then(data => {
             cabeceraTablaComponentes(data);
@@ -97,7 +131,7 @@ export function _Init(){
  */
 
 
-btnAddComponente.addEventListener('click',  function(e) {
+btnAddComponente.addEventListener('click', function (e) {
     e.preventDefault();
 
     if (!validar()) {
@@ -119,7 +153,7 @@ btnAddComponente.addEventListener('click',  function(e) {
 
                 tablaComponentes.innerHTML = "";
                 _Init();
-            
+
             } else {
                 msgErrorComponente.innerHTML = "Error al añadir el componente";
                 msgErrorComponente.style.color = "red";
@@ -135,7 +169,7 @@ btnAddComponente.addEventListener('click',  function(e) {
  * @summary Botón que se encarga de buscar un componente
  */
 
-btnBuscar.addEventListener('click', async function() {
+btnBuscar.addEventListener('click', async function () {
     let id = buscador.value;
 
     if (id === "") {
@@ -164,7 +198,7 @@ btnBuscar.addEventListener('click', async function() {
  * @summary Botón de enter que se encarga de buscar un componente
  */
 
-buscador.addEventListener('keyup', async function(event) {
+buscador.addEventListener('keyup', async function (event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         btnBuscar.click();
