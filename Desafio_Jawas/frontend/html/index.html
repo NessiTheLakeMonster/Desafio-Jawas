@@ -19,17 +19,15 @@
 </head>
 
 <body>
-    <header>
-        <a href="../html/home.html" id="inicio">
-            <img src="../assets/Jawas.webp" alt="logo" width="40px">
-        </a>
-        <h1>JAWAS JOYAS</h1>
-        <a href="../html/perfil.html" id="perfil">
-            <img src="../assets/perfil.png" alt="logo" width="35px">
-        </a>
+    <header class="d-flex flex-column align-items-center p-3 " style="background-color: rgba(220, 255, 132, 0.855); color: rgb(0, 0, 0);">
+        <div class="header-contenido d-flex align-items-center justify-content-center">
+            <img src="../assets/Imagen 1.png" alt="logo" width="110px">
+            <h1 class="titulo">JAWAS GEMS</h1>
+        </div>
     </header>
+    
     <div id="divPresentacion">
-        <div id="txtPresentacion">
+        <div id="txtPresentacion" class="card" style="width: 18rem;">
             <h2>Joyería CIFP Virgen de Gracia</h2>
             <p>
                 Bienvenido a Jawas Joyas, una plataforma única donde transformamos hardware inutilizable y obsoleto en
@@ -40,7 +38,7 @@
             </p>
         </div>
 
-        <input type="button" value="Participar" id="btnParticipar">
+        <input type="button" value="Participar" id="btnParticipar" class="btn btn-info btn-lg">
     </div>
 
     <video autoplay muted loop id="myVideo">
