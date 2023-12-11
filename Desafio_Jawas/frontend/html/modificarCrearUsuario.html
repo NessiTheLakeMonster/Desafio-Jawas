@@ -19,6 +19,30 @@
 </head>
 
 <body>
+    <header>
+        <a href="../html/home.html" id="inicio">
+            <img src="../assets/Jawas.webp" alt="logo" width="40px">
+        </a>
+        <h1>JAWAS JOYAS</h1>
+        <a href="../html/perfil.html" id="perfil">
+            <img src="../assets/perfil.png" alt="logo" width="35px">
+        </a>
+
+        <nav>
+            <button>
+                <a href="gestionUsuarios.html">Gestionar Usuarios</a>
+            </button>
+        
+            <button>
+                <a href="inventario.html"> Gestionar inventarios</a>
+            </button>
+
+            <button>
+                <a href="componentes.html"> Gestionar componentes</a>
+            </button>
+        </nav>
+    </header>
+    
     <h1 id="titulo"></h1>
 
     <span id="msgExito"></span><br>
@@ -40,11 +64,9 @@
     <label for="passwdUsuario" id="lblPasswdUsuario2"></label><input type="text" id="passwdUsuario2"><br>
     <span id="msgErrorPasswd2"></span><br>
 
-    <input type="button" id="btnEnviar">
     <input type="button" id="cambioPasswd">
-  
-    <input type="button" id="btnCrearUsuario">
-    <input type="button" id="cambioPasswd"><br>
+
+    <input type="button" id="btnCrearUsuario"><br>
 
     <select name="" id="selectRoles"></select>
     <input type="button" id="btnAddRol">
