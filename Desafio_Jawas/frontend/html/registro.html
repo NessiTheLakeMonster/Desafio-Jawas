@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
     <!-- CSS -->
     <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
     <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
     <!-- icon -->
     <link rel="icon" type="image/png" href="../assets/Imagen 1.png">
@@ -20,53 +20,84 @@
 
 <body>
 
-    <header>
-        <a href="../html/home.html" id="inicio">
-            <img src="../assets/Imagen 1.png" alt="logo" width="40px">
-        </a>
-        <h1>JAWAS JOYAS</h1>
-        <a href="../html/perfil.html" id="perfil">
-            <img src="../assets/jawaperfil.png" alt="logo" width="35px">
-        </a>
+    <header class="p-3 col-5" style="background-color: rgba(220, 255, 132, 0.855); color: rgb(0, 0, 0);">
+        <div class="d-flex align-items-center">
+            <img src="../assets/Imagen 1.png" alt="logo" width="110px">
+            <h1 class="titulo" style="white-space: nowrap; margin-left: 4vw;">JAWAS GEMS</h1>
+        </div>
     </header>
 
-    <h1>Registro</h1>
+    <div class="col-5 ps-5 pe-5" style="background-color: rgba(220, 255, 132, 0.855);">
 
-    <span id="msgExito"></span><br>
+        <h1 class="text-center">REGÍSTRATE</h1>
 
-    <form id="formImagen" action="http://127.0.0.1:8000/api/subir" method="post" enctype="multipart/form-data">
-        Añadir imagen: <input name="image" type="file" accept="image/*" />
-        <input type="submit" name="subir" value="Subir imagen" />
-        <span id="msgErrorImagen"></span><br>
-    </form>
+        <div id="msgExito" class="alert alert-info d-none"></div><br>
 
-    <input type="text" id="nombreRegistro">
-    <label for="nombreRegistro">Nombre</label>
-    <span id="msgErrorNombre"></span><br>
+        <div id="msgExitoFoto" class="alert alert-info d-none"></div>
 
-    <input type="text" id="apellidoRegistro">
-    <label for="apellidoRegistro">Apellido</label>
-    <span id="msgErrorApellido"></span><br>
+        <div class="mb-3">
+            <form id="formImagen" action="http://127.0.0.1:8000/api/subir" method="post" enctype="multipart/form-data">
+                <label for="formFile" class="form-label">Añadir imagen: </label>
 
-    <input type="email" id="mailRegistro">
-    <label for="mailRegistro">Correo Electrónico</label>
-    <span id="msgErrorEmail"></span><br>
+                <div class="d-flex gap-2">
+                    <input name="image" type="file" accept="image/*" class="form-control" id="formFile"/>
+                    <input type="submit" name="subir" value="Subir imagen" class="btn btn-success"/>
+                </div>
+                
+                <div id="msgErrorImagen" class="alert alert-danger d-none"></div><br>
+            </form>
+        </div>
 
-    <input type="password" id="passwdRegistro">
-    <label for="passwdRegistro">Contraseña</label>
-    <span id="msgErrorPasswd"></span><br>
+        <div class="form-floating mb-3">
+            <input class="form-control" type="text" id="nombreRegistro" placeholder="nombre">
+            <label for="nombreRegistro">Nombre</label>
+        </div>
 
-    <input type="password" id="confPasswdRegistro">
-    <label for="confPasswdRegistro">Confirmar contraseña</label>
-    <span id="msgErrorConfPasswd"></span><br>
+        <div id="msgErrorNombre" class="alert alert-danger d-none"></div><br>
 
-    <input type="button" value="Registrarse" id="btnRegistro">
+        <div class="form-floating mb-3">
+            <input class="form-control" type="text" id="apellidoRegistro" placeholder="apellido">
+            <label for="apellidoRegistro">Apellido</label>
+        </div>
+
+        <div id="msgErrorApellido" class="alert alert-danger d-none"></div><br>
+
+        <div class="form-floating mb-3">
+            <input class="form-control" type="email" id="mailRegistro" placeholder="email">
+            <label for="mailRegistro">Correo Electrónico</label>
+        </div>
+
+        <div id="msgErrorEmail" class="alert alert-danger d-none"></div><br>
+
+        <div class="form-floating mb-3 d-flex">
+            <input class="form-control" type="password" id="passwdRegistro" placeholder="contraseña">
+            <label for="passwdRegistro">Contraseña</label>
+            <button id="mostrarPasswd1" class="btn btn-outline-secondary btn-light" type="button">
+                <img src="../assets/ojo_cerrado.png" width="40" id="imgMostrarPasswd1">
+            </button>
+        </div>
+
+        <div id="msgErrorPasswd" class="alert alert-danger d-none"></div><br>
+
+        <div class="form-floating mb-3 d-flex">
+            <input class="form-control" type="password" id="confPasswdRegistro" placeholder="contraseña">
+            <label for="confPasswdRegistro">Confirmar contraseña</label>
+            <button id="mostrarPasswd2" class="btn btn-outline-secondary btn-light" type="button">
+                <img src="../assets/ojo_cerrado.png" width="40" id="imgMostrarPasswd2">
+            </button>
+        </div>
+        
+        <div id="msgErrorConfPasswd" class="alert alert-danger d-none"></div><br>
+
+        <input type="button" value="Registrarse" id="btnRegistro" class="btn btn-success btn-lg">
+
+    </div>
 
     <video autoplay muted loop id="myVideo">
-        <source src="../assets/video.mp4" type="video/mp4">
+        <source src="../assets/f.mp4" type="video/mp4">
     </video>
 
-    <footer class="d-flex flex-column align-items-center p-3"
+    <footer class="p-3 col-5"
         style="background-color: rgba(220, 255, 132, 0.855); color: rgb(0, 0, 0);">
         <div class="footer-contenido d-flex flex-column align-items-center justify-content-center">
             <div class="redes-sociales mb-3 mt-3">
