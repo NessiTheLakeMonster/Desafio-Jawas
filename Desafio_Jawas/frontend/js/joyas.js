@@ -58,7 +58,7 @@ export function filaTablaJoyas(data) {
 
 export function cabeceraTablaModificarJoya(data) {
     let cabecera = document.createElement('tr');
-    let headers = ['IMÁGEN', 'TIPO JOYA'];
+    let headers = ['IMAGEN', 'TIPO JOYA'];
 
     headers.forEach(header => {
         let th = document.createElement('th');
@@ -154,7 +154,7 @@ export function _Init() {
                     let nuevaImagen = inputImagen.files[0];
 
                     let formData = new FormData();
-                    formData.append('foto', nuevaImagen);
+                    formData.append('image', nuevaImagen);
 
                     modificarImg(formData)
                         .then(response => {

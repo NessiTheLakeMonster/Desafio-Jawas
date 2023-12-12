@@ -17,6 +17,7 @@ export async function crearLote() {
     let options = {
         method: 'POST',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
@@ -33,7 +34,9 @@ export async function mostrarLotes(idUsuario) {
     let options = {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     }
 
@@ -47,7 +50,9 @@ export async function mostrarEntregados(idUsuario) {
     let options = {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     }
 
@@ -62,7 +67,9 @@ export async function mostrarLote(id) {
     let options = {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     }
 
@@ -76,7 +83,9 @@ export async function mandarLote(id) {
     let options = {
         method: 'PUT',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     }
 
@@ -90,7 +99,9 @@ export async function cancelarLote(id) {
     let options = {
         method: 'PUT',
         headers: {
-            "Content-Type": "application/json"
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     }
 

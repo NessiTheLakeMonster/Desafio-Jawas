@@ -89,8 +89,6 @@ selectJoya.addEventListener('change', function () {
 
     selectJoya.disabled = true;
 
-    //Select de Recetas [ID] 
-    //TODO:deberiamos ponerles nombre a las recetas??
     getRecetas(joyaSeleccionada)
         .then(recetas => {
             selectReceta.innerHTML = '';

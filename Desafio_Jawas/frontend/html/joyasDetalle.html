@@ -48,10 +48,6 @@
                     </li>
                     <li><a class="dropdown-item" href="../html/perfil.html">Perfil</a></li>
                     <li><a class="dropdown-item" href="../html/preHome.html">Cambiar Rol</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="../html/">Cerrar Sesión</a></li>
                 </ul>
             </li>
         </a>
@@ -80,13 +76,16 @@
             <select id="selectReceta"></select><br>
         </div>
 
-        <div id="introducirComponentes" class="text-center mb-4">
-            <form id="formImagen" action="http://127.0.0.1:8000/api/joya/subir" method="post" enctype="multipart/form-data">
+
+            <form id="formImagen" enctype="multipart/form-data">
                 Añadir imagen: <input name="image" type="file" accept="image/*" />
                 <input type="submit" name="subir" value="Subir imagen" />
             </form>
+   
+        <div>
+            <span id="respuesta"></span>
         </div>
-
+        
         <input type="button" value="Generar Joya" id="btnGenerarJoya"  class="btn btn-outline-primary mb-3 mt-3 mx-2">
         <input type="button" value="Crear otra Joya" id="btnVolverIntento"  class="btn btn-outline-primary mb-3 mt-3 mx-2">
 
@@ -101,7 +100,6 @@
         </div>
         
     </div>
-
 
     <div class="text-center">
         <input type="button" value="Ver Joyas" id="btnVolverJoyas" class="btn btn-info mb-4 ">

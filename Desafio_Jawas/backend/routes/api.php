@@ -12,6 +12,7 @@ use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\JoyaController;
 use App\Models\User;
+use App\Http\Controllers\RecetaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,7 @@ Route::get('', function () {
 Route::post('/registro', [AuthController::class, 'registro']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout/{id}', [AuthController::class, 'logout']);
+
 Route::post('/subir', [AuthController::class, 'cargarImagenUsuario']);
 
 
@@ -185,38 +187,40 @@ Route::middleware(['auth:sanctum', 'midClasificador'])->group(function () {
 
 //-------------------------RUTAS DISEÑADOR-------------------------
 
-/* Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () { */
+Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () { 
 
-//GESTIONAR JOYAS
-Route::prefix('joya')->group(function () {
+    //GESTIONAR JOYAS
+    Route::prefix('joya')->group(function () {
 
-    //MOSTRAR LISTA TIPOS DE JOYAS
-    Route::get('/tipos', [App\Http\Controllers\TipoJoyaController::class, 'listar']);
-    //MOSTRAR LISTA DE TODAS LAS JOYAS
-    Route::get('/listar', [App\Http\Controllers\JoyaController::class, 'listar']);
-    //MOSTRAR JOYA BUSCADA POR ID
-    Route::get('/mostrar/{id}', [App\Http\Controllers\JoyaController::class, 'mostrar']);
-    //MODIFICAR LA IMG DE LA JOYA
-    Route::post('/modificar/{id}', [App\Http\Controllers\JoyaController::class, 'modificar']);
-    //GENERADOR DE JOYAS ALEATORIAS
-    Route::post('/generar', [App\Http\Controllers\JoyaController::class, 'generarJoyaAleatoria']);
-    //VERIFICAR SI HAY SUFICIENTES COMPONENTES EN EL INVENTARIO Y CUANTAS JOYAS PUEDE HACER
-    Route::get('/componentes/{idReceta}', [App\Http\Controllers\JoyaController::class, 'componenteSuficiente']);
-    //MOSTRAR INVENTARIO > /INVENTARIO/MOSTAR
+        //MOSTRAR LISTA TIPOS DE JOYAS
+        Route::get('/tipos', [App\Http\Controllers\TipoJoyaController::class, 'listar']);
+        //MOSTRAR LISTA DE TODAS LAS JOYAS
+        Route::get('/listar', [App\Http\Controllers\JoyaController::class, 'listar']);
+        //MOSTRAR JOYA BUSCADA POR ID
+        Route::get('/mostrar/{id}', [App\Http\Controllers\JoyaController::class, 'mostrar']);
+        //MODIFICAR LA IMG DE LA JOYA
+        Route::post('/modificar/{id}', [App\Http\Controllers\JoyaController::class, 'modificar']);
+        //GENERADOR DE JOYAS ALEATORIAS
+        Route::post('/generar', [App\Http\Controllers\JoyaController::class, 'generarJoyaAleatoria']);
+        //VERIFICAR SI HAY SUFICIENTES COMPONENTES EN EL INVENTARIO Y CUANTAS JOYAS PUEDE HACER
+        Route::get('/componentes/{idReceta}', [App\Http\Controllers\JoyaController::class, 'componenteSuficiente']);
+        //MOSTRAR INVENTARIO > /INVENTARIO/MOSTAR
 
-    //GESTIONAR CRUD JOYAS
-    Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']); //TODO:NO SE USA
+        //GESTIONAR CRUD JOYAS
+        Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']); //TODO:NO SE USA
 
-    //SUBIR IMAGEN JOYA
-    Route::post('/subir', [JoyaController::class, 'cargarImagen']);
+        //TODO:NO SE USA
+        //GESTIONAR CRUD JOYAS
+        Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']);
+        //BORRAR JOYA
+        Route::delete('/eliminar/{id}', [App\Http\Controllers\JoyaController::class, 'eliminar']);
+    });
+}); 
 
-    //TODO:NO SE USA
-    //GESTIONAR CRUD JOYAS
-    Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']);
-    //BORRAR JOYA
-    Route::delete('/eliminar/{id}', [App\Http\Controllers\JoyaController::class, 'eliminar']);
-});
-/* }); */
+            //SUBIR IMAGEN JOYA
+            Route::post('/joya/subir', [JoyaController::class, 'cargarImagen']);
+
+
 
 Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
 
