@@ -28,6 +28,12 @@ const btnAddRol = document.getElementById('btnAddRol');
 const btnSubirImagen = document.getElementById('btnSubirImagen');
 const btnCrearImagen = document.getElementById('btnCrearImagen');
 
+const mostrarPasswd1 = document.getElementById("mostrarPasswd1");
+const mostrarPasswd2 = document.getElementById("mostrarPasswd2");
+
+let imgMostrarPasswd1 = document.getElementById("imgMostrarPasswd1");
+let imgMostrarPasswd2 = document.getElementById("imgMostrarPasswd2");
+
 // Mensajes de error
 let msgNom = document.getElementById("msgErrorNombre");
 let msgApe = document.getElementById("msgErrorApellido");
@@ -66,6 +72,8 @@ export function modificarUsuario() {
         apellido.value = usuario.apellido;
         email.value = usuario.email;
 
+        imgMostrarPasswd1.hidden = true;
+        mostrarPasswd1.hidden = true;
         lblImagenCrear.hidden = true;
         imagenCrear.hidden = true;
         btnCrearImagen.hidden = true;
@@ -190,12 +198,6 @@ export function _Init() {
     msgEmail.classList.add('d-none');
     msgPasswd.classList.add('d-none');
     msgConfPasswd.classList.add('d-none');
-
-    if (localStorage.getItem('rol') ==! 'administrador') {
-        cargarRoles();
-    } else {
-        window.location.href = "../html/noPermisos.html";
-    }
 
     if (localStorage.getItem('modificar') === 'true') {
         usuario = JSON.parse(localStorage.getItem('usuarioSeleccionado'));
@@ -405,6 +407,26 @@ btnAddRol.addEventListener('click', function () {
         .catch(error => {
             console.log(error);
         });
+});
+
+mostrarPasswd1.addEventListener("click", function (e) {
+    if (password.type == "password") {
+        password.type = "text";
+        imgMostrarPasswd1.src = "../assets/ojo_abierto.png";
+    } else if (password.type == "text") {
+        password.type = "password";
+        imgMostrarPasswd1.src = "../assets/ojo_cerrado.png";
+    }
+});
+
+mostrarPasswd2.addEventListener("click", function (e) {
+    if (confPassword.type == "password") {
+        confPassword.type = "text";
+        imgMostrarPasswd2.src = "../assets/ojo_abierto.png";
+    } else if (confPassword.type == "text") {
+        confPassword.type = "password";
+        imgMostrarPasswd2.src = "../assets/ojo_cerrado.png";
+    }
 });
 
 _Init();

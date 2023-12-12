@@ -133,23 +133,29 @@
 
                 <input type="button" id="btnEnviar" class="btn btn-success btn-lg"><br>
             
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3 d-flex">
                     <input class="form-control" type="password" id="passwdUsuario" placeholder="contraseña">
                     <label for="passwdUsuario" id="lblPasswdUsuario"></label>
+                    <button id="mostrarPasswd1" class="btn btn-outline-secondary btn-light" type="button">
+                        <img src="../assets/ojo_cerrado.png" width="40" id="imgMostrarPasswd1">
+                    </button>
                 </div>
 
                 <div id="msgErrorPasswd" class="alert alert-danger d-none"></div><br>
 
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3 d-flex">
                     <input class="form-control" type="password" id="passwdUsuario2" placeholder="Confirmar contraseña">
                     <label for="passwdUsuario" id="lblPasswdUsuario2">Confirmar contraseña</label>
+                    <button id="mostrarPasswd2" class="btn btn-outline-secondary btn-light" type="button">
+                        <img src="../assets/ojo_cerrado.png" width="40" id="imgMostrarPasswd2">
+                    </button>
                 </div>
                 
                 <div id="msgErrorPasswd2" class="alert alert-danger d-none"></div><br>
             
                 <input type="button" id="cambioPasswd" class="btn btn-success btn-lg mb-3">
                 
-                <input type="button" id="btnCrearUsuario"><br>
+                <input type="button" id="btnCrearUsuario" class="btn btn-success btn-lg mb-3"><br>
             
                 <div class="d-flex gap-3 justify-content-center">
                     <select name="" id="selectRoles" class="dropdown"></select>

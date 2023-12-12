@@ -91,9 +91,12 @@
         
                 <input type="button" value="Actualizar datos" id="btnActualizarDatos" class="btn btn-success btn-lg mb-3"><br>
         
-                <div class="form-floating mb-1">
+                <div class="form-floating mb-1 d-flex">
                     <input class="form-control" type="password" id="passwdPerfil" placeholder="contraseña">
                     <label for="passwdPerfil">Nueva contraseña</label>
+                    <button id="mostrarPasswd" class="btn btn-outline-secondary btn-light" type="button">
+                        <img src="../assets/ojo_cerrado.png" width="40" id="imgMostrarPasswd">
+                    </button>
                 </div>
                 
                 <div id="msgErrorPasswd" class="alert alert-danger d-none"></div><br>

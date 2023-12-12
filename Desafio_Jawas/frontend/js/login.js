@@ -94,11 +94,9 @@ mostrarPasswd.addEventListener("click", function () {
     if (passwdLogin.type === "password") {
         imgMostrarPasswd.src = "../assets/ojo_abierto.png"
         passwdLogin.type = "text";
-        togglePassword.textContent = "Ocultar";
     } else if (passwdLogin.type === "text") {
         imgMostrarPasswd.src = "../assets/ojo_cerrado.png"
         passwdLogin.type = "password";
-        togglePassword.textContent = "Mostrar";
     }
 });
 

@@ -9,11 +9,14 @@ let apellidosPerfil = document.getElementById("apellidosPerfil");
 let emailPerfil = document.getElementById("emailPerfil");
 let passwdPerfil = document.getElementById("passwdPerfil");
 
+let imgMostrarPasswd = document.getElementById("imgMostrarPasswd");
+
 // Botones
 const btnActualizarDatos = document.getElementById("btnActualizarDatos");
 const btnNewPasswd = document.getElementById("btnNewPasswd");
 const btnSubirImagen = document.getElementById("btnSubirImagen");
 const btnCerrarSesion = document.getElementById("btnCerrarSesion");
+const mostrarPasswd = document.getElementById("mostrarPasswd");
 
 // Mensajes de error y exito
 let msgExito = document.getElementById("msgExito");
@@ -204,6 +207,16 @@ btnCerrarSesion.addEventListener("click", () => {
         .catch(error => {
             console.log(error);
         });
+});
+
+mostrarPasswd.addEventListener("click", function () {
+    if (passwdPerfil.type === "password") {
+        imgMostrarPasswd.src = "../assets/ojo_abierto.png"
+        passwdPerfil.type = "text";
+    } else if (passwdPerfil.type === "text") {
+        imgMostrarPasswd.src = "../assets/ojo_cerrado.png"
+        passwdPerfil.type = "password";
+    }
 });
 
 _Init();
