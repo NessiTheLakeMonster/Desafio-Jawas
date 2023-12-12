@@ -3,6 +3,7 @@ body {
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 89, 255, 0.602);
+
 }
 
 #myVideo {
@@ -37,59 +38,60 @@ body {
 
 #buscador {
   border-radius: 25px;
-  background-color: rgb(79, 117, 255);
+  background-color: rgba(56, 99, 253, 0.76);
 }
 
-#btnBuscar {
+#hardware{
   border-radius: 25px;
-  background-color: rgba(220, 255, 132, 0.855);
-  color: rgb(79, 117, 255);
+  background-color: rgba(56, 99, 253, 0.76);
+}
 
+#nombreComponente{
+  border-radius: 25px;
+  background-color: rgba(56, 99, 253, 0.76);
 }
 
 .tabla-centro {
   color: rgb(15, 16, 19);
   font-size: 2em;
   border-radius: 0 3em 3em 0;
-  border-right: 4px solid  rgb(91, 148, 255);
-  border-top: 4px solid  rgb(91, 148, 255);
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
   border-bottom: 4px solid rgb(91, 148, 255);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding: 1em;
   display: flex;
   justify-content: center;
-  background-color:rgba(220, 255, 132, 0.494);
+
   width: 60%;
   margin: auto;
 }
 
 .tabla-centro td,
 .tabla-centro th {
-  border: 4px solid  rgba(10, 40, 5, 0.391);
+  border: 4px solid rgba(10, 40, 5, 0.391);
   padding: 10px;
   -webkit-backdrop-filter: blur(10px);
-  background-color:  rgba(115, 146, 91, 0.753);
+  background-color: rgba(115, 146, 91, 0.97);
 }
 
 .tabla-centro tbody td {
-  background-color:  rgba(178, 218, 148, 0.432);
+  background-color: rgba(178, 218, 148, 0.683);
 }
 
 #navbarComponentes {
-  background-color: rgb(91, 148, 255);
+  background-color: rgba(91, 148, 255, 0.76);
   border-radius: 50px;
-  padding: 10px 20px;
-  color: white;
   text-align: center;
   display: inline-block;
-  cursor: pointer;
+
 }
 
 #btnModalComponentes {
-position: relative;
-left: 680px;
-margin-bottom:60px;
+  position: relative;
+  left: 680px;
+  margin-bottom: 60px;
 }
 
 button#btnUser {
@@ -103,48 +105,58 @@ button#btnUser {
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
-  
+  margin: 20px;
+
 }
 
 button#btnUser:hover {
   background-color: rgb(51, 90, 180);
   box-shadow: 0 15px 20px rgba(134, 141, 215, 0.4);
 }
-a{
+
+a {
   color: rgb(0, 136, 255);
   text-decoration: none;
+}
+
+/* CSS */
+@media only screen and (max-width: 600px) {
+
+  .header-contenido,
+  .footer-contenido {
+    flex-direction: column;
+  }
 }
 
 .tabla-centro-usuarios {
   color: rgb(15, 16, 19);
   font-size: 2em;
-  border-radius: 0 3em 3em 0;
-  border-right: 4px solid  rgb(91, 148, 255);
-  border-top: 4px solid  rgb(91, 148, 255);
+  border-radius: 0 2em 2em 0;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
   border-bottom: 4px solid rgb(91, 148, 255);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding: 1em;
   display: flex;
   justify-content: center;
-  background-color:rgba(220, 255, 132, 0.494);
-  width: 80%;
+  width: 60%;
   margin: auto;
 }
 
 .tabla-centro-usuarios td,
 .tabla-centro-usuarios th {
-  border: 4px solid  rgba(10, 40, 5, 0.391);
+  border: 4px solid rgba(10, 40, 5, 0.391);
   padding: 10px;
   -webkit-backdrop-filter: blur(10px);
-  background-color:  rgba(115, 146, 91, 0.753);
+  background-color: rgba(115, 146, 91, 0.864);
 }
 
 .tabla-centro-usuarios tbody td {
-  background-color:  rgba(178, 218, 148, 0.432);
+  background-color: rgba(178, 218, 148, 0.8);
 }
 
-input{
+input {
   background-color: rgb(178, 218, 148);
   border-radius: 50px;
   border: none;
@@ -157,6 +169,10 @@ input{
   outline: none;
 }
 
-
-
-
+#tablaUsuarios {
+  font-size: 20px;
+}
+::placeholder { 
+  color: rgba(255, 255, 255, 0.784);
+  
+}

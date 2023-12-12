@@ -139,12 +139,13 @@ btnCancelarLote.addEventListener('click', async function () {
 
     console.log(idLoteCreado)
 
-    cancelarLote(idLoteCreado).then(data => {
+    cancelarLote(localStorage.getItem('idLote')).then(data => {
         console.log(data)
-        console.log(idLoteCreado)
+
         if (data.status === 200) {
             msgLote.textContent = 'Lote cancelado correctamente'
             msgLote.style.color = 'green'
+            localStorage.removeItem('idLote')
             _Init()
         } else {
             msgLote.textContent = 'Error al cancelar el lote'

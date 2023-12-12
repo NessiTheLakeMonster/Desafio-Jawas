@@ -178,6 +178,7 @@ btnBuscar.addEventListener('click', async function () {
         tablaComponentes.innerHTML = "";
         cabeceraTablaComponentes(data);
         tablaComponentes.innerHTML += filaComponentes(data);
+        msgErrorBuscar.textContent = "";
     } else {
         let data = await getComponente(id);
         tablaComponentes.innerHTML = "";
@@ -186,10 +187,12 @@ btnBuscar.addEventListener('click', async function () {
             data = Array.isArray(data) ? data : [data];
             cabeceraTablaComponentes(data);
             tablaComponentes.innerHTML += filaComponentes(data);
+            msgErrorBuscar.textContent = "";
         } else {
             msgErrorBuscar.textContent = "El componente que buscas no existe, selecciona un componente de la lista";
             msgErrorBuscar.style.color = "red";
             _Init();
+            
         }
     }
 });
