@@ -118,7 +118,7 @@ btnMandarLote.addEventListener('click', async function () {
                 msgLote.textContent = 'Lote enviado correctamente'
                 msgLote.style.color = 'green'
             } else {
-                msgLote.textContent = 'Error al crear el lote'
+                msgLote.textContent = 'Error al enviar el lote, elige una ubicación'
                 msgLote.style.color = 'red'
             }
 
