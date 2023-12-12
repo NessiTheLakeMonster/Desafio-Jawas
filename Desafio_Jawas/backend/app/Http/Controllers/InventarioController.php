@@ -58,7 +58,7 @@ class InventarioController extends Controller
             $inventario->delete();
             return response()->json([
                 'inventario' => $inventario,
-                'message' => 'Inventario eliminado',
+                'message' => 'Componente eliminado',
                 'status' => 200
             ], 200);
         } catch (\Exception $e) {

@@ -52,7 +52,7 @@ export function move() {
 
 export function cabeceraTablaLotesColaborador(data) {
     let cabecera = document.createElement('tr');
-    let headers = ['', 'Nº DE LOTE', 'USUARIO', 'LONGITUD', 'LATITUD', 'ENTREGADO', 'CANCELADO'];
+    let headers = ['Nº DE LOTE', 'USUARIO', 'LONGITUD', 'LATITUD', 'ENTREGADO', 'CANCELADO'];
     headers.forEach(header => {
         let th = document.createElement('th');
         th.textContent = header;
@@ -69,7 +69,6 @@ export function cabeceraTablaLotesColaborador(data) {
 export function filaTablaLotesColaborador(data) {
     return data.map(lote => `
         <tr>
-            <td><input class="checkbox-lote" type="checkbox" name="lote" value="${lote.id}"></td>
             <td>${lote.id}</td>
             <td>${lote.nombre} ${lote.apellido}</td>
             <td>${lote.longitud}</td>

@@ -84,7 +84,7 @@ class ComponenteController extends Controller
         }
     }
 
-    /* public function eliminar($id){
+    public function eliminar($id){
         
         try {
             $componente = Componente::findOrFail($id);
@@ -93,5 +93,5 @@ class ComponenteController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
-    }*/
+    }
 }

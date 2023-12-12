@@ -84,10 +84,11 @@ Route::middleware(['auth:sanctum', 'midAdmin', 'midClasificador'])->group(functi
         Route::get('/mostrar/{id}', [App\Http\Controllers\ComponenteController::class, 'mostrar']);
         //CREAR COMPONENTE
         Route::post('/crear', [App\Http\Controllers\ComponenteController::class, 'crear']);
-
+        //ELIMINAR COMPONENTE
+        Route::delete('/eliminar/{id}', [App\Http\Controllers\ComponenteController::class, 'eliminar']);
         ///TODO: NO SE USA
         Route::put('/modificar/{id}', [App\Http\Controllers\ComponenteController::class, 'modificar']);
-        Route::delete('/eliminar/{id}', [App\Http\Controllers\ComponenteController::class, 'eliminar']);
+       
     });
 });
 
