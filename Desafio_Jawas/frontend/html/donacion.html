@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
+    <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- icon -->
+    <link rel="icon" type="image/png" href="../assets/Imagen 1.png">
+
+    <title>Donar Lote</title>
+    <style>
+        #map {
+            width: 50vw;
+            height: 50vh;
+        }
+
+        .progress-container {
+            width: 50vw;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 30px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../html/home.html" id="inicio">
+            <img src="../assets/Jawas.webp" alt="logo" width="40px">
+        </a>
+        <h1>JAWAS JOYAS</h1>
+        <a href="../html/perfil.html" id="perfil">
+            <img src="../assets/perfil.png" alt="logo" width="35px">
+        </a>
+    </header>
+
+    <div id="map">
+        <!-- Aquí va el mapa -->
+    </div>
+
+    <button id="mandarLote">Mandar lote</button>
+    <p id="msgMandar"></p>
+
+    <h3>Entregándose...</h3>
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar">0%</div>
+    </div>
+
+    <button id="cancelar">Cancelar lote</button>
+    <p id="msgCancelar"></p>
+
+    <h2>LOTES DEL USUARIO</h2>
+    <table id="tablaLotes">
+        <!-- Aquí va la tabla de lotes -->
+    </table>
+
+    <video autoplay muted loop id="myVideo">
+        <source src="../assets/video.mp4" type="video/mp4">
+    </video>
+
+    <!-- Pie de página -->
+    <footer class="d-flex flex-column align-items-center p-3"
+        style="background-color: rgba(220, 255, 132, 0.855); color: rgb(0, 0, 0);">
+        <div class="footer-contenido d-flex flex-column align-items-center justify-content-center">
+            <div class="redes-sociales mb-3 mt-3">
+                <p class="text-center mb-3">Puedes encontrarnos en:</p>
+                <a href="https://www.instagram.com/" target="_blank" class="mr-4"><img
+                        src="../assets/icono_instagram.webp" alt="Instagram" height="68px"></a>
+                <a href="https://twitter.com/?lang=es " target="_blank" class="mr-4"><img
+                        src="../assets/icono_twitter.png" alt="Twitter" height="55px"></a>
+                <a href="https://www.facebook.com/?locale=es_ES" target="_blank" class="mr-4"><img
+                        src="../assets/icono_facebook.png" alt="Facebook" height="55px"></a>
+            </div>
+            <div class="politica-privacidad mb-3">
+                <a href="politica-de-privacidad.html">Política de Privacidad</a>
+            </div>
+            <div class="copyright mb-3">
+                <span>&copy; 2023 Jawas Joyas</span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+<script src="../js/utils/google_maps.js"></script>
+<script type="module"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSULpKCqFLZPFYrrwh9hGp-XOH1KtHneE&callback=initMap">
+    </script>
+<!-- <script type="module" src="../js/gestion_lotes.js"></script> -->
+<script type="module" src="../dist/donacion.js"></script>
+</html>

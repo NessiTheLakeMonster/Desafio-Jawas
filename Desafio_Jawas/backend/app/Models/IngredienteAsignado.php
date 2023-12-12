@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class IngredienteAsignado extends Model
+{
+    use HasFactory;
+
+    protected $table = 'ingrediente_asignado';
+
+    protected $fillable = [
+        'id_receta',
+        'id_componente',
+        'cantidad'
+    ];
+}

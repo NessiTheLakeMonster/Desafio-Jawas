@@ -1,0 +1,450 @@
+body {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 89, 255, 0.602);
+
+}
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -2;
+  opacity: 0.7;
+}
+
+.titulo {
+  margin-left: 450px;
+  margin-right: 450px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-family: 'Arial Black', sans-serif;
+  color: rgb(28, 33, 42);
+  font-size: 50px;
+}
+
+.texto {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-family: 'Arial Black', sans-serif;
+  color: rgba(220, 255, 132, 0.855);
+
+  font-size: 50px;
+}
+
+#buscador {
+  border-radius: 25px;
+  background-color: rgba(56, 99, 253, 0.76);
+}
+
+#hardware{
+  border-radius: 25px;
+  background-color: rgba(56, 99, 253, 0.76);
+}
+
+.custom-modal .modal-dialog {
+  max-width: 90%; 
+}
+
+#nombreComponente{
+  border-radius: 25px;
+  background-color: rgba(56, 99, 253, 0.76);
+}
+
+.tabla-centro {
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 0 3em 3em 0;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}
+
+.tabla-centro td,
+.tabla-centro th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color:rgb(178, 218, 148);
+}
+
+.tabla-centro tbody td {
+  background-color:rgba(178, 218, 148, 0.802);
+}
+
+element.style {
+  margin-left: 0px;
+}
+
+#navbarComponentes {
+
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 2em 2em 2em 2em;
+  border-right: 4px solid rgb(184, 255, 91);
+  border-top: 4px solid rgb(184, 255, 91);
+  border-bottom: 4px solid rgb(184, 255, 91);
+  border-left: 4px solid rgb(184, 255, 91);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  margin-left: 0px;
+
+
+}
+
+#btnModalComponentes {
+  position: relative;
+  left: 680px;
+  margin-bottom: 60px;
+}
+#mostrarPasswd{
+  margin: 0px;
+}
+
+#mostrarPasswd2{
+  margin: 0px;
+}
+
+#mostrarPasswd1{
+  margin: 0px;
+}
+
+
+button#btnUser, button {
+  background-color: rgb(178, 218, 148);
+  border-radius: 50px;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 16px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  margin: 20px;
+
+}
+
+button#btnUser:hover {
+  background-color: rgb(51, 90, 180);
+  box-shadow: 0 15px 20px rgba(134, 141, 215, 0.4);
+}
+
+
+a {
+  color: rgb(0, 136, 255);
+  text-decoration: none;
+}
+
+/* CSS */
+@media only screen and (max-width: 600px) {
+
+  .header-contenido,
+  .footer-contenido {
+    flex-direction: column;
+  }
+}
+
+.tabla-centro-usuarios {
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 0 2em 2em 0;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}
+
+.tabla-centro-usuarios td,
+.tabla-centro-usuarios th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgb(178, 218, 148);
+}
+
+.tabla-centro-usuarios tbody td {
+  background-color: rgba(178, 218, 148, 0.802);
+}
+
+.tabla-centro-lotes {
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 0 3em 3em 0;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+}
+
+.tabla-centro-lotes td,
+.tabla-centro-lotes th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgb(178, 218, 148);
+}
+
+.tabla-centro-lotes tbody td {
+  background-color:rgba(178, 218, 148, 0.802); 
+}
+
+input {
+  background-color: rgb(178, 218, 148);
+  border-radius: 50px;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 16px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+#tablaUsuarios {
+  font-size: 20px;
+}
+#tablaLotes {
+  font-size: 20px;
+}
+::placeholder { 
+  color: rgba(255, 255, 255, 0.784);
+  
+}
+
+.tabla-centro-inventario {
+  color: rgb(15, 16, 19);
+  font-size: 25px;
+  border-radius: 0 3em 3em 0;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}
+
+.tabla-centro-inventario td,
+.tabla-centro-inventario th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color:  rgb(178, 218, 148);
+}
+
+.tabla-centro-inventario tbody td {
+  background-color:  rgba(178, 218, 148, 0.802);
+}
+
+button.decrease-button{
+  background-color: rgb(178, 218, 148);
+  border-radius: 50px;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 16px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  margin: 20px;
+}
+
+button.decrease-button:hover {
+  background-color: rgb(51, 90, 180);
+  box-shadow: 0 15px 20px rgba(134, 141, 215, 0.4);
+}
+
+button.increase-button{
+  background-color: rgb(178, 218, 148);
+  border-radius: 50px;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 16px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  margin: 20px;
+}
+
+button.increase-button:hover {
+  background-color: rgb(51, 90, 180);
+  box-shadow: 0 15px 20px rgba(134, 141, 215, 0.4);
+}
+
+.tabla-centro-despiece {
+  color: rgb(15, 16, 19);
+  font-size: 19px;
+  border-radius: 0 3em 3em 0;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+}
+
+.tabla-centro-despiece td,
+.tabla-centro-despiece th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color:  rgb(178, 218, 148);
+}
+
+.tabla-centro-despiece tbody td {
+  background-color:  rgba(178, 218, 148, 0.802);
+}
+
+.tabla-centro-despiece-lote {
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 0 2em 2em 0;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin: auto;
+}
+
+.tabla-centro-despiece-lote td,
+.tabla-centro-despiece-lote th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgb(178, 218, 148);
+}
+
+.tabla-centro-despiece-lote tbody td {
+  background-color: rgba(178, 218, 148, 0.802);
+}
+
+#introducirComponentes{
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 2em 2em 2em 2em;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  border-left: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  gap: 15px;
+}
+
+
+#descripcionComponente, #cantidadComponente, select{
+background-color: rgba(0, 3, 192, 0.689);
+border-radius: 50px;
+border: none;
+padding: 10px 20px;
+color: white;
+font-size: 16px;
+box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+transition: all 0.3s ease 0s;
+cursor: pointer;
+outline: none;
+text-align: center;
+}
+
+.tabla-centro-recetas {
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 2em 2em 2em 2em;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  border-left: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 40%;
+  margin: auto;
+}
+
+.tabla-centro-recetas td,
+.tabla-centro-recetas th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgb(178, 218, 148);
+}
+
+.tabla-centro-recetas tbody td {
+  background-color: rgba(178, 218, 148, 0.802);
+}
+.tabla-centro-joyas {
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 2em 2em 2em 2em;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  border-left: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}
+
+.tabla-centro-joyas td,
+.tabla-centro-joyas th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgb(178, 218, 148);
+}
+
+.tabla-centro-joyas tbody td {
+  background-color: rgba(178, 218, 148, 0.802);
+}
+
+
