@@ -20,8 +20,14 @@ let msgExito = document.getElementById("msgExito");
 let msgErrorNombre = document.getElementById("msgErrorNombre");
 let msgErrorApellido = document.getElementById("msgErrorApellidos");
 let msgErrorPasswd = document.getElementById("msgErrorPasswd");
+let msgExitoFoto = document.getElementById("msgExitoFoto");
 
 export function _Init() {
+    msgExito.classList.add('d-none');
+    msgErrorNombre.classList.add('d-none');
+    msgErrorApellido.classList.add('d-none');
+    msgErrorPasswd.classList.add('d-none');
+
     // Cargamos los datos del usuario
     let idUsuario = localStorage.getItem("usuarioId");
     console.log(idUsuario);
@@ -62,10 +68,12 @@ export function validarDatosPerfil() {
 
     if (!validarNombre(nombrePerfil, msgErrorNombre)) {
         esValido = false;
+        msgErrorNombre.classList.remove('d-none');
     }
 
     if (!validarApellido(apellidosPerfil, msgErrorApellido)) {
         esValido = false;
+        msgErrorApellido.classList.remove('d-none');
     }
 
     return esValido;
@@ -77,6 +85,7 @@ export function validarPasswdPerfilUsu() {
 
     if (!validarPasswdPerfil(passwdPerfil, msgErrorPasswd)) {
         esValido = false;
+        msgErrorPasswd.classList.remove('d-none');
     }
 
     return esValido;
@@ -87,11 +96,17 @@ export function limpiarErrores() {
     msgErrorNombre.innerHTML = "";
     msgErrorApellido.innerHTML = "";
     msgErrorPasswd.innerHTML = "";
+    msgExitoFoto.innerHTML = "";
+
+    msgExito.classList.add('d-none');
+    msgErrorNombre.classList.add('d-none');
+    msgErrorApellido.classList.add('d-none');
+    msgErrorPasswd.classList.add('d-none');
+    msgExitoFoto.classList.add('d-none');
 }
 
 btnActualizarDatos.addEventListener("click", () => {
     let idUsuario = localStorage.getItem("usuarioId");
-    console.log(idUsuario);
 
     if (validarDatosPerfil()) {
         modificarDatosPerfil(cargarUsuarioPerfil(), idUsuario)
@@ -99,9 +114,11 @@ btnActualizarDatos.addEventListener("click", () => {
                 if (data.status == 200) {
                     msgExito.textContent = data.message;
                     msgExito.style.color = "green";
+                    msgExito.classList.remove('d-none');
                 } else {
                     msgExito.textContent = 'Error al actualizar los datos';
                     msgExito.style.color = "red";
+                    msgExito.classList.remove('d-none');
                 }
             })
             .catch(error => {
@@ -123,11 +140,15 @@ btnSubirImagen.addEventListener("click", () => {
     modificarFotoPerfil(formData)
         .then(data => {
             if (data.status == 200) {
-                msgExito.textContent = data.message;
-                msgExito.style.color = "green";
+                console.log(data);
+                msgExitoFoto.textContent = 'Imagen subida con éxito.';
+                msgExitoFoto.style.color = 'green';
+                msgExitoFoto.classList.remove('d-none');
+                _Init();
             } else {
-                msgExito.textContent = 'Error al subir la imagen';
-                msgExito.style.color = "red";
+                msgExitoFoto.textContent = 'Error al subir la imagen';
+                msgExitoFoto.style.color = 'red';
+                msgExitoFoto.classList.remove('d-none');
             }
         })
         .catch(error => {
@@ -141,15 +162,19 @@ btnNewPasswd.addEventListener("click", () => {
     if (validarPasswdPerfilUsu()) {
         modificarPasswd(cargarPasswd(), idUsuario)
             .then(data => {
+                console.log(data);
                 if (data.status == 200) {
                     msgExito.textContent = data.message;
                     msgExito.style.color = "green";
+                    msgExito.classList.remove('d-none');
                 } else if (data.status == 400) {
                     msgExito.textContent = data.error;
                     msgExito.style.color = "red";
+                    msgExito.classList.remove('d-none');
                 } else {
                     msgExito.textContent = 'Error al cambiar la contraseña';
                     msgExito.style.color = "red";
+                    msgExito.classList.remove('d-none');
                 }
             })
             .catch(error => {
@@ -168,9 +193,12 @@ btnCerrarSesion.addEventListener("click", () => {
             if (data.status == 200) {
                 msgExito.textContent = data.message;
                 window.location.href = "login.html";
+                msgExito.style.color = "green";
+                msgExito.classList.remove('d-none');
             } else {
                 msgExito.textContent = 'Error al cerrar sesión';
                 msgExito.style.color = "red";
+                msgExito.classList.remove('d-none');
             }
         })
         .catch(error => {
