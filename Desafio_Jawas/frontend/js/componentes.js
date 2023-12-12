@@ -81,15 +81,15 @@ export function rolLocalStorage() {
 
     if (localStorage.getItem('rol') === "administrador") {
         navbarComponentes.innerHTML = `
-        <button>
+        <button id= "btnUser">
             <a href="gestionUsuarios.html">Gestionar Usuarios</a>
         </button>
 
-        <button>
+        <button id= "btnUser">
             <a href="inventario.html"> Gestionar inventarios</a>
         </button>
 
-        <button>
+        <button id= "btnUser">
             <a href="componentes.html"> Gestionar componentes</a>
         </button>`;
 
@@ -178,6 +178,7 @@ btnBuscar.addEventListener('click', async function () {
         tablaComponentes.innerHTML = "";
         cabeceraTablaComponentes(data);
         tablaComponentes.innerHTML += filaComponentes(data);
+        msgErrorBuscar.textContent = "";
     } else {
         let data = await getComponente(id);
         tablaComponentes.innerHTML = "";
@@ -186,10 +187,12 @@ btnBuscar.addEventListener('click', async function () {
             data = Array.isArray(data) ? data : [data];
             cabeceraTablaComponentes(data);
             tablaComponentes.innerHTML += filaComponentes(data);
+            msgErrorBuscar.textContent = "";
         } else {
             msgErrorBuscar.textContent = "El componente que buscas no existe, selecciona un componente de la lista";
             msgErrorBuscar.style.color = "red";
             _Init();
+            
         }
     }
 });
