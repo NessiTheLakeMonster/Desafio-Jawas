@@ -116,7 +116,7 @@ btnMandarLote.addEventListener('click', async function () {
             console.log(usuario)
             if (data.status === 200) {
                 move()
-                msgLote.textContent = 'Lote creado correctamente'
+                msgLote.textContent = 'Lote enviado correctamente'
                 msgLote.style.color = 'green'
             } else {
                 msgLote.textContent = 'Error al crear el lote'
@@ -144,7 +144,7 @@ btnCancelarLote.addEventListener('click', async function () {
 
         if (data.status === 200) {
             msgLote.textContent = 'Lote cancelado correctamente'
-            msgLote.style.color = 'green'
+            msgLote.style.color = 'yellow'
             localStorage.removeItem('idLote')
             _Init()
         } else {
