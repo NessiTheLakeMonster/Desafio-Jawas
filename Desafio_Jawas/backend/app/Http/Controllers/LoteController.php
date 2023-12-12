@@ -95,6 +95,26 @@ class LoteController extends Controller
         }
     }
 
+    public function mostrarLotesTotales($id)
+    {
+
+        try {
+            $lote = Lote::join('users', 'lote.id_usuario', '=', 'users.id')
+            ->select('lote.*', 'users.nombre', 'users.apellido')
+            ->where('lote.id', $id)
+            ->where('entregado', true)
+            ->first();
+
+            if ($lote) {
+                return response()->json($lote);
+            } else {
+                return response()->json(['error' => 'Lote no encontrado'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
     public function modificar(Request $request, $id)
     {
 

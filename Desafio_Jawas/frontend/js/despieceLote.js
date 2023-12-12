@@ -117,6 +117,7 @@ btnBuscar.addEventListener('click', async function () {
             msgErrorBuscar.textContent = "El lote que buscas no existe, selecciona un lote de la lista";
             msgErrorBuscar.style.color = "red";
             _Init();
+            
         }
     }
 });
