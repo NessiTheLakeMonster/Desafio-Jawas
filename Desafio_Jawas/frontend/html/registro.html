@@ -11,7 +11,7 @@
     <!-- CSS -->
     <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
     <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
-    
+
     <!-- icon -->
     <link rel="icon" type="image/png" href="../assets/Imagen 1.png">
 
@@ -31,7 +31,9 @@
 
         <h1 class="text-center">REGÍSTRATE</h1>
 
-        <span id="msgExito"></span><br>
+        <div id="msgExito" class="alert alert-info d-none"></div><br>
+
+        <div id="msgExitoFoto" class="alert alert-info d-none"></div>
 
         <div class="mb-3">
             <form id="formImagen" action="http://127.0.0.1:8000/api/subir" method="post" enctype="multipart/form-data">
@@ -42,7 +44,7 @@
                     <input type="submit" name="subir" value="Subir imagen" class="btn btn-success"/>
                 </div>
                 
-                <span id="msgErrorImagen"></span><br>
+                <div id="msgErrorImagen" class="alert alert-danger d-none"></div><br>
             </form>
         </div>
 
@@ -51,35 +53,41 @@
             <label for="nombreRegistro">Nombre</label>
         </div>
 
-        <span id="msgErrorNombre"></span><br>
+        <div id="msgErrorNombre" class="alert alert-danger d-none"></div><br>
 
         <div class="form-floating mb-3">
             <input class="form-control" type="text" id="apellidoRegistro" placeholder="apellido">
             <label for="apellidoRegistro">Apellido</label>
         </div>
 
-        <span id="msgErrorApellido"></span><br>
+        <div id="msgErrorApellido" class="alert alert-danger d-none"></div><br>
 
         <div class="form-floating mb-3">
             <input class="form-control" type="email" id="mailRegistro" placeholder="email">
             <label for="mailRegistro">Correo Electrónico</label>
         </div>
 
-        <span id="msgErrorEmail"></span><br>
+        <div id="msgErrorEmail" class="alert alert-danger d-none"></div><br>
 
-        <div class="form-floating mb-3">
+        <div class="form-floating mb-3 d-flex">
             <input class="form-control" type="password" id="passwdRegistro" placeholder="contraseña">
             <label for="passwdRegistro">Contraseña</label>
+            <button id="mostrarPasswd1" class="btn btn-outline-secondary btn-light" type="button">
+                <img src="../assets/ojo_cerrado.png" width="40" id="imgMostrarPasswd1">
+            </button>
         </div>
 
-        <span id="msgErrorPasswd"></span><br>
+        <div id="msgErrorPasswd" class="alert alert-danger d-none"></div><br>
 
-        <div class="form-floating mb-3">
+        <div class="form-floating mb-3 d-flex">
             <input class="form-control" type="password" id="confPasswdRegistro" placeholder="contraseña">
             <label for="confPasswdRegistro">Confirmar contraseña</label>
+            <button id="mostrarPasswd2" class="btn btn-outline-secondary btn-light" type="button">
+                <img src="../assets/ojo_cerrado.png" width="40" id="imgMostrarPasswd2">
+            </button>
         </div>
         
-        <span id="msgErrorConfPasswd"></span><br>
+        <div id="msgErrorConfPasswd" class="alert alert-danger d-none"></div><br>
 
         <input type="button" value="Registrarse" id="btnRegistro" class="btn btn-success btn-lg">
 
