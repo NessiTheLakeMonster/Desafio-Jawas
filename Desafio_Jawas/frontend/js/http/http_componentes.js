@@ -50,3 +50,18 @@ export async function addComponente(datos) {
     const data = await response.json();
     return data;
 }
+
+export async function eliminarComponente(idComponente) {
+    var options = {
+        method: 'DELETE',
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    };
+
+    let response = await fetch(`http://localhost:8000/api/componentes/eliminar/${idComponente}`, options);
+    let result = await response.json();
+    return result;
+}

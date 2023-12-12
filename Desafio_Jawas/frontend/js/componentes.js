@@ -1,5 +1,5 @@
 //Importaciones
-import { getComponente, getComponentes, addComponente } from "./http/http_componentes.js";
+import { getComponente, getComponentes, addComponente, eliminarComponente } from "./http/http_componentes.js";
 import { validarHardware, validarNombreHardware } from "./utils/validaciones.js";
 
 //Tabla de componentes 
@@ -25,6 +25,8 @@ let msgErrorBuscar = document.getElementById("msgErrorBuscar");
 //mensaje de error
 let msgErrorComponente = document.getElementById("msgErrorComponente");
 
+//boton eliminar
+let btnEliminarComponente = document.getElementById("btnEliminarComponente");
 
 /**
  * @author Patricia Mota
@@ -33,7 +35,7 @@ let msgErrorComponente = document.getElementById("msgErrorComponente");
 
 export function cabeceraTablaComponentes(data) {
     let cabecera = document.createElement('tr');
-    let headers = ['ID', 'NOMBRE', 'HARDWARE'];
+    let headers = ['','ID', 'NOMBRE', 'HARDWARE'];
 
     headers.forEach(header => {
         let th = document.createElement('th');
@@ -53,6 +55,7 @@ export function cabeceraTablaComponentes(data) {
 export function filaComponentes(data) {
     return data.map(componente => `
         <tr>
+            <td><input class="checkbox-lote" type="checkbox" name="lote" value="${componente.id}"></td>
             <td>${componente.id}</td>
             <td>${componente.nombre}</td>
             <td>${componente.hardware}</td>
@@ -120,6 +123,23 @@ export function _Init() {
             tablaComponentes.innerHTML = "";
             cabeceraTablaComponentes(data);
             tablaComponentes.innerHTML += filaComponentes(data);
+
+            let checkboxes = document.querySelectorAll('.checkbox-componentes');
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
+                    if (this.checked) {
+                        checkboxes.forEach(otherCheckbox => {
+                            if (otherCheckbox !== checkbox) {
+                                otherCheckbox.checked = false;
+                            }
+                        });
+                        localStorage.setItem('componenteId', this.value);
+                    } else {
+                        localStorage.removeItem('componenteId');
+                    }
+                });
+            });
         })
         .catch(error => {
             console.log(error);
@@ -196,6 +216,25 @@ btnBuscar.addEventListener('click', async function () {
         }
     }
 });
+
+/**
+ * @author Patricia Mota
+ * @summary Botón de eliminar componente
+ */
+
+btnEliminarComponente.addEventListener('click', function () {
+    let idComponente = localStorage.getItem('componenteId');
+
+    eliminarComponente(idComponente).then(data => {
+        if (data.status === 200) {
+            alert(data.message);
+            _Init();
+        } else {
+            alert(data.message);
+        }
+    });
+});
+
 
 /**
  * @author Patricia Mota
