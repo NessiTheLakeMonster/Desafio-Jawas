@@ -142,7 +142,7 @@ export function _Init() {
             if (data.status === 401) {
                 window.location.href = "../html/noPermisos.html";
             }
-            
+
             tablaIngredientes.innerHTML = '';
             cabeceraTablaIngredientesReceta(data);
             tablaIngredientes.innerHTML += filaTablaIngredientesReceta(data);
@@ -158,7 +158,7 @@ export function _Init() {
 
         msgJoyaInsertada.innerHTML = "La receta creará un/una: " + joyaSeleccionada;
         msgJoyaInsertada.style.color = "blue";
-        
+
     });
 
 }
@@ -193,8 +193,6 @@ btnAñadirComponente.addEventListener('click', function (e) {
                 cantidadComponente.disabled = false;
                 btnAñadirComponente.disabled = false;
 
-                //TODO: Planificación linea 77
-            
             } else {
                 msgComponenteInsertado.innerHTML = "No se ha podido añadir el componente";
                 msgComponenteInsertado.style.color = "red";
@@ -220,7 +218,7 @@ btnAñadirJoya.addEventListener('click', async function () {
     let data = await recetaNueva(idTipoJoya);
     msgJoyaInsertada.innerHTML = "Receta creada con éxito";
     msgJoyaInsertada.style.color = "green";
-    
+
 });
 
 /**

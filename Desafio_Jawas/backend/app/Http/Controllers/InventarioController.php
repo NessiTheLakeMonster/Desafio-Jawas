@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Inés Barrera
+ */
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -22,7 +26,6 @@ class InventarioController extends Controller
         }
     }
 
-    // TODO Aquí esta la plantilla para poder hacer join y cambiar columnas de las tablas
     public function mostrar()
     {
         try {

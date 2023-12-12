@@ -20,22 +20,32 @@ Los siguientes comandos deben ejecutarse en la carpeta `backend`
   php artisan db:seed --class=UserSeeder
   php artisan db:seed --class=RolSeeder
   php artisan db:seed --class=RolAsignadoSeeder
-  php artisan db:seed --class=LoteSeeder
   php artisan db:seed --class=ComponenteSeeder
-  php artisan db:seed --class=InfoLoteSeeder
-  php artisan db:seed --class=InventarioSeeder
   php artisan db:seed --class=TipoJoyaSeeder
-  php artisan db:seed --class=RecetaSeeder
-  php artisan db:seed --class=IngredienteAsignadoSeeder
-  php artisan db:seed --class=JoyaSeeder
+```
+
+En caso de tener problemas con AWS, se recomienda la ejecución de los siguientes comandos.
+```bash
+  composer require aws/aws-sdk-php   
+  composer require aws/aws-sdk-php-laravel
+  composer require league/flysystem-aws-s3-v3
+```
+
+Se ha creado un usuario por defecto, estos son los datos en caso de querer inciar sesión con él.
+```
+  nombre => admin
+  apellido => admin
+  email => admin@gmail.com
+  contraseña => admin123
 ```
 
 ## SERVIDOR WEBPACK
 
 Los siguientes comandos deben ejecutarse en la carpeta `frontend`
+
 ```bash
   npm install -> Este comando debe ejecutarse para crear la carpeta node_modules
-  npm run build
+  npm run build -> Este comando debe ejecutarse para crear la carpeta dist
   npm run config
   npm run watch
 ```
@@ -45,10 +55,8 @@ Los siguientes comandos deben ejecutarse en la carpeta `frontend`
 -------
 # Manual de Servidor :closed_lock_with_key:
 
-Información importante a saber para el profesor:
-+ Los `middleware` aún no están implementados, pero si programados en el código. En proximos días serán funcionales. Con esto se debe saber que no miramos aún si el usuario que ha iniciado sesión tiene permisos para entrar a esas funcionalidad o no.
 
-## USUARIOS
+# USUARIOS
 #### Registrar usuario
 
 - URL: `http://127.0.0.1:8000/api/registro`
@@ -67,8 +75,7 @@ Información importante a saber para el profesor:
   "nombre": "Ines",
   "apellido": "Barrera",
   "email": "inesmballe@gmail.com",
-  "password": "admin123",
-  "password_confirmation": "admin123"
+  "password": "admin123"
 }
 ```
 
@@ -79,6 +86,7 @@ Información importante a saber para el profesor:
 - Datos requeridos:
   - `email`: Email del usuario (string, requerido, único)
   - `password`: Contraseña del usuario (string, requerido)
+  - `Bearer Token`
 
 ##### Ejemplo de solicitud para iniciar sesión
 ```json
@@ -88,104 +96,159 @@ Información importante a saber para el profesor:
 }
 ```
 
-## LOTE
+#### Cerrar Sesión
 
-#### Listar lotes
-
-- URL: `http://127.0.0.1:8000/api/lote/listar`
-- Método: `GET`
-
-#### Crear lote
-
-- URL: `http://127.0.0.1:8000/api/lote/crear`
+- URL: `http://127.0.0.1:8000/api/logout/{id}`
 - Método: `POST`
 - Datos requeridos:
-  - `id_usuario`: ID del usuario (integer, requerido)
-  - `lugar_recogida`: Lugar de recogida del lote (string, requerido)
+  - `id`: ID del Usuario que tiene cuenta y token
+  - `Bearer Token`
 
-##### Ejemplo de solicitud para guardar lote
-
+##### Ejemplo de solicitud para cerrar sesión
 ```json
 {
-    "id_usuario": 1,
-    "lugar_recogida": "40.712776, -74.005974",
+  "id_usuario": 1
 }
 ```
 
-#### Mostrar lote
+#### Subir Foto Perfil
 
-- URL: `http://127.0.0.1:8000/api/lote/mostrar/{id}`
-- Método: `GET`
-- Parámetros de ruta:
-  - `id`: ID del lote (integer, requerido)
-
-#### Modificar lote
-
-- URL: `http://127.0.0.1:8000/api/lote/modificar/{id}`
-- Método: `PUT`
-- Parámetros de ruta:
-  - `id`: ID del lote (integer, requerido)
+- URL: `http://127.0.0.1:8000/api/subir`
+- Método: `POST`
 - Datos requeridos:
-  - `id_lote`: ID del lote (integer, requerido)
-  - `lugar_recogida`: Lugar de recogida del lote (string, requerido)
-  - `entregado`: Estado de entrega del lote (boolean, requerido)
-  - `cancelado`: Estado de cancelación del lote (boolean, requerido)
+  - `foto`: archivo de foto
+  - `Bearer Token`
 
-##### Ejemplo de solicitud para modificar lote
+# PERFIL
 
+#### Mostrar Usuario de perfil buscado por ID
+- URL: `http://127.0.0.1:8000/api/perfil/buscar/{id}`
+- Método: `GET`
+- Datos requeridos:
+  - `id`: ID del Usuario que tiene cuenta y token
+  - `Bearer Token`
+
+#### Subir Foto Perfil
+
+- URL: `http://127.0.0.1:8000/api/perfil/modificarFoto/{id}`
+- Método: `POST`
+- Datos requeridos:
+  - `id`: ID del Usuario que tiene cuenta y token
+  - `foto`: archivo de foto
+  - `Bearer Token`
+
+#### Modificar datos de tu Usuario
+- URL: `http://127.0.0.1:8000/api/perfil/modificar/{id}`
+- Método: `PUT`
+- Datos requeridos:
+  - `id`: ID del Usuario que tiene cuenta y token
+  - `Bearer Token`
+
+##### Ejemplo de solicitud para registrar usuario
 ```json
 {
-    "id_usuario": 1,
-    "lugar_recogida": "40.712776, -74.005974",
-    "entregado": true,
-    "cancelado": false
+  "nombre": "Ines Maria",
+  "apellido": "Llerena"
 }
 ```
-#### Eliminar lote
 
-- URL: `http://127.0.0.1:8000/api/lote/eliminar/{id}`
+#### Modificar contraseña de tu Usuario
+- URL: `http://127.0.0.1:8000/api/perfil/modificarPasswd/{id}`
+- Método: `PUT`
+- Datos requeridos:
+  - `id`: ID del Usuario que tiene cuenta y token
+  - `Bearer Token`
+
+##### Ejemplo de solicitud para registrar usuario
+```json
+{
+  "password" : "nuevaPasswd"
+}
+```
+
+# ADMINISTRADOR
+
+## ASIGNACIÓN DE ROL
+
+#### Asignar un nuevo Rol al usuario
+- URL: `http://127.0.0.1:8000/api/asignarRol/{idUsuario}/{idRol}`
+- Método: `POST`
+- Datos requeridos:
+  - `id`: ID del Usuario que tiene cuenta y token
+  - `idRol`: ID del Rol el cual puede consultarse en Rol_Asignado
+  - `Bearer Token`
+
+#### Ver Roles asignados a un usuario
+- URL: `http://127.0.0.1:8000/api/roles/{id}`
+- Método: `GET`
+- Datos requeridos:
+  - `id`: ID del Usuario que tiene cuenta y token
+  - `Bearer Token`
+
+#### Listar todos los roles
+- URL: `http://127.0.0.1:8000/api/roles`
+- Método: `GET`
+- Datos requeridos:
+  - `Bearer Token`
+
+## GESTIÓN DE USUARIOS
+
+#### Listar Usuarios
+- URL: `http://127.0.0.1:8000/api/usuario/listar`
+- Método: `GET`
+- Datos requeridos:
+  - `Bearer Token`
+
+#### Mostrar Usuario buscado por ID
+- URL: `http://127.0.0.1:8000/api/usuario/mostrar/{id}`
+- Método: `GET`
+- Datos requeridos:
+  - `id`: ID del Usuario que tiene cuenta y token
+  - `Bearer Token`
+  
+#### Modificar un Usuario
+- URL: `http://127.0.0.1:8000/api/usuario/modificar/{id}`
+- Método: `PUT`
+- Datos requeridos:
+  - `id`: ID del Usuario que tiene cuenta y token
+  - `Bearer Token`
+
+##### Ejemplo de solicitud para registrar usuario
+```json
+{
+  "nombre": "Ines Maria",
+  "apellido": "Llerena"
+}
+```
+
+#### Eliminar un Usuario
+- URL: `http://127.0.0.1:8000/api/usuario/eliminar/{id}`
 - Método: `DELETE`
-- Parámetros de ruta:
-  - `id`: ID del lote (integer, requerido)
-
-#### Comprobar lotes entregados
-- URL: `http://127.0.0.1:8000/api/lote/entregados`
-- Método: `GET`
-
-#### Cancelar Lotes
-- URL: `http://127.0.0.1:8000/api/lote/cancelar/{id}` 
-- Método: `PUT`
-- Parámetros de ruta:
-  - `id`: ID del lote que deseas cancelar.
-
-## INFO LOTE
-
-#### Desguazar y clasificar el lote
-
-- URL: `http://127.0.0.1:8000/api/info_lote/desguazar/{idLote}`
-- Método: `POST`
-- Parámetros de ruta:
-  - `idLote`: ID del lote (integer, requerido) 
 - Datos requeridos:
-  - `idComponente`: ID del componente (integer, requerido)
-  - `descripcion`: Descripción del componente (string, requerido)
-  - `cantidad`: Cantidad de componentes (integer, requerido)
+  - `id`: ID del Usuario que tiene cuenta y token
+  - `Bearer Token`
 
-##### Ejemplo de solicitud para desguazar y clasificar el lote
+#### Crear un usuario
+- URL: `http://127.0.0.1:8000/api/usuario/registro`
+- Método: `POST`
+- Datos requeridos:
+  - `fotoPerfil`: Foto que va a tener el usuario (string)
+  - `nombre`: Nombre del usuario (string, requerido)
+  - `apellido`: Apellido del usuario (string, requerido)
+  - `email`: Email del usuario (string, requerido, único)
+  - `password`: Contraseña del usuario (string, requerido)
+  - `Bearer Token`
 
+##### Ejemplo de solicitud para registrar usuario
 ```json
 {
-    "idComponente": 1,
-    "descripcion": "gominola",
-    "cantidad": 10
+  "fotoPerfil": "url_Foto",
+  "nombre": "Ines",
+  "apellido": "Barrera",
+  "email": "inesmballe@gmail.com",
+  "password": "admin123"
 }
 ```
-#### Listar todos los componentes del lote desguazado
-
-- URL: `http://127.0.0.1:8000/api/info_lote/listar/{idLote}`
-- Método: `GET`
-- Parámetros de ruta:
-  - `idLote`: ID del lote (integer, requerido) 
 
 ## COMPONENTES
 
@@ -193,6 +256,8 @@ Información importante a saber para el profesor:
 
 - URL: `http://127.0.0.1:8000/api/componentes/listar`
 - Método: `GET`
+- Datos requeridos:
+  - `Bearer Token`
 
 #### Mostrar un componente específico
 
@@ -200,6 +265,7 @@ Información importante a saber para el profesor:
 - Método: `GET`
 - Parámetros de ruta:
   - `id`: ID del componente (integer, requerido) 
+  - `Bearer Token`
 
 #### Crear un nuevo componente
 
@@ -208,6 +274,7 @@ Información importante a saber para el profesor:
 - Datos requeridos:
   - `nombre`: Nombre del componente (string, requerido)
   - `hardware`: Indica si el componente es hardware (booleano, requerido)
+  - `Bearer Token`
 
 ##### Ejemplo de solicitud para crear un componente
 
@@ -227,6 +294,7 @@ Información importante a saber para el profesor:
 - Datos requeridos:
   - `nombre`: Nuevo nombre del componente (string, requerido)
   - `hardware`: Indica si el componente es hardware (booleano, requerido)
+  - `Bearer Token`
 
 ##### Ejemplo de solicitud para modificar un componente
 
@@ -243,8 +311,184 @@ Información importante a saber para el profesor:
 - Método: `DELETE`
 - Parámetros de ruta:
   - `id`: ID del componente (integer, requerido) 
+- Datos requeridos:
+  - `Bearer Token`
 
 ## INVENTARIO
+
+#### Listar Inventario
+- URL: `http://127.0.0.1:8000/api/inventario/mostrar`
+- Método: `GET`
+- Datos requeridos:
+  - `Bearer Token`
+
+#### Modificar Inventario 
+
+- URL: `http://127.0.0.1:8000/api/inventario/modificar/{id}`
+- Método: `PUT`
+- Parámetros de ruta:
+  - `id`: ID del inventario (integer, requerido)
+- Datos requeridos:
+  - `cantidad`: ID del inventario (integer, requerido)
+  - `Bearer Token`
+
+#### Eliminar Componentes del Inventario
+
+- URL: `http://127.0.0.1:8000/api/inventario/eliminar/{id}`
+- Método: `DELETE`
+- Parámetros de ruta:
+  - `id`: ID del inventario (integer, requerido) 
+- Datos requeridos:
+  - `Bearer Token`
+
+# COLABORADOR
+
+## LOTE
+
+#### Listar lotes
+
+- URL: `http://127.0.0.1:8000/api/lote/listar`
+- Método: `GET`
+- Datos requeridos:
+  - `Bearer Token`
+
+#### Crear lote
+
+- URL: `http://127.0.0.1:8000/api/lote/crear`
+- Método: `POST`
+- Datos requeridos:
+  - `id_usuario`: ID del usuario (integer, requerido)
+  - `latitud`: latutud de recogida del lote (integer, requerido)
+  - `longitud`: longitud de recogida del lote (integer, requerido)
+  - `Bearer Token`
+  
+
+##### Ejemplo de solicitud para guardar lote
+
+```json
+{
+    "id_usuario": 1,
+    "latitud":  -74.005974,
+    "longitud": -74.005974,
+}
+```
+
+#### Mostrar lote
+
+- URL: `http://127.0.0.1:8000/api/lote/mostrar/{id}`
+- Método: `GET`
+- Parámetros de ruta:
+  - `id`: ID del lote (integer, requerido)
+  - `Bearer Token`
+
+#### Modificar lote
+
+- URL: `http://127.0.0.1:8000/api/lote/modificar/{id}`
+- Método: `PUT`
+- Parámetros de ruta:
+  - `id`: ID del lote (integer, requerido)
+- Datos requeridos:
+  - `id_lote`: ID del lote (integer, requerido)
+  - `latitud`: latutud de recogida del lote (integer, requerido)
+  - `longitud`: longitud de recogida del lote (integer, requerido)
+  - `entregado`: Estado de entrega del lote (boolean, requerido)
+  - `cancelado`: Estado de cancelación del lote (boolean, requerido)
+  - `Bearer Token`
+
+##### Ejemplo de solicitud para modificar lote
+
+```json
+{
+    "id_usuario": 1,
+    "latitud":  -74.005974,
+    "longitud": -74.005974,
+    "entregado": true,
+    "cancelado": false
+}
+```
+#### Eliminar lote
+
+- URL: `http://127.0.0.1:8000/api/lote/eliminar/{id}`
+- Método: `DELETE`
+- Parámetros de ruta:
+  - `id`: ID del lote (integer, requerido)
+  - `Bearer Token`
+
+#### Comprobar lotes entregados
+- URL: `http://127.0.0.1:8000/api/lote/entregados/{idUsuario}`
+- Método: `GET`
+- Datos requeridos:
+  - `Bearer Token`
+
+#### Cancelar Lotes
+- URL: `http://127.0.0.1:8000/api/lote/cancelar/{id}` 
+- Método: `PUT`
+- Parámetros de ruta:
+  - `id`: ID del lote que deseas cancelar.
+  - `Bearer Token`
+
+## CLASIFICADOR
+
+## INFO LOTE
+
+#### Desguazar y clasificar el lote
+
+- URL: `http://127.0.0.1:8000/api/info_lote/desguazar/{idLote}`
+- Método: `POST`
+- Parámetros de ruta:
+  - `idLote`: ID del lote (integer, requerido) 
+- Datos requeridos:
+  - `idComponente`: ID del componente (integer, requerido)
+  - `descripcion`: Descripción del componente (string, requerido)
+  - `cantidad`: Cantidad de componentes (integer, requerido)
+  - `Bearer Token`
+
+##### Ejemplo de solicitud para desguazar y clasificar el lote
+
+```json
+{
+    "idComponente": 1,
+    "descripcion": "gominola",
+    "cantidad": 10
+}
+```
+#### Listar todos los componentes del lote desguazado
+
+- URL: `http://127.0.0.1:8000/api/info_lote/listar/{idLote}`
+- Método: `GET`
+- Parámetros de ruta:
+  - `idLote`: ID del lote (integer, requerido) 
+  - `Bearer Token`
+
+#### Listar todos los lotes entregados para clasificar
+
+- URL: `http://127.0.0.1:8000/api/info_lote/listar`
+- Método: `GET`
+
+#### Listar todos los lotes a despiezar
+
+- URL: `http://127.0.0.1:8000/api/info_lote/lotes/{id}`
+- Método: `GET`
+
+#### Crear desguace
+
+- URL: `http://127.0.0.1:8000/api/info_lote/crear`
+- Método: `POST`
+- Datos requeridos:
+  - `idComponente`: ID del componente (integer, requerido)
+  - `descripcion`: Descripción del componente (string, requerido)
+  - `cantidad`: Cantidad de componentes (integer, requerido)
+
+##### Ejemplo de solicitud para crear desguace
+
+```json
+{
+    "idComponente": 1,
+    "descripcion": "gominola",
+    "cantidad": 10
+}
+```
+
 
 ## JOYAS
 
@@ -321,7 +565,7 @@ Información importante a saber para el profesor:
 }
 ```
 #### Verificar si hay suficientes componentes en el inventario
-- URL: `http://127.0.0.1:8000/api/joya/componentes/{id}`
+- URL: `http://127.0.0.1:8000/api/joya/componentes/{idReceta}`
 - Método: `GET`
 - Parámetros de ruta:
   - `id`: ID del componente (integer, requerido) 

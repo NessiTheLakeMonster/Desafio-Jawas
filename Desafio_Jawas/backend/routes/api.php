@@ -33,7 +33,7 @@ Route::get('', function () {
     return response()->json("No autorizado", 203);
 })->name('nologin');
 
-// ----------------------RUTAS DE REGISTRO, LOGIN Y LOGOUT----------------------
+// ----------------------RUTAS DE REGISTRO, LOGIN, LOGOUT Y SUBIR FOTO PERFIL ----------------------
 
 Route::post('/registro', [AuthController::class, 'registro']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -42,7 +42,9 @@ Route::post('/logout/{id}', [AuthController::class, 'logout']);
 Route::post('/subir', [AuthController::class, 'cargarImagenUsuario']);
 
 
-//-------------------------RUTAS DE ASIGNACIÓN DE ROL-------------------------
+//-------------------------RUTAS ADMINISTRADOR-------------------------
+
+//RUTAS DE ASIGNACIÓN DE ROL
 
 Route::middleware('auth:sanctum')->group(function () {
     //ASIGNAR UN NUEVO ROL AL USUARIO
@@ -57,10 +59,7 @@ Route::get('/noPermisos', function () {
     return view('noPermisos');
 });
 
-//-------------------------RUTAS ADMINISTRADOR-------------------------
-
 //GESTIONAR USUARIOS
-
 Route::middleware(['auth:sanctum', 'midAdmin'])->group(function () {
 
     Route::prefix('usuario')->group(function () {
@@ -92,9 +91,8 @@ Route::middleware(['auth:sanctum', 'midAdmin', 'midClasificador'])->group(functi
         Route::post('/crear', [App\Http\Controllers\ComponenteController::class, 'crear']);
         //ELIMINAR COMPONENTE
         Route::delete('/eliminar/{id}', [App\Http\Controllers\ComponenteController::class, 'eliminar']);
-        ///TODO: NO SE USA
+        ///MODIFICAR COMPONENTE
         Route::put('/modificar/{id}', [App\Http\Controllers\ComponenteController::class, 'modificar']);
-       
     });
 });
 
@@ -114,32 +112,27 @@ Route::middleware(['auth:sanctum', 'midAdmin'])->group(function () {
 
 //-------------------------RUTAS COLABORADOR-------------------------
 
-/* Route::middleware(['auth:sanctum', 'midColaborador'])->group(function () { */
+Route::middleware(['auth:sanctum', 'midColaborador'])->group(function () {
 
-//GESTIONAR LOTES PANTALLA JAIME
-Route::prefix('lote')->group(function () {
+    //GESTIONAR LOTES PANTALLA JAIME
+    Route::prefix('lote')->group(function () {
 
-    // MANDAR LOTE
-    Route::post('/crear', [LoteController::class, 'crear']);
-    //MOSTRAR LISTA DE TODOS LOS LOTES
-    Route::get('/listar/{idUsuario}', [LoteController::class, 'mostrarLotes']);
-    //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS
-    Route::get('/entregados/{idUsuario}', [LoteController::class, 'mostrarEntregados']);
-    //MOSTRAR LOTE ENTREGADO BUSCADO POR ID
-    Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
-    //MANDAR LOTES
-    Route::put('/mandar/{id}', [LoteController::class, 'mandarLote']);
-    //MOSTRAR LOTE ENTREGADO BUSCADO POR ID
-    Route::get('/mostrar/{idLote}/{idUsuario}', [LoteController::class, 'mostrar']);
-    //CANCELAR LOTES
-    Route::put('/cancelar/{id}', [LoteController::class, 'cancelarLote']);
-
-    //TODO:NO SE USA
-    Route::get('/listar', [LoteController::class, 'listar']);
-    Route::put('/modificar/{id}', [LoteController::class, 'modificar']);
-    Route::delete('/eliminar/{id}', [LoteController::class, 'eliminar']);
+        // MANDAR LOTE
+        Route::post('/crear', [LoteController::class, 'crear']);
+        //MOSTRAR LISTA DE TODOS LOS LOTES
+        Route::get('/listar/{idUsuario}', [LoteController::class, 'mostrarLotes']);
+        //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS
+        Route::get('/entregados/{idUsuario}', [LoteController::class, 'mostrarEntregados']);
+        //MOSTRAR LOTE ENTREGADO BUSCADO POR ID
+        Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
+        //MANDAR LOTES
+        Route::put('/mandar/{id}', [LoteController::class, 'mandarLote']);
+        //MOSTRAR LOTE ENTREGADO BUSCADO POR ID
+        Route::get('/mostrar/{idLote}/{idUsuario}', [LoteController::class, 'mostrar']);
+        //CANCELAR LOTES
+        Route::put('/cancelar/{id}', [LoteController::class, 'cancelarLote']);
+    });
 });
-/* }); */
 
 //-------------------------RUTAS CLASIFICADOR-------------------------
 
@@ -158,9 +151,6 @@ Route::prefix('info_lote')->group(function () {
     Route::post('/desguazar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'crear']);
     //MOSTRAR COMPONENTES DEL LOTE DESGUAZADO
     Route::get('/listar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'listar']);
-
-    //TODO:NO SE USA
-    Route::get('/mostrarr/{id}', [App\Http\Controllers\InfoLoteController::class, 'mostrar']);
 });
 
 Route::middleware(['auth:sanctum', 'midClasificador'])->group(function () {
@@ -178,16 +168,13 @@ Route::middleware(['auth:sanctum', 'midClasificador'])->group(function () {
         Route::post('/desguazar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'crear']);
         //MOSTRAR COMPONENTES DEL LOTE DESGUAZADO
         Route::get('/listar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'listar']);
-
-        //TODO:NO SE USA
-        Route::get('/mostrarr/{id}', [App\Http\Controllers\InfoLoteController::class, 'mostrar']);
     });
 });
 
 
 //-------------------------RUTAS DISEÑADOR-------------------------
 
-Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () { 
+Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
 
     //GESTIONAR JOYAS
     Route::prefix('joya')->group(function () {
@@ -205,22 +192,11 @@ Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
         //VERIFICAR SI HAY SUFICIENTES COMPONENTES EN EL INVENTARIO Y CUANTAS JOYAS PUEDE HACER
         Route::get('/componentes/{idReceta}', [App\Http\Controllers\JoyaController::class, 'componenteSuficiente']);
         //MOSTRAR INVENTARIO > /INVENTARIO/MOSTAR
-
-        //GESTIONAR CRUD JOYAS
-        Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']); //TODO:NO SE USA
-
-        //TODO:NO SE USA
-        //GESTIONAR CRUD JOYAS
-        Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']);
-        //BORRAR JOYA
-        Route::delete('/eliminar/{id}', [App\Http\Controllers\JoyaController::class, 'eliminar']);
     });
-}); 
+});
 
-            //SUBIR IMAGEN JOYA
-            Route::post('/joya/subir', [JoyaController::class, 'cargarImagen']);
-
-
+//SUBIR IMAGEN JOYA
+Route::post('/joya/subir', [JoyaController::class, 'cargarImagen']);
 
 Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
 
@@ -237,10 +213,6 @@ Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
         Route::post('/crear', [App\Http\Controllers\RecetaController::class, 'crear']);
         //SACA LAS RECETAS DE UN TIPO DE JOYA CONCRETO
         Route::get('/tipo/{idTipoJoya}', [App\Http\Controllers\RecetaController::class, 'getRecetasPorJoya']);
-
-        //TODO: NO SE USA
-        Route::put('/modificar/{id}', [App\Http\Controllers\RecetaController::class, 'modificar']);
-        Route::delete('/eliminar/{id}', [App\Http\Controllers\RecetaController::class, 'eliminar']);
     });
 });
 
@@ -255,10 +227,6 @@ Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
         Route::get('/listar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'listar']);
         //MODIFICAR LA CANTIDAD DE INGREDIENTE DE LA RECETA
         Route::put('/modificar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'modificarCantidad']);
-
-        //TODO: NO SE USA
-        Route::get('/mostrar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'mostrar']);
-        Route::delete('/eliminar/{id}', [App\Http\Controllers\IngredienteAsignadoController::class, 'eliminar']);
     });
 });
 
@@ -269,7 +237,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         // BUSCAR USUARIO QUE VA A EDITAR SU PERFIL
         Route::get('/buscar/{id}', [UserController::class, 'buscar']);
-        // MODIFICAR IMAGENT DE PERFIL
+        // MODIFICAR IMAGEN DE PERFIL
         Route::post('/modificarFoto/{id}', [UserController::class, 'modificarFoto']);
         // MODIFICAR PERFIL
         Route::put('/modificar/{id}', [UserController::class, 'modificar']);

@@ -20,10 +20,6 @@ let msgErrorBuscar = document.getElementById("msgErrorBuscar");
 //mensaje de error
 let msgErrorReceta = document.getElementById("msgErrorReceta");
 
-
-//TODO:PRUEBAS BORRAR
-localStorage.setItem('usuarioId', '1');
-
 /**
  * @author Patricia Mota
  * @summary Función que se encarga de crear la cabecera de la tabla de recetas

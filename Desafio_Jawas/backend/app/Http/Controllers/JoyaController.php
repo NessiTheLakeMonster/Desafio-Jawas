@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Patricia Mota
+ */
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -28,27 +32,6 @@ class JoyaController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-
-    /* public function crear (Request $request){ 
-        
-        $validator = Validator::make($request->all(), [
-            //TODO: foto
-            //'foto' => 'required|string',
-            'idTipoJoya' => 'required|integer|exists:tipo_joya,id',
-            'idReceta' => 'required|integer|exists:receta,id',
-        ]);
-    
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
-    
-        try {
-            $joya = Joya::create($request->all());
-            return response()->json($joya, 201);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    } */
 
     public function mostrar($id)
     {

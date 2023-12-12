@@ -24,13 +24,11 @@ class LoteFactory extends Factory
 
         return [
             'id_usuario' => User::all()->random()->id,
-            //'lugar_recogida' => $this->faker->latitude . ', ' . $this->faker->longitude,
             'latitud' => $this->faker->latitude,
             'longitud' => $this->faker->longitude,
             'entregado' => $entregado,
             'cancelado' => $cancelado,
         ];
 
-        //TODO: localizacion a traves de google maps
     }
 }

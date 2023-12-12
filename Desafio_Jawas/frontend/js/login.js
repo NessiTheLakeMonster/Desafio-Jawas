@@ -63,15 +63,12 @@ function limpiarErrores() {
 
 // Eventos
 btnLogin.addEventListener("click", function (e) {
-    /* e.preventDefault(); */
 
     if (validar()) {
         loginUsuario(cargarDatos())
             .then(data => {
                 console.log(data);
                 if (data.status == 200) {
-                    // TODO guardar el token en el local storage
-                    /* localStorage.setItem("token", data.usuario.token); */
                     localStorage.setItem("usuarioId", data.usuario.id);
 
                     sessionStorage.setItem("token", data.token);

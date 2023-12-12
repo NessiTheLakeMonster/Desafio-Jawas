@@ -78,7 +78,7 @@ export async function modificarIngrediente(datos) {
 
 //CREAR RECETA NUEVA -> BOTÓN DE CREAR RECETA
 export async function recetaNueva(idTipoJoya) {
-    //TODO:traerme el usuario de ines
+
     let idUsuario = localStorage.getItem('usuarioId');
 
     let bodyJson = JSON.stringify(
