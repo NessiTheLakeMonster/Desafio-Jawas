@@ -25,9 +25,6 @@ let msgErrorBuscar = document.getElementById("msgErrorBuscar");
 //mensaje de error
 let msgErrorComponente = document.getElementById("msgErrorComponente");
 
-//boton eliminar
-let btnEliminarComponente = document.getElementById("btnEliminarComponente");
-
 /**
  * @author Patricia Mota
  * @summary Función que se encarga de crear la cabecera de la tabla de componentes
@@ -55,7 +52,7 @@ export function cabeceraTablaComponentes(data) {
 export function filaComponentes(data) {
     return data.map(componente => `
         <tr>
-            <td><input class="checkbox-lote" type="checkbox" name="lote" value="${componente.id}"></td>
+            <td><input class="checkbox-componentes" type="checkbox" name="lote" value="${componente.id}"></td>
             <td>${componente.id}</td>
             <td>${componente.nombre}</td>
             <td>${componente.hardware}</td>
@@ -221,25 +218,6 @@ btnBuscar.addEventListener('click', async function () {
         }
     }
 });
-
-/**
- * @author Patricia Mota
- * @summary Botón de eliminar componente
- */
-
-btnEliminarComponente.addEventListener('click', function () {
-    let idComponente = localStorage.getItem('componenteId');
-
-    eliminarComponente(idComponente).then(data => {
-        if (data.status === 200) {
-            alert(data.message);
-            _Init();
-        } else {
-            alert(data.message);
-        }
-    });
-});
-
 
 /**
  * @author Patricia Mota
