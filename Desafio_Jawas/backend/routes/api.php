@@ -37,7 +37,7 @@ Route::get('', function () {
 Route::post('/registro', [AuthController::class, 'registro']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout/{id}', [AuthController::class, 'logout']);
-Route::post('/subir', [AuthController::class,'cargarImagenUsuario']);
+Route::post('/subir', [AuthController::class, 'cargarImagenUsuario']);
 
 
 //-------------------------RUTAS DE ASIGNACIÓN DE ROL-------------------------
@@ -109,7 +109,7 @@ Route::middleware(['auth:sanctum', 'midAdmin'])->group(function () {
 
 /* Route::middleware(['auth:sanctum', 'midColaborador'])->group(function () { */
 
-//GESTIONAR LOTES
+//GESTIONAR LOTES PANTALLA JAIME
 Route::prefix('lote')->group(function () {
 
     // MANDAR LOTE
@@ -122,7 +122,7 @@ Route::prefix('lote')->group(function () {
     Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
     //MANDAR LOTES
     Route::put('/mandar/{id}', [LoteController::class, 'mandarLote']);
-    //MOSTRAR LOTE ENTREGADO BUSCADO POR ID 
+    //MOSTRAR LOTE ENTREGADO BUSCADO POR ID
     Route::get('/mostrar/{idLote}/{idUsuario}', [LoteController::class, 'mostrar']);
     //CANCELAR LOTES
     Route::put('/cancelar/{id}', [LoteController::class, 'cancelarLote']);
@@ -136,7 +136,7 @@ Route::prefix('lote')->group(function () {
 
 //-------------------------RUTAS CLASIFICADOR-------------------------
 
-//GESTIONAR DESGUACES PANTALLA JAIME
+//GESTIONAR DESGUACES
 Route::prefix('info_lote')->group(function () {
 
     //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS PARA CLASIFICAR
@@ -152,6 +152,7 @@ Route::prefix('info_lote')->group(function () {
 
     //TODO:NO SE USA
     Route::get('/mostrarr/{id}', [App\Http\Controllers\InfoLoteController::class, 'mostrar']);
+});
 
 Route::middleware(['auth:sanctum', 'midClasificador'])->group(function () {
 
@@ -160,7 +161,7 @@ Route::middleware(['auth:sanctum', 'midClasificador'])->group(function () {
 
         //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS PARA CLASIFICAR
         Route::get('/listar', [LoteController::class, 'listar']);
-        //MOSTRAR LOTE ENTREGADO BUSCADO POR ID 
+        //MOSTRAR LOTE ENTREGADO BUSCADO POR ID
         Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
         //CREAR COMPONENTE
         Route::post('/crear', [App\Http\Controllers\ComponenteController::class, 'crear']);
@@ -194,17 +195,17 @@ Route::prefix('joya')->group(function () {
     Route::post('/generar', [App\Http\Controllers\JoyaController::class, 'generarJoyaAleatoria']);
     //VERIFICAR SI HAY SUFICIENTES COMPONENTES EN EL INVENTARIO Y CUANTAS JOYAS PUEDE HACER
     Route::get('/componentes/{idReceta}', [App\Http\Controllers\JoyaController::class, 'componenteSuficiente']);
-    //MOSTRAR INVENTARIO > /INVENTARIO/MOSTAR 
+    //MOSTRAR INVENTARIO > /INVENTARIO/MOSTAR
 
     //GESTIONAR CRUD JOYAS
     Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']); //TODO:NO SE USA
 
     //SUBIR IMAGEN JOYA
-    Route::post('/subir', [JoyaController::class,'cargarImagen']);
+    Route::post('/subir', [JoyaController::class, 'cargarImagen']);
 
     //TODO:NO SE USA
-    //GESTIONAR CRUD JOYAS 
-    Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']); 
+    //GESTIONAR CRUD JOYAS
+    Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']);
     //BORRAR JOYA
     Route::delete('/eliminar/{id}', [App\Http\Controllers\JoyaController::class, 'eliminar']);
 });
@@ -214,7 +215,7 @@ Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
 
     //GESTIONAR RECETAS
     Route::prefix('receta')->group(function () {
-    
+
         //MOSTRAR LISTA DE TODAS LAS RECETAS
         Route::get('/listar', [App\Http\Controllers\RecetaController::class, 'listar']);
         //MOSTRAR RECETA BUSCADA POR ID
@@ -237,7 +238,7 @@ Route::middleware(['auth:sanctum', 'midDisenador'])->group(function () {
     //GESTIONAR INGREDIENTES (CRUD INGREDIENTE_ASIGNADO)
     Route::prefix('ingrediente')->group(function () {
 
-        //AÑADIR INGREDIENTE A LA RECETA 
+        //AÑADIR INGREDIENTE A LA RECETA
         Route::post('/crear/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'crear']);
         //VER INGREDIENTES DE LA RECETA CONCRETA
         Route::get('/listar/{id_receta}', [App\Http\Controllers\IngredienteAsignadoController::class, 'listar']);
