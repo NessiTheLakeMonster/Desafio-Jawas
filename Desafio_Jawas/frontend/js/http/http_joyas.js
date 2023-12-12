@@ -22,7 +22,8 @@ export async function getTipos() {
     var options = {
         method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         }
     };
     const response = await fetch(`http://localhost:8000/api/joya/tipos`, options);
@@ -52,6 +53,7 @@ export async function modificarImg(formData) {
     var options = {
         method: 'POST',
         headers: {
+            "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
         body: formData
@@ -128,16 +130,16 @@ export async function subirImagen(imagen) {
     let headersList = {
         "Accept": "*/*",
         "User-Agent": "Thunder Client (https://www.thunderclient.com)"
-       }
-       
-       let response = await fetch("http://127.0.0.1:8000/api/joya/subir", { 
-         method: "POST",
-         body: imagen,
-         headers: headersList
-       });
-       
-       let data = await response.json();
-       console.log(data);
-       return data
-
     }
+
+    let response = await fetch("http://127.0.0.1:8000/api/joya/subir", {
+        method: "POST",
+        body: imagen,
+        headers: headersList
+    });
+
+    let data = await response.json();
+    console.log(data);
+    return data
+
+}
