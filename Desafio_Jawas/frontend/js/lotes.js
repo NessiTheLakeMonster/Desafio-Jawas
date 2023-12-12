@@ -170,6 +170,7 @@ btnBuscar.addEventListener('click', async function () {
         tablaLotes.innerHTML = "";
         cabeceraTablaLotesColaborador(data);
         tablaLotes.innerHTML += filaTablaLotesColaborador(data);
+
     } else {
 
         let data = await getLoteEntregado(id, usuario);
