@@ -5,7 +5,7 @@
 import { mostrarLotes, mostrarEntregados, mostrarLote, mandarLote, cancelarLote } from './http/http_gestionLotes.js'
 import { getUsuarioById } from './http/http_gestionUsuarios.js'
 
-sessionStorage.setItem('userId', '1')
+sessionStorage.setItem('userId', '3')
 let idUsuarioGuardado = sessionStorage.getItem('userId')
 let idUsuario = JSON.parse(idUsuarioGuardado)
 
@@ -32,10 +32,9 @@ export function move() {
     }
 }
 
-export function cabeceraTabla(data) {
+export function cabeceraTabla() {
     let cabecera = document.createElement('tr')
     let columnas = ['', 'Nº LOTE', 'USUARIO', 'LUGAR RECOGIDA', 'ENTREGADO', 'CANCELADO']
-
     columnas.forEach(col => {
         let th = document.createElement('th')
         th.textContent = col
@@ -51,7 +50,8 @@ export function llenarTablaLotes(data, dataUser) {
                     <td><input class="checkbox-lote" type="checkbox" name"lote" value="${lote.id}"</td>
                     <td>${lote.id}</td>
                     <td>${dataUser.nombre}</td>
-                    <td>${lote.lugar_recogida}</td>
+                    <td>${lote.latitud}</td>
+                    <td>${lote.longitud}</td>
                     <td>${lote.entregado}</td>
                     <td>${lote.cancelado}</td>
                 </tr>
