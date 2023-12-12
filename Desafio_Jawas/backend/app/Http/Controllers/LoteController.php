@@ -163,6 +163,16 @@ class LoteController extends Controller
         }
     }
 
+    public function mostrarLotes($idUsuario)
+    { // SOLO COLABORADORES PODRÁN VER ESTA LISTA
+        try {
+            $lotes = Lote::where('id_usuario', $idUsuario)->get();
+            return response()->json($lotes);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
     public function mostrarEntregados($idUsuario)
     { // SOLO COLABORADORES PODRÁN VER ESTA LISTA
         try {
@@ -176,6 +186,28 @@ class LoteController extends Controller
 
             return response()->json($lotes);
 
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function mandarLote($id)
+    {
+        try {
+            $lote = Lote::where('id', $id)->where('entregado', false)->where('cancelado', true)->first();
+
+            if ($lote) {
+                $lote->entregado = 1;
+                $lote->cancelado = 0;
+
+                if ($lote->save()) {
+                    return response()->json(['success' => 'Lote mandado con éxito']);
+                } else {
+                    return response()->json(['error' => 'El lote ya está mandado']);
+                }
+            } else {
+                return response()->json(['error' => 'Error al mandar el lote'], 404);
+            }
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -197,10 +229,10 @@ class LoteController extends Controller
                         'status' => 200
                     ]);
                 } else {
-                    return response()->json(['error' => 'Error al cancelar el lote']);
+                    return response()->json(['error' => 'El lote ya está cancelado']);
                 }
             } else {
-                return response()->json(['error' => 'Lote no encontrado o ya está cancelado'], 404);
+                return response()->json(['error' => 'Error al cancelar el lote'], 404);
             }
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

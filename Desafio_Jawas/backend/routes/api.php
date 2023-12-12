@@ -114,8 +114,14 @@ Route::prefix('lote')->group(function () {
 
     // MANDAR LOTE
     Route::post('/crear', [LoteController::class, 'crear']);
+    //MOSTRAR LISTA DE TODOS LOS LOTES
+    Route::get('/listar/{idUsuario}', [LoteController::class, 'mostrarLotes']);
     //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS
     Route::get('/entregados/{idUsuario}', [LoteController::class, 'mostrarEntregados']);
+    //MOSTRAR LOTE ENTREGADO BUSCADO POR ID
+    Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
+    //MANDAR LOTES
+    Route::put('/mandar/{id}', [LoteController::class, 'mandarLote']);
     //MOSTRAR LOTE ENTREGADO BUSCADO POR ID 
     Route::get('/mostrar/{idLote}/{idUsuario}', [LoteController::class, 'mostrar']);
     //CANCELAR LOTES
@@ -129,6 +135,23 @@ Route::prefix('lote')->group(function () {
 /* }); */
 
 //-------------------------RUTAS CLASIFICADOR-------------------------
+
+//GESTIONAR DESGUACES PANTALLA JAIME
+Route::prefix('info_lote')->group(function () {
+
+    //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS PARA CLASIFICAR
+    Route::get('/listar', [LoteController::class, 'listar']);
+    //MOSTRAR LOTE ENTREGADO BUSCADO POR ID
+    Route::get('/mostrar/{id}', [LoteController::class, 'buscar']);
+    //CREAR COMPONENTE
+    Route::post('/crear', [App\Http\Controllers\ComponenteController::class, 'crear']);
+    //DESGUAZARÁ Y CLASIFICARÁ EL LOTE
+    Route::post('/desguazar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'crear']);
+    //MOSTRAR COMPONENTES DEL LOTE DESGUAZADO
+    Route::get('/listar/{idLote}', [App\Http\Controllers\InfoLoteController::class, 'listar']);
+
+    //TODO:NO SE USA
+    Route::get('/mostrarr/{id}', [App\Http\Controllers\InfoLoteController::class, 'mostrar']);
 
 Route::middleware(['auth:sanctum', 'midClasificador'])->group(function () {
 
@@ -172,6 +195,9 @@ Route::prefix('joya')->group(function () {
     //VERIFICAR SI HAY SUFICIENTES COMPONENTES EN EL INVENTARIO Y CUANTAS JOYAS PUEDE HACER
     Route::get('/componentes/{idReceta}', [App\Http\Controllers\JoyaController::class, 'componenteSuficiente']);
     //MOSTRAR INVENTARIO > /INVENTARIO/MOSTAR 
+
+    //GESTIONAR CRUD JOYAS
+    Route::post('/crear', [App\Http\Controllers\JoyaController::class, 'crear']); //TODO:NO SE USA
 
     //SUBIR IMAGEN JOYA
     Route::post('/subir', [JoyaController::class,'cargarImagen']);
