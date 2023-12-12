@@ -28,7 +28,7 @@ class RolAsignadoSeeder extends Seeder
         foreach ($usuarios->random(rand(1, $usuarios->count())) as $usuario) {
             RolAsignado::create([
                 'id_usuario' => $usuario->id,
-                'id_rol' => Rol::whereIn('nombre', ['diseñador', 'clasificador'])->get()->random()->id,
+                'id_rol' => Rol::whereIn('nombre', ['disenador', 'clasificador'])->get()->random()->id,
             ]);
         }
 

@@ -1,19 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1 id="titulo"></h1>
-    <img src="" id="fotoUsuario"><br>
-    Nombre:<input type="text" id="nombreUsuario"><br>
-    Apellido:<input type="text" id="apellidoUsuario">
-    Email:<input type="text" id="emailUsuario">
-    Contraseña:<input type="text" id="passwdUsuario">
 
-    <input type="button" value="" id="btnEnviar">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- CSS -->
+    <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
+
+    <!-- icon -->
+    <link rel="icon" type="image/png" href="../assets/Imagen 1.png">
+
+    <title>Modificar Usuario</title>
+</head>
+
+<body>
+    <header class="d-flex flex-column align-items-center p-3 "
+        style="background-color: rgba(220, 255, 132, 0.855); color: rgb(0, 0, 0);">
+        <div class="header-contenido d-flex align-items-center justify-content-center">
+            <a href="../html/home.html" id="inicio">
+                <img src="../assets/Imagen 1.png" alt="logo" width="110px">
+            </a>
+            <h1 class="titulo">JAWAS GEMS</h1>
+            <a href="../html/perfil.html" id="perfil">
+                <img src="../assets/jawaperfil.png" alt="logo" width="100px">
+            </a>
+        </div>
+        <br>
+
+        <nav id="navbarComponentes">
+            <button id="btnUser">
+                <a href="gestionUsuarios.html">Gestionar Usuarios</a>
+            </button>
+
+            <button id="btnUser">
+                <a href="inventario.html"> Gestionar inventarios</a>
+            </button>
+
+            <button id="btnUser">
+                <a href="componentes.html"> Gestionar componentes</a>
+            </button>
+        </nav>
+    </header>
+    
+    <h1 id="titulo"></h1>
+
+    <span id="msgExito"></span><br>
+
+    <form id="formImagen" action="http://127.0.0.1:8000/api/subir" method="post" enctype="multipart/form-data">
+        <label for="imagenCrear" id="lblImagenCrear"></label><input name="image" type="file" accept="image/*" id="imagenCrear"/>
+        <input id="btnCrearImagen" type="submit" name="subir" value="Subir imagen" />
+        <span id="msgErrorImagen"></span><br>
+    </form>
+
+    <img src="" id="fotoUsuario" width="200"><br>
+    <label for="nuevaFoto" id="lblNewFoto"></label><input type="file" id="nuevaFoto"><input type="button" value="Subir Imagen" id="btnSubirImagen"> <br>
+    <span id="msgErrorFoto"></span><br>
+    
+    Nombre:<input type="text" id="nombreUsuario"><br>
+    <span id="msgErrorNombre"></span><br>
+    Apellido:<input type="text" id="apellidoUsuario"><br>
+    <span id="msgErrorApellido"></span><br>
+    Email:<input type="text" id="emailUsuario"><br>
+    <span id="msgErrorEmail"></span><br>
+
+    <label for="passwdUsuario" id="lblPasswdUsuario"></label><input type="text" id="passwdUsuario"><br>
+    <span id="msgErrorPasswd"></span><br>
+    <label for="passwdUsuario" id="lblPasswdUsuario2"></label><input type="text" id="passwdUsuario2"><br>
+    <span id="msgErrorPasswd2"></span><br>
+
+    <input type="button" id="cambioPasswd">
+    <input type="button" id="btnEnviar"><br>
+    <input type="button" id="btnCrearUsuario"><br>
+
+    <select name="" id="selectRoles"></select>
+    <input type="button" id="btnAddRol">
+
+    <!-- Pie de página -->
+    <footer class="d-flex flex-column align-items-center p-3"
+        style="background-color: rgba(220, 255, 132, 0.855); color: rgb(0, 0, 0);">
+        <div class="footer-contenido d-flex flex-column align-items-center justify-content-center">
+            <div class="redes-sociales mb-3 mt-3">
+                <p class="text-center mb-3">Puedes encontrarnos en:</p>
+                <a href="https://www.instagram.com/" target="_blank" class="mr-4"><img
+                        src="../assets/icono_instagram.webp" alt="Instagram" height="68px"></a>
+                <a href="https://twitter.com/?lang=es " target="_blank" class="mr-4"><img
+                        src="../assets/icono_twitter.png" alt="Twitter" height="55px"></a>
+                <a href="https://www.facebook.com/?locale=es_ES" target="_blank" class="mr-4"><img
+                        src="../assets/icono_facebook.png" alt="Facebook" height="55px"></a>
+            </div>
+            <div class="politica-privacidad mb-3">
+                <a href="politica-de-privacidad.html">Política de Privacidad</a>
+            </div>
+            <div class="copyright mb-3">
+                <span>&copy; 2023 Jawas Joyas</span>
+            </div>
+        </div>
+    </footer>
 </body>
-<script type="module" src="../js/modificarCrearUsuario.js"></script>
+<!-- <script type="module" src="../js/modificarCrearUsuario.js"></script> -->
+<script type="module" src="../dist/modificarCrearUsuario.js"></script>
+
 </html>

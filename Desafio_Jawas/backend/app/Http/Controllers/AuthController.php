@@ -8,10 +8,19 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 
 class AuthController extends Controller
 {
+
+    /**
+     * @author Inés Mª Barrera Llerena
+     * @summary Inicio de sesión
+     * 
+     * @param Request $request
+     * @return void
+     */
     public function login(Request $request)
     {
 
@@ -41,10 +50,11 @@ class AuthController extends Controller
                 ], 401);
             } else {
 
-                $success['token'] =  $usuario->createToken('access_token', ["user"])->plainTextToken; // crear token
+                $success = $this->crearToken($usuario);
 
                 return response()->json([
-                    'usuario' => $success,
+                    'token' => $success['token'],
+                    'usuario' => $usuario,
                     'message' => 'Inicio de sesión',
                     'status' => 200,
                     'ok' => true
@@ -58,32 +68,44 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    /**
+     * @author Inés Mª Barrera Llerena
+     * @summary Creación del token mirando los roles asignados al usuario
+     * 
+     * @param User $usuario
+     * @return success, el cual contiene el token
+     */
+    public function crearToken($usuario)
     {
-        try {
-            $auth = Auth::user();
+        $abilities = [];
+        $rolAsignado = DB::table('rol_asignado')->where('id_usuario', $usuario->id)->get();
+        $rolesTotales = DB::table('rol')->get();
 
-            $nombre = $auth->nombre; // ejemplo de como seria util usar -> $auth = Auth::user(); para acceder a los datos del usuario que ha iniciado sesion
-
-            $request->user()->tokens()->delete();
-
-            return response()->json([
-                'message' => 'sesion cerrada',
-                'nombre' => $nombre
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error en el servidor',
-                'error' => $e->getMessage()
-            ], 500);
+        for ($i = 0; $i < count($rolAsignado); $i++) {
+            for ($j = 0; $j < count($rolesTotales); $j++) {
+                if ($rolAsignado[$i]->id_rol == $rolesTotales[$j]->id) {
+                    $abilities[] = $rolesTotales[$j]->nombre;
+                }
+            }
         }
+
+        $success['token'] =  $usuario->createToken('access_token', $abilities)->plainTextToken;
+
+        return $success;
     }
 
+    /**
+     * @author Inés Mª Barrera Llerena ft. Patricia Mota
+     * @summary Registro de un nuevo usuario
+     * 
+     * @param Request $request
+     * @return void
+     */
     public function registro(Request $request)
     {
 
         try {
-
+            
             $message = [
                 'nombre.required' => 'El campo nombre es obligatorio',
                 'apellido.required' => 'El campo apellido es obligatorio',
@@ -94,21 +116,24 @@ class AuthController extends Controller
                 'min' => 'El campo :contraseña debe tener como mínimo :min caracteres',
                 'unique' => 'El campo :email ya existe',
                 'confirmed' => 'El campo :contraseña debe ser igual al campo de confirmación',
+                'max' => 'El campo se excede del tamaño máximo'
 
             ];
 
-            $validator = Validator::make($request->all(), [ // validacion de los campos
-                'fotoPerfil' => 'string',
+            $validator = Validator::make($request->all(), [
+
                 'nombre' => 'required|string|min:2|max:55',
                 'apellido' => 'required|string|min:2|max:55',
-                'email' => 'required|string|email|max:55|unique:users',
-                'password' => 'required|string|min:8|confirmed',
+                'email' => 'required|string|email|max:55|unique:users', // El email debe ser único
+                'password' => 'required|string|min:8',
+                'fotoPerfil' => 'required',
 
             ], $message);
 
             if ($validator->fails()) {
-                return response()->json($validator->errors(), 304);
+                return response()->json($validator->errors(), 400);
             } else {
+                
                 $usuario = new User();
                 $usuario->fotoPerfil = $request->fotoPerfil;
                 $usuario->nombre = $request->nombre;
@@ -117,15 +142,14 @@ class AuthController extends Controller
                 $usuario->password = Hash::make($request->password);
                 $usuario->save();
 
+                // Por defecto se asigna el rol de colaborador
                 DB::table('rol_asignado')->insert([
                     'id_Usuario' => $usuario->id,
                     'id_Rol' => 1
                 ]);
 
-                $success['token'] =  $usuario->createToken('access_token', ["user"])->plainTextToken;
-
                 return response()->json([
-                    'usuario' => $success,
+                    'usuario' => $usuario,
                     'message' => 'usuario creado',
                     'status' => 200
                 ], 200);
@@ -136,5 +160,54 @@ class AuthController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+    /**
+     * @author Inés Mª Barrera Llerena
+     * @summary Cierre de sesión de un usuario
+     * 
+     * @param Request $request
+     * @return void
+     */
+    public function logout($id)
+    {
+        try {
+            $usuario = User::findOrFail($id);
+            $usuario->tokens()->delete();
+            return response()->json([
+                'message' => 'Cierre de sesión',
+                'status' => 200
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error en el servidor',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function cargarImagenUsuario(Request $request)
+    {
+
+        $messages = [
+            'max' => 'El campo se excede del tamaño máximo'
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'fotoPerfil' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], $messages);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
+
+        if ($request->hasFile('fotoPerfil')) {
+            $file = $request->file('fotoPerfil');
+            $path = $file->store('usuarios', 's3'); // 'perfiles' es la carpeta en tu bucket. Este método le asigna un UID a la imagen.
+
+            //$path = $file->storeAs('joyas', $file->getClientOriginalName(), 's3');
+            $url = Storage::disk('s3')->url($path);
+            return response()->json(['path' => $path, 'url' => $url], 200);
+        }
+
+        return response()->json(['error' => 'No se recibió ningún archivo.'], 400);
     }
 }

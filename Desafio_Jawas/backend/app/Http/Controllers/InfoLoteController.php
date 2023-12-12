@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\InfoLote;
 use App\Models\Lote;
+use App\Models\Inventario;
 use App\Models\Componente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -40,6 +41,18 @@ class InfoLoteController extends Controller
             $request->merge(['idLote' => $idLote]);
             $request->merge(['idComponente' => $request->idComponente]);
             $lote = InfoLote::create($request->all());
+
+            $inventario = Inventario::where('idComponente', $request->idComponente)->first();
+            if ($inventario) {
+                $inventario->cantidad += $request->cantidad;
+                $inventario->save();
+            } else {
+                Inventario::create([
+                    'idComponente' => $request->idComponente,
+                    'cantidad' => $request->cantidad
+                ]);
+            }
+
             return response()->json($lote, 201);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -61,7 +74,10 @@ class InfoLoteController extends Controller
     public function listar($idLote)
     {
         try {
-            $desguace = InfoLote::where('idLote', $idLote)->get(['idComponente', 'descripcion', 'cantidad']);
+            $desguace = InfoLote::join('componente', 'info_lote.idComponente', '=', 'componente.id')
+            ->select('info_lote.*', 'componente.nombre')
+            ->where('idLote', $idLote)
+            ->get();
 
             return response()->json($desguace, 200);
         } catch (\Exception $e) {

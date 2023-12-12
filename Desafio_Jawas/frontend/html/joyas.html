@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link class="comun" rel="stylesheet" type="text/css" href="../css/comun.css">
+    <link rel="stylesheet" type="text/css" href="../css/tablasStyle.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- icon -->
+    <link rel="icon" type="image/png" href="../assets/Imagen 1.png">
+
+    <title>Joyas</title>
+</head>
+
+<body>
+
+    <header>
+        <a href="../html/home.html" id="inicio">
+            <img src="../assets/Jawas.webp" alt="logo" width="40px">
+        </a>
+        <h1>JAWAS JOYAS</h1>
+        <a href="../html/perfil.html" id="perfil">
+            <img src="../assets/perfil.png" alt="logo" width="35px">
+        </a>
+
+        <nav>
+            <button>
+                <a href="joyas.html">Gestionar Joyas</a>
+            </button>
+
+            <button>
+                <a href="recetas.html"> Gestionar Recetas</a>
+            </button>
+        </nav>
+    </header>
+    <h1>JOYAS</h1>
+    <div>
+        <input type="search" id="buscador" placeholder="Buscar Joya">
+        <button id="btnBuscar">Buscar</button>
+        <span id="msgErrorBuscar"></span>
+    </div>
+
+    <table id="tablaJoyas"></table>
+
+    <div>
+        <span id="msgErrorJoya"></span>
+    </div>
+
+    <table id="tablaModificarJoya"></table>
+
+    <div>
+        <input type="button" value="Modificar Joya" id="btnModificarJoya">
+    </div>
+
+    <div>
+        <input type="button" value="Generar Joya" id="btnGenerarJoya">
+    </div>
+
+    <video autoplay muted loop id="myVideo">
+        <source src="../assets/video.mp4" type="video/mp4">
+    </video>
+
+    <!-- Pie de página -->
+    <footer class="d-flex flex-column align-items-center p-3"
+        style="background-color: rgba(220, 255, 132, 0.855); color: rgb(0, 0, 0);">
+        <div class="footer-contenido d-flex flex-column align-items-center justify-content-center">
+            <div class="redes-sociales mb-3 mt-3">
+                <p class="text-center mb-3">Puedes encontrarnos en:</p>
+                <a href="https://www.instagram.com/" target="_blank" class="mr-4"><img
+                        src="../assets/icono_instagram.webp" alt="Instagram" height="68px"></a>
+                <a href="https://twitter.com/?lang=es " target="_blank" class="mr-4"><img
+                        src="../assets/icono_twitter.png" alt="Twitter" height="55px"></a>
+                <a href="https://www.facebook.com/?locale=es_ES" target="_blank" class="mr-4"><img
+                        src="../assets/icono_facebook.png" alt="Facebook" height="55px"></a>
+            </div>
+            <div class="politica-privacidad mb-3">
+                <a href="politica-de-privacidad.html">Política de Privacidad</a>
+            </div>
+            <div class="copyright mb-3">
+                <span>&copy; 2023 Jawas Joyas</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<!-- <script type="module" src="../js/joyas.js"></script> -->
+<script type="module" src="../dist/joyas.js"></script>
+</html>

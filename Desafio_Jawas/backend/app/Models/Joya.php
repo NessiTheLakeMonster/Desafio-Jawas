@@ -15,6 +15,5 @@ class Joya extends Model
         'foto',
         'idTipoJoya',
         'idReceta',
-
     ];
 }

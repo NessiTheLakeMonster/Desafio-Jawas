@@ -12,8 +12,21 @@ class Lote extends Model
 
     protected $fillable = [
         'id_usuario',
-        'lugar_recogida',
+        'latitud',
+        'longitud',
+        //'lugar_recogida',
         'entregado',
         'cancelado',
     ];
+
+    public function getEntregadoAttribute($value)
+    {
+        return $value == 1 ? 'SI' : 'NO';
+    }
+
+    public function getCanceladoAttribute($value)
+    {
+        return $value == 1 ? 'SI' : 'NO';
+    }
 }
+

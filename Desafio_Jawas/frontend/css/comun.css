@@ -1,86 +1,210 @@
+body {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 89, 255, 0.602);
 
- body {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    background-color: #4b4b4b;
-    color: #FFFFFF;
-  }
+}
+
 #myVideo {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%; 
-    min-height: 100%;
-    z-index: -1;
-    opacity: 0.7;
-  }
-  header {
-    background-color: rgba(213, 178, 91, 0.749);
-    color: #FFFFFF;
-    position: relative;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    margin: 0px;
-  }
-  img {
-    margin-right: 80px;
-    position: relative;
-    top: 0px;
-    left: 0;
-  }  
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -2;
+  opacity: 0.7;
+}
 
-  footer {
-    background-color:  rgba(213, 178, 91, 0.749);
-    color: #FFFFFF;
-    text-align: center;
-    padding: 20px 0;
-    position: relative;
-    font-family: "Formula1-Italic";
-    margin-top: 10%;
-    width: 100%;
-  }
-  
+
+.titulo {
+  margin-left: 450px;
+  margin-right: 450px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-family: 'Arial Black', sans-serif;
+  color: rgb(28, 33, 42);
+  font-size: 50px;
+}
+
+.texto {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-family: 'Arial Black', sans-serif;
+  color: rgba(220, 255, 132, 0.855);
+
+  font-size: 50px;
+}
+
+#buscador {
+  border-radius: 25px;
+  background-color: rgba(56, 99, 253, 0.76);
+}
+
+#hardware{
+  border-radius: 25px;
+  background-color: rgba(56, 99, 253, 0.76);
+}
+
+#nombreComponente{
+  border-radius: 25px;
+  background-color: rgba(56, 99, 253, 0.76);
+}
+
+.tabla-centro {
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 0 3em 3em 0;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}
+
+.tabla-centro td,
+.tabla-centro th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(115, 146, 91, 0.97);
+}
+
+.tabla-centro tbody td {
+  background-color: rgba(178, 218, 148, 0.683);
+}
+
+#navbarComponentes {
+  background-color: rgba(91, 148, 255, 0.76);
+  border-radius: 50px;
+  text-align: center;
+  display: inline-block;
+
+}
+
+#btnModalComponentes {
+  position: relative;
+  left: 680px;
+  margin-bottom: 60px;
+}
+
+
+button#btnUser {
+  background-color: rgb(178, 218, 148);
+  border-radius: 50px;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 16px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  margin: 20px;
+
+}
+
+button#btnUser:hover {
+  background-color: rgb(51, 90, 180);
+  box-shadow: 0 15px 20px rgba(134, 141, 215, 0.4);
+}
+
+
+a {
+  color: rgb(0, 136, 255);
+  text-decoration: none;
+}
+
+/* CSS */
+@media only screen and (max-width: 600px) {
+
+  .header-contenido,
   .footer-contenido {
-    margin: 20px 20px;
+    flex-direction: column;
   }
+}
+
+.tabla-centro-usuarios {
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 0 2em 2em 0;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}
+
+.tabla-centro-usuarios td,
+.tabla-centro-usuarios th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(115, 146, 91, 0.864);
+}
+
+.tabla-centro-usuarios tbody td {
+  background-color: rgba(178, 218, 148, 0.8);
+}
+
+.tabla-centro-lotes {
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 0 3em 3em 0;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+}
+
+.tabla-centro-lotes td,
+.tabla-centro-lotes th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(115, 146, 91, 0.97);
+}
+
+.tabla-centro-lotes tbody td {
+  background-color: rgba(178, 218, 148, 0.683);
+}
+
+input {
+  background-color: rgb(178, 218, 148);
+  border-radius: 50px;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 16px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+#tablaUsuarios {
+  font-size: 20px;
+}
+#tablaLotes {
+  font-size: 20px;
+}
+::placeholder { 
+  color: rgba(255, 255, 255, 0.784);
   
-  .privacy-policy a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .copyright span {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  h2 {
-    padding-top: 20px;
-    text-align: center;
-    font-family: "Formula1-Bold";
-    font-size: 24px;
-    letter-spacing: 2px;
-    font-size: 24px;
-    letter-spacing: 2px;
-  }
-  
-  h3 {
-    padding-top: 20px;
-    text-align: center;
-    font-family: "Formula1-Bold";
-    font-size: 24px;
-    letter-spacing: 2px;
-    font-size: 24px;
-    letter-spacing: 2px;
-  }
- 
-  a {
-    text-decoration: none;
-    color: white;
-  }
+}
