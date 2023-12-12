@@ -2,18 +2,19 @@
  * @author Jaime Ortega
  */
 
-import { mostrarLotes, mostrarLote, cancelarLote } from './http/http_gestionLotes.js'
+import { mostrarLotes, mostrarEntregados, mostrarLote, mandarLote, cancelarLote } from './http/http_gestionLotes.js'
 import { getUsuarioById } from './http/http_gestionUsuarios.js'
 
+sessionStorage.setItem('userId', '1')
 let idUsuarioGuardado = sessionStorage.getItem('userId')
 let idUsuario = JSON.parse(idUsuarioGuardado)
 
 let latitud = sessionStorage.getItem('latitud')
 let longitud = sessionStorage.getItem('longitud')
 
-let mandarLote = document.getElementById('mandarLote')
 let tablaLotes = document.getElementById('tablaLotes')
-let cancelar = document.getElementById('cancelar')
+let msgMandar = document.getElementById('msgMandar')
+let msgCancelar = document.getElementById('msgCancelar')
 
 export function move() {
     var elem = document.getElementById("myBar")
@@ -41,7 +42,7 @@ export function cabeceraTabla(data) {
         cabecera.appendChild(th)
     })
 
-    tablaLotes.appendChild(cabecera);
+    tablaLotes.appendChild(cabecera)
 }
 
 export function llenarTablaLotes(data, dataUser) {
@@ -57,36 +58,71 @@ export function llenarTablaLotes(data, dataUser) {
             `).join('')
 }
 
-export function _Init() {
-    getUsuarioById(idUsuario).then(dataUser => {
-        mostrarLotes(idUsuario).then(data => {
-            cabeceraTabla(data)
-            tablaLotes.innerHTML += llenarTablaLotes(data, dataUser)
+export async function _Init() {
+    try {
+        getUsuarioById(idUsuario).then(dataUser => {
+            mostrarLotes(idUsuario).then(data => {
+                cabeceraTabla(data)
+                tablaLotes.innerHTML += llenarTablaLotes(data, dataUser)
 
-            let checkboxes = document.querySelectorAll('.checkbox-lote');
+                let checkboxes = document.querySelectorAll('.checkbox-lote')
+                let btnCancelarLote = document.getElementById('cancelar')
+                let btnMandarLote = document.getElementById('mandarLote')
 
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function () {
-                    if (this.checked) {
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function () {
+                        if (this.checked) {
+                            checkboxes.forEach(otherCheckbox => {
+                                if (otherCheckbox !== checkbox) {
+                                    otherCheckbox.checked = false
+                                }
+                            })
 
-                        checkboxes.forEach(otherCheckbox => {
-                            if (otherCheckbox !== checkbox) {
-                                otherCheckbox.checked = false;
-                            }
-                        });
-                        // Si el checkbox está seleccionado, guardar el ID en el localStorage
-                        localStorage.setItem('loteIdGestion', this.value);
+                            // Si el checkbox está seleccionado, guardar el ID en el sessionStorage
+                            sessionStorage.setItem('loteIdGestionGuardado', this.value)
+                        } else {
+                            sessionStorage.removeItem('loteIdGestionGuardado')
+                        }
+                    })
+                })
+
+                btnCancelarLote.addEventListener('click', async function () {
+                    let loteIdGestion = sessionStorage.getItem('loteIdGestionGuardado')
+
+                    if (loteIdGestion) {
+                        let response = await cancelarLote(loteIdGestion)
+
+                        if (response.success) {
+                            msgCancelar.textContent = 'Lote ' + loteIdGestion + ' cancelado correctamente'
+                        } else {
+                            msgCancelar.textContent = 'lote: ' + loteIdGestion + ' ya está cancelado'
+                        }
                     } else {
-                        // Si el checkbox no está seleccionado, eliminar el ID del localStorage
-                        localStorage.removeItem('loteIdGestion');
+                        console.log('No hay Nº de lote seleccionado.')
                     }
-                });
-            });
-        })
-            .catch(error => console.error('Error:', error))
-    })
-        .catch(error => console.error('Error:', error))
+                })
 
+                btnMandarLote.addEventListener('click', async function () {
+                    let loteIdGestion = sessionStorage.getItem('loteIdGestionGuardado')
 
+                    if (loteIdGestion) {
+                        let response = await mandarLote(loteIdGestion)
+
+                        if (response.success) {
+                            msgMandar.textContent = 'Lote ' + loteIdGestion + ' mandado correctamente'
+                        } else {
+                            msgMandar.textContent = 'Lote ' + loteIdGestion + ' ya está mandado'
+                        }
+                    } else {
+                        console.log('No hay Nº de lote seleccionado.')
+                    }
+                })
+            }).catch(error => console.error('Error al obtener lotes:', error))
+        }).catch(error => console.error('Error al obtener usuario:', error))
+    } catch (error) {
+        console.error('Error en la función _Init:', error)
+    }
 }
-_Init()
+
+_Init();
+

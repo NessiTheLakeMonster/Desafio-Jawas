@@ -97,10 +97,14 @@ Route::prefix('lote')->group(function () {
 
     // MANDAR LOTE
     Route::post('/crear', [LoteController::class, 'crear']);
+    //MOSTRAR LISTA DE TODOS LOS LOTES
+    Route::get('/listar/{idUsuario}', [LoteController::class, 'mostrarLotes']);
     //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS
     Route::get('/entregados/{idUsuario}', [LoteController::class, 'mostrarEntregados']);
     //MOSTRAR LOTE ENTREGADO BUSCADO POR ID
     Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
+    //MANDAR LOTES
+    Route::put('/mandar/{id}', [LoteController::class, 'mandarLote']);
     //CANCELAR LOTES
     Route::put('/cancelar/{id}', [LoteController::class, 'cancelarLote']);
 

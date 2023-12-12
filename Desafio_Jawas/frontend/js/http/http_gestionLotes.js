@@ -37,6 +37,20 @@ export async function mostrarLotes(idUsuario) {
         }
     }
 
+    const response = await fetch(`http://localhost:8000/api/lote/listar/${idUsuario}`, options)
+    const data = await response.json()
+    return data
+}
+
+//MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS
+export async function mostrarEntregados(idUsuario) {
+    let options = {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+
     const response = await fetch(`http://localhost:8000/api/lote/entregados/${idUsuario}`, options)
     const data = await response.json()
     return data
@@ -57,10 +71,24 @@ export async function mostrarLote(id) {
     return data
 }
 
+// MANDAR LOTES
+export async function mandarLote(id) {
+    let options = {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+
+    const response = await fetch(`http://localhost:8000/api/lote/mandar/${id}`, options)
+    const data = await response.json()
+    return data
+}
+
 // CANCELAR LOTES
 export async function cancelarLote(id) {
     let options = {
-        method: 'DELETE',
+        method: 'PUT',
         headers: {
             "Content-Type": "application/json"
         }

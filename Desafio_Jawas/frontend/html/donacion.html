@@ -29,7 +29,6 @@
 </head>
 
 <body>
-
     <header>
         <a href="../html/home.html" id="inicio">
             <img src="../assets/Jawas.webp" alt="logo" width="40px" >
@@ -45,13 +44,15 @@
     </div>
 
     <button id="mandarLote">Mandar lote</button>
+    <p id="msgMandar"></p>
 
     <h3>Entregándose...</h3>
     <div class="progress-container">
         <div class="progress-bar" id="myBar">0%</div>
     </div>
 
-    <button id="cancelarLote">Cancelar lote</button>
+    <button id="cancelar">Cancelar lote</button>
+    <p id="msgCancelar"></p>
 
     <h2>LOTES DEL USUARIO</h2>
     <table id="tablaLotes">
@@ -79,6 +80,7 @@
         </div>
     </footer>
 </body>
+
 <script src="../js/utils/google_maps.js"></script>
 <script type="module"
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSULpKCqFLZPFYrrwh9hGp-XOH1KtHneE&callback=initMap">
