@@ -21,13 +21,12 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            //TODO: 'foto_perfil' => Foto de perfil Usuario corregir
-            'nombre' => $this->faker->firstName,
-            'apellido' => $this->faker->lastName,
+            'nombre' => 'admin',
+            'apellido' => 'admin',
             'fotoPerfil' => $this->faker->imageUrl(640, 480, 'people'), // Genera una URL de imagen aleatoria
-            'email' => $this->faker->unique()->safeEmail,
+            'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => bcrypt('admin123'),
             'remember_token' => Str::random(10),
         ];
     }

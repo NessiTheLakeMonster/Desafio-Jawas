@@ -8,6 +8,7 @@ export async function getJoyas() {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -22,6 +23,7 @@ export async function getTipos() {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -36,6 +38,7 @@ export async function getJoya(id) {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -53,6 +56,7 @@ export async function modificarImg(formData) {
     var options = {
         method: 'POST',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
@@ -69,6 +73,7 @@ export async function generarJoya(datos) {
     var options = {
         method: 'POST',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
@@ -85,6 +90,7 @@ export async function getInventario() {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -101,6 +107,7 @@ export async function getRecetas(idTipoJoya) {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -116,6 +123,7 @@ export async function verificarComponentes(idReceta) {
     var options = {
         method: 'GET',
         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -129,7 +137,7 @@ export async function verificarComponentes(idReceta) {
 export async function subirImagen(imagen) {
     let headersList = {
         "Accept": "*/*",
-        "User-Agent": "Thunder Client (https://www.thunderclient.com)"
+        "Access-Control-Allow-Origin": "*"
     }
 
     let response = await fetch("http://127.0.0.1:8000/api/joya/subir", {

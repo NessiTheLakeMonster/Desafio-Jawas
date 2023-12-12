@@ -204,7 +204,7 @@ class JoyaController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required',
         ], $messages);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 202);
