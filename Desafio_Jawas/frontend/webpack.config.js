@@ -7,6 +7,8 @@ module.exports = {
         login: './js/login.js',
         registro: './js/registro.js',
         home: './js/home.js',
+        preHome: './js/preHome.js',
+        perfil: './js/perfil.js',
         gestionUsuarios: './js/gestionUsuarios.js',
         donaciones: './js/gestion_lotes.js',
         modificarCrearUsuario: './js/modificarCrearUsuario.js',
@@ -15,6 +17,11 @@ module.exports = {
         despieceLoteDetalles: './js/despieceLoteDetalles.js',
         recetas: './js/recetas.js',
         recetasDetalles: './js/recetasDetalle.js',
+        inventario: './js/inventario.js',
+        componentes: './js/componentes.js',
+        joyas: './js/joyas.js',
+        joyasDetalle: './js/joyasDetalle.js',
+        lotes: './js/lotes.js',
     },
     output: {
         filename: '[name].js',
@@ -28,8 +35,6 @@ module.exports = {
         },
         headers: {
             'Access-Control-Allow-Origin': '*',
-
         },
-
     },
 };

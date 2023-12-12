@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
-            $table->string('lugar_recogida');
+            $table->string('latitud');
+            $table->string('longitud');
             $table->boolean('entregado');
             $table->boolean('cancelado');
             $table->timestamps();

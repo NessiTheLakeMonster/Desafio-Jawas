@@ -12,6 +12,7 @@ class Receta extends Model
 
     protected $fillable = [
         'idUsuario',
+        'idTipoJoya'
     ];
 
 }

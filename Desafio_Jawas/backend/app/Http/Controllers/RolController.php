@@ -10,21 +10,11 @@ use Illuminate\Support\Facades\Validator;
 
 class RolController extends Controller
 {
-    public function asignarRol(Request $request)
+    public function listar()
     {
-        $validator = Validator::make($request->all(), [
-            'idUsuario' => 'required|integer',
-            'idRol' => 'required|integer',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
-
         try {
-            $usuario = User::find($request->idUsuario);
-            $rol = RolAsignado::create($request->all());
-            return response()->json($rol, 200);
+            $roles = Rol::all();
+            return response()->json($roles, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
