@@ -107,9 +107,20 @@ element.style {
   left: 680px;
   margin-bottom: 60px;
 }
+#mostrarPasswd{
+  margin: 0px;
+}
+
+#mostrarPasswd2{
+  margin: 0px;
+}
+
+#mostrarPasswd1{
+  margin: 0px;
+}
 
 
-button#btnUser {
+button#btnUser, button {
   background-color: rgb(178, 218, 148);
   border-radius: 50px;
   border: none;
@@ -405,6 +416,34 @@ text-align: center;
 }
 
 .tabla-centro-recetas tbody td {
+  background-color: rgba(178, 218, 148, 0.802);
+}
+.tabla-centro-joyas {
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 2em 2em 2em 2em;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  border-left: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}
+
+.tabla-centro-joyas td,
+.tabla-centro-joyas th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgb(178, 218, 148);
+}
+
+.tabla-centro-joyas tbody td {
   background-color: rgba(178, 218, 148, 0.802);
 }
 

@@ -24,7 +24,7 @@ const btnGenerarJoya = document.getElementById("btnGenerarJoya");
 
 export function cabeceraTablaJoyas(data) {
     let cabecera = document.createElement('tr');
-    let headers = ['', 'IMÁGEN', 'TIPO JOYA'];
+    let headers = ['', 'ID','IMÁGEN', 'TIPO JOYA'];
 
     headers.forEach(header => {
         let th = document.createElement('th');
@@ -44,6 +44,7 @@ export function filaTablaJoyas(data) {
     return data.map(joya => `
         <tr>
             <td><input class="checkbox-joya" type="checkbox" name="joya" value="${joya.id}"></td>
+            <td>${joya.id}</td>
             <td><img src= "${joya.foto}" width = "20px"></td>
             <td>${joya.tipo_joya}</td>
         </tr>
@@ -134,6 +135,7 @@ export function _Init() {
 
                     tablaModificarJoya.innerHTML += crearFilasModificarJoya(data);
                     msgErrorJoya.textContent = "";
+                    _Init();
 
                 }).catch(error => {
                     console.log('Error al cargar la tabla de joyas', error);
@@ -159,10 +161,12 @@ export function _Init() {
                             console.log(response);
                             msgErrorJoya.textContent = "La imagen se ha modificado correctamente";
                             msgErrorJoya.style.color = "green";
+                            window.location.reload();
                         })
                         .catch(error => {
                             console.error(error);
                         });
+                        
                 }
 
             }
