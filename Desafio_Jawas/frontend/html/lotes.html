@@ -67,10 +67,6 @@
                         </li>
                         <li><a class="dropdown-item" href="../html/perfil.html">Perfil</a></li>
                         <li><a class="dropdown-item" href="../html/preHome.html">Cambiar Rol</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="../html/">Cerrar Sesión</a></li>
                     </ul>
                 </li>
             </a>
@@ -80,24 +76,27 @@
 
     <h1 class=" texto text-center mb-3 ">MANDAR LOTES</h1>
 
-    <div class="container" style="margin-left: 370px;">
+    <div class="container">
 
-        <div id="map" class="mb-3">
-            <!-- Aquí va el mapa -->
+        <div id="btnMandarLote" style="align-items: center; justify-content: center; padding-left: 220px;" >
+            <div id="map" class="mb-3">
+                <!-- Aquí va el mapa -->
+            </div>
+
+            <button class="btn btn-success mb-3 mt-3" id="btnMandarLote" style="margin-left: 340px;">Mandar
+                lote</button>
+
+
+            <h3 style="color: aliceblue;">Entregándose...</h3>
+            <div class="progress-container mb-3 mt-3">
+                <div class="progress-bar" id="myBar">0%</div>
+                </br>
+                <span id="msgLote"></span>
+            </div>
+
+            <button class="btn btn-danger mb-3 mt-3" id="btnCancelarLote" style="margin-left: 340px;">Cancelar
+                lote</button>
         </div>
-
-        <button class="btn btn-success mb-3 mt-3" id="btnMandarLote" style="margin-left: 340px;">Mandar lote</button>
-
-
-        <h3 style="color: aliceblue;">Entregándose...</h3>
-        <div class="progress-container mb-3 mt-3"  >
-            <div class="progress-bar" id="myBar">0%</div>
-        </br>
-        <span id="msgLote"></span>
-        </div>
-
-        <button class="btn btn-danger mb-3 mt-3" id="btnCancelarLote" style="margin-left: 340px;">Cancelar lote</button>
-
     </div>
 
     <h1 class=" texto text-center mb-3 ">LOTES DEL USUARIO</h1>

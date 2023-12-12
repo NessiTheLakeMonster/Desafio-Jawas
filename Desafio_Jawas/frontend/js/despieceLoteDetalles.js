@@ -32,6 +32,11 @@ let select = document.getElementById('selectComponentes');
 getLoteComponentes()
     .then(componentes => {
 
+        let opcionPorDefecto = document.createElement('option');
+        opcionPorDefecto.value = '';
+        opcionPorDefecto.text = 'Selecciona un componente';
+        select.appendChild(opcionPorDefecto);
+
         componentes.forEach(componente => {
             let elementoOpcion = document.createElement('option');
             elementoOpcion.value = componente.id;
@@ -118,6 +123,7 @@ export function _Init() {
 
 btnAñadirComponente.addEventListener('click', function (e) {
     e.preventDefault();
+    limpiarErrores()
     if (!validar()) {
         msgComponenteInsertado.innerHTML = "Los datos ingresados no son válidos, por favor revise los campos";
         msgComponenteInsertado.style.color = "red";
@@ -137,6 +143,7 @@ btnAñadirComponente.addEventListener('click', function (e) {
                 document.getElementById("cantidadComponente").value = "";
                 _Init();
             } else {
+
                 msgComponenteInsertado.innerHTML = "El componente no se pudo añadir, complete los campos";
                 msgComponenteInsertado.style.color = "red";
             }
@@ -160,6 +167,8 @@ btnSeleccionarOtroLote.addEventListener('click', function () {
 function limpiarErrores() {
     msgErrorDescripcion.textContent = "";
     msgErrorCantidad.textContent = "";
+    msgExito.innerHTML = "";
+
 }
 
 
