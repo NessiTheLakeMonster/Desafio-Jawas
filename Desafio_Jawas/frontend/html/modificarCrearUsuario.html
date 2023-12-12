@@ -35,57 +35,135 @@
             <h1 class="titulo">JAWAS GEMS</h1>
             <a href="../html/perfil.html" id="perfil">
                 <img src="../assets/jawaperfil.png" alt="logo" width="100px">
+                <li class="nav-item dropdown" style="  list-style-type: none;">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../html/home.html">Home</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="../html/perfil.html">Perfil</a></li>
+                        <li><a class="dropdown-item" href="../html/preHome.html">Cambiar Rol</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="../html/">Cerrar Sesión</a></li>
+                    </ul>
+                </li>
             </a>
         </div>
         <br>
-
-        <nav id="navbarComponentes">
-            <button id="btnUser">
-                <a href="gestionUsuarios.html">Gestionar Usuarios</a>
-            </button>
-
-            <button id="btnUser">
-                <a href="inventario.html"> Gestionar inventarios</a>
-            </button>
-
-            <button id="btnUser">
-                <a href="componentes.html"> Gestionar componentes</a>
-            </button>
-        </nav>
     </header>
+
+    <nav id="navbarComponentes" class="mt-4 mb-4" style="display: flex; justify-content: center; justify-self: unset; margin-left: 350px; margin-right: 350px;">
+        <button id="btnUser">
+            <a href="gestionUsuarios.html">Gestionar Usuarios</a>
+        </button>
+
+        <button id="btnUser">
+            <a href="inventario.html"> Gestionar inventarios</a>
+        </button>
+
+        <button id="btnUser">
+            <a href="componentes.html"> Gestionar componentes</a>
+        </button>
+    </nav>
+
+    <div class="m-5 p-5" style="background-color: rgba(220, 255, 132, 0.855); border-radius: 10px;">
+
+        <h1 class="text-center" id="titulo"></h1>
+
+        <hr style="color: blue;">
+
+        <div id="msgExito" class="alert alert-info d-none"></div>
+
+        <div class="d-flex justify-content-between gap-5">
+            
+            <div class="col-6 text-center pt-3">
+                <div class="mb-3">
+                    <form id="formImagen" action="http://127.0.0.1:8000/api/subir" method="post" enctype="multipart/form-data">
+                        <label class="form-label" for="imagenCrear" id="lblImagenCrear"></label>
+            
+                        <div class="d-flex gap-2">
+                            <input name="image" type="file" accept="image/*" id="imagenCrear" class="form-control"/>
+                            <input id="btnCrearImagen" type="submit" name="subir" value="Subir imagen" class="btn btn-success" />
+                        </div>
+            
+                        <div id="msgErrorImagen" class="alert alert-danger d-none"></div><br>
+                    </form>
+                </div>
+            
+                <img src="" id="fotoUsuario" width="300" class="img rounded-circle"><br>
+            
+                <div class="mb-3">
+                    <label for="nuevaFoto" id="lblNewFoto" class="form-label"></label>
+        
+                    <div class="d-flex gap-2">
+                        <input type="file" id="nuevaFoto" class="form-control">
+                        <input type="button" value="Subir Imagen" id="btnSubirImagen" class="btn btn-success">
+                    </div> 
+                </div>
+                
+            </div>
+            
+            <div class="form col-6 pe-5">
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="nombreUsuario" placeholder="nombre">
+                    <label for="nombreUsuario" id="lblNombreUsuario">Nombre</label>
+                </div>
+
+                <div id="msgErrorNombre" class="alert alert-danger d-none"></div><br>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="apellidoUsuario" placeholder="apellido">
+                    <label for="apellidoUsuario" id="lblApellidoUsuario">Apellido</label>
+                </div>
+                
+                <div id="msgErrorApellido" class="alert alert-danger d-none"></div><br>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="email" id="emailUsuario" placeholder="email">
+                    <label for="emailUsuario" id="lblEmailUsuario">Correo Electrónico</label>
+                </div>
+                
+                <div id="msgErrorEmail" class="alert alert-danger d-none"></div><br>
+
+                <input type="button" id="btnEnviar" class="btn btn-success btn-lg"><br>
+            
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="password" id="passwdUsuario" placeholder="contraseña">
+                    <label for="passwdUsuario" id="lblPasswdUsuario"></label>
+                </div>
+
+                <div id="msgErrorPasswd" class="alert alert-danger d-none"></div><br>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="password" id="passwdUsuario2" placeholder="Confirmar contraseña">
+                    <label for="passwdUsuario" id="lblPasswdUsuario2">Confirmar contraseña</label>
+                </div>
+                
+                <div id="msgErrorPasswd2" class="alert alert-danger d-none"></div><br>
+            
+                <input type="button" id="cambioPasswd" class="btn btn-success btn-lg mb-3">
+                
+                <input type="button" id="btnCrearUsuario"><br>
+            
+                <div class="d-flex gap-3 justify-content-center">
+                    <select name="" id="selectRoles" class="dropdown"></select>
+                    <input type="button" id="btnAddRol" class="btn btn-success">
+                </div>
+                
+            </div>
+        </div>
+    </div>
     
-    <h1 id="titulo"></h1>
 
-    <span id="msgExito"></span><br>
-
-    <form id="formImagen" action="http://127.0.0.1:8000/api/subir" method="post" enctype="multipart/form-data">
-        <label for="imagenCrear" id="lblImagenCrear"></label><input name="image" type="file" accept="image/*" id="imagenCrear"/>
-        <input id="btnCrearImagen" type="submit" name="subir" value="Subir imagen" />
-        <span id="msgErrorImagen"></span><br>
-    </form>
-
-    <img src="" id="fotoUsuario" width="200"><br>
-    <label for="nuevaFoto" id="lblNewFoto"></label><input type="file" id="nuevaFoto"><input type="button" value="Subir Imagen" id="btnSubirImagen"> <br>
-    <span id="msgErrorFoto"></span><br>
-    
-    Nombre:<input type="text" id="nombreUsuario"><br>
-    <span id="msgErrorNombre"></span><br>
-    Apellido:<input type="text" id="apellidoUsuario"><br>
-    <span id="msgErrorApellido"></span><br>
-    Email:<input type="text" id="emailUsuario"><br>
-    <span id="msgErrorEmail"></span><br>
-
-    <label for="passwdUsuario" id="lblPasswdUsuario"></label><input type="text" id="passwdUsuario"><br>
-    <span id="msgErrorPasswd"></span><br>
-    <label for="passwdUsuario" id="lblPasswdUsuario2"></label><input type="text" id="passwdUsuario2"><br>
-    <span id="msgErrorPasswd2"></span><br>
-
-    <input type="button" id="cambioPasswd">
-    <input type="button" id="btnEnviar"><br>
-    <input type="button" id="btnCrearUsuario"><br>
-
-    <select name="" id="selectRoles"></select>
-    <input type="button" id="btnAddRol">
+    <video autoplay muted loop id="myVideo">
+        <source src="../assets/videoFondo.mp4" type="video/mp4">
+    </video>
 
     <!-- Pie de página -->
     <footer class="d-flex flex-column align-items-center p-3"

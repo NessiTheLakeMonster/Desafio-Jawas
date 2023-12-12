@@ -37,7 +37,7 @@ export function crearFilasTablaUsuario(data) {
             <tr>
                 <td><input class="checkbox-usuario" type="checkbox" name="idUsuario" value="${user.id}"></td>
                 <td>${user.id}</td>
-                <td><img src="${user.fotoPerfil}" alt="Foto de perfil" width="100"></td>
+                <td><img src="${user.fotoPerfil}" alt="Foto de perfil" width="100" class="img rounded-circle"></td>
                 <td>${user.nombre}</td>
                 <td>${user.apellido}</td>
                 <td>${user.email}</td>
