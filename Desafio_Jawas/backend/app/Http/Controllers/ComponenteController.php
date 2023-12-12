@@ -84,12 +84,17 @@ class ComponenteController extends Controller
         }
     }
 
-    public function eliminar($id){
-        
+    public function eliminar($id)
+    {
+
         try {
             $componente = Componente::findOrFail($id);
             $componente->delete();
-            return response()->json(['message' => 'Componente eliminado correctamente']);
+            return response()->json([
+                'message' => 'Componente eliminado correctamente',
+                'id' => $id,
+                'status' => 200
+            ]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

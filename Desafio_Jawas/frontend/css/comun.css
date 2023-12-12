@@ -109,7 +109,7 @@ element.style {
 }
 
 
-button#btnUser, button {
+button#btnUser {
   background-color: rgb(178, 218, 148);
   border-radius: 50px;
   border: none;
