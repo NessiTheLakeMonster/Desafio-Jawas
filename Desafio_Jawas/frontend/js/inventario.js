@@ -38,6 +38,11 @@ export function crearFilasTablaInventario(data) {
 
 export async function _Init() {
     getInventario().then(data => {
+
+        if (data.status === 401) {
+            window.location.href = '../html/noPermisos.html'
+        }
+
         tablaInventario.innerHTML = "";
         cabeceraTablaInventario();
         tablaInventario.innerHTML += crearFilasTablaInventario(data);
@@ -49,7 +54,7 @@ export async function _Init() {
         let buttons = document.querySelectorAll('.decrease-button, .increase-button');
         buttons.forEach(button => {
             button.disabled = true;
-    });
+        });
 
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function () {
@@ -71,7 +76,7 @@ export async function _Init() {
                     let relatedButtons = document.querySelectorAll(`.decrease-button[data-id="${id}"], .increase-button[data-id="${id}"]`);
                     relatedButtons.forEach(button => {
                         button.disabled = false;
-                    });                   
+                    });
 
                 } else {
                     localStorage.removeItem('idInventario');
@@ -92,7 +97,7 @@ export async function _Init() {
                     this.nextSibling.textContent = cantidad;
                     let datos = { cantidad: cantidad };
                     modificarInventario(idInventario, datos).then(response => {
-                        console.log(response); 
+                        console.log(response);
                     });
                 }
             });
@@ -107,7 +112,7 @@ export async function _Init() {
                     this.previousSibling.textContent = cantidad;
                     let datos = { cantidad: cantidad };
                     modificarInventario(idInventario, datos).then(response => {
-                        console.log(response); 
+                        console.log(response);
                     });
                 }
             });

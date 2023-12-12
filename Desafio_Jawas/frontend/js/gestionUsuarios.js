@@ -65,6 +65,11 @@ export function _Init() {
     btnEditar.disabled = true;
 
     getUsuarios().then(data => {
+
+        if (data.status === 401) {
+            window.location.href = '../html/noPermisos.html';
+        }
+
         tablaUsuarios.innerHTML = "";
         cabeceraTablaUsuarios();
         tablaUsuarios.innerHTML += crearFilasTablaUsuario(data);

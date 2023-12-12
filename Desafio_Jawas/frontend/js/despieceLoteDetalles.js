@@ -99,6 +99,11 @@ export function _Init() {
     let idLote = localStorage.getItem('loteId');
     getComponentes(idLote)
         .then(data => {
+
+            if (data.status === 401) {
+                window.location.href = "../html/noPermisos.html";
+            }
+            
             tablaInfoLotes.innerHTML = '';
             cabeceraTablaDesguace();
             tablaInfoLotes.innerHTML += filaTablaInfoLote(data);

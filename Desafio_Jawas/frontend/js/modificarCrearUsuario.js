@@ -191,6 +191,12 @@ export function _Init() {
     msgPasswd.classList.add('d-none');
     msgConfPasswd.classList.add('d-none');
 
+    if (localStorage.getItem('rol') ==! 'administrador') {
+        cargarRoles();
+    } else {
+        window.location.href = "../html/noPermisos.html";
+    }
+
     if (localStorage.getItem('modificar') === 'true') {
         usuario = JSON.parse(localStorage.getItem('usuarioSeleccionado'));
         modificarUsuario();
@@ -204,7 +210,7 @@ export function _Init() {
 
 export function cargarRoles() {
     getRoles().then(data => {
-        console.log(data);
+
         selectRoles.innerHTML = crearSelectRoles(data);
     });
 }

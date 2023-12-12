@@ -127,6 +127,11 @@ export function _Init() {
 
     getInventario()
         .then(data => {
+
+            if (data.status === 401) {
+                window.location.href = "../html/noPermisos.html";
+            }
+
             tablaInventario.innerHTML = "";
             cabeceraTablaComponentes(data);
             tablaInventario.innerHTML += crearFilasComponentes(data);
@@ -176,14 +181,14 @@ btnGenerarJoya.addEventListener('click', function (e) {
         respuesta.style.color = 'red';
     } else {
         let fotoJoya = inputImagen.files[0];
-        
+
         let formData = new FormData();
         formData.append('image', fotoJoya)
 
         console.log(formData.get("image"))
         subirImagen(formData)
             .then(urlImagen => {
-                let url =  urlImagen.url;
+                let url = urlImagen.url;
 
                 let datos = JSON.stringify({
                     idTipoJoya: parseInt(selectJoya.value),

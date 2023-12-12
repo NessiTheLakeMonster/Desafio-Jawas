@@ -87,6 +87,11 @@ export function filaTablaLotesColaborador(data) {
 export function _Init() {
     getLotesEntregados(usuario)
         .then(data => {
+
+            if (data.status === 401) {
+                window.location.href = "../html/noPermisos.html";
+            }
+            
             tablaLotes.innerHTML = "";
             cabeceraTablaLotesColaborador(data);
             tablaLotes.innerHTML += filaTablaLotesColaborador(data);

@@ -138,6 +138,11 @@ export function _Init() {
 
     getIngredientesNuevos(id_recetaNueva)
         .then(data => {
+
+            if (data.status === 401) {
+                window.location.href = "../html/noPermisos.html";
+            }
+            
             tablaIngredientes.innerHTML = '';
             cabeceraTablaIngredientesReceta(data);
             tablaIngredientes.innerHTML += filaTablaIngredientesReceta(data);
