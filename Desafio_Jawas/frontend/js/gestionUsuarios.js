@@ -96,6 +96,8 @@ export function _Init() {
 btnEliminar.addEventListener('click', function () {
     let idUsuario = localStorage.getItem('idUsuarioSeleccionado');
 
+    console.log(idUsuario);
+
     deleteUsuario(idUsuario).then(data => {
 
         if (data.status === 200) {

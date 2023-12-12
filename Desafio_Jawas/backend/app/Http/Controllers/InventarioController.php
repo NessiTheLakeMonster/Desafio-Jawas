@@ -6,10 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Inventario;
 use Illuminate\Support\Facades\DB;
 
-
-
-
-
 class InventarioController extends Controller
 {
     public function listar($id)
@@ -48,6 +44,21 @@ class InventarioController extends Controller
             return response()->json([
                 'inventario' => $inventario,
                 'message' => 'Cantidad modificada',
+                'status' => 200
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function eliminar($id)
+    {
+        try {
+            $inventario = Inventario::findOrFail($id);
+            $inventario->delete();
+            return response()->json([
+                'inventario' => $inventario,
+                'message' => 'Inventario eliminado',
                 'status' => 200
             ], 200);
         } catch (\Exception $e) {

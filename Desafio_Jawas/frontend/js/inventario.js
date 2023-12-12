@@ -1,8 +1,10 @@
-import { getInventario, modificarInventario } from "./http/http_inventario.js";
+import { getInventario, modificarInventario, eliminarInventario } from "./http/http_inventario.js";
 
 // Variables del HTML
 const tablaInventario = document.getElementById('tablaInventario');
 
+// Botones
+const btnEliminarInventario = document.getElementById('btnEliminarInventario');
 
 // Funciones
 export function cabeceraTablaInventario() {
@@ -114,17 +116,18 @@ export async function _Init() {
 }
 
 // Eventos
-/* btnGuardar.addEventListener('click', () => {
-    modificarInventario().then(data => {
-        if (data.status == 200) {
-            alert('Modificado correctamente');
-            window.location.reload();
+btnEliminarInventario.addEventListener('click', function () {
+    let idInventario = localStorage.getItem('idInventario');
+
+    eliminarInventario(idInventario).then(data => {
+        if (data.status === 200) {
+            alert(data.message);
+            _Init();
         } else {
-            alert('Error al modificar');
+            alert(data.message);
         }
     });
-
-}); */
+});
 
 // Ejecución de las funciones
 _Init();
