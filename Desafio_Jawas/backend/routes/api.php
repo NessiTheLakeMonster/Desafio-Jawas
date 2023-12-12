@@ -51,6 +51,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/roles', [RolController::class, 'listar']);
 });
 
+Route::get('/noPermisos', function () {
+    return view('noPermisos');
+});
+
 //-------------------------RUTAS ADMINISTRADOR-------------------------
 
 //GESTIONAR USUARIOS

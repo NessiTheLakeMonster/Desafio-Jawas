@@ -60,6 +60,11 @@ export function filaTablaLotes(data) {
 function _Init() {
     getLotes()
         .then(data => {
+
+            if (data.status === 401) {
+                window.location.href = "../html/noPermisos.html";
+            }
+
             tablaLoteClasificador.innerHTML = "";
             cabeceraTablaLotes(data);
             tablaLoteClasificador.innerHTML += filaTablaLotes(data);

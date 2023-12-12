@@ -8,6 +8,7 @@ export async function getUsuarios() {
         }
     };
     const response = await fetch("http://localhost:8000/api/usuario/listar", options);
+
     const data = await response.json();
     return data;
 }

@@ -62,6 +62,11 @@ export async function _Init() {
     try {
         getUsuarioById(idUsuario).then(dataUser => {
             mostrarLotes(idUsuario).then(data => {
+
+                if (data.status === 401) {
+                    window.location.href = '../html/noPermisos.html'
+                }
+                
                 cabeceraTabla(data)
                 tablaLotes.innerHTML += llenarTablaLotes(data, dataUser)
 

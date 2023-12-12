@@ -117,6 +117,11 @@ export function _Init() {
 
     getComponentes()
         .then(data => {
+
+            if (data.status === 401) {
+                window.location.href = '../html/noPermisos.html';
+            }
+            
             tablaComponentes.innerHTML = "";
             cabeceraTablaComponentes(data);
             tablaComponentes.innerHTML += filaComponentes(data);

@@ -91,6 +91,11 @@ export function crearFilasModificarJoya(data) {
 
 export function _Init() {
     getJoyas().then(data => {
+
+        if (data.status === 401) {
+            window.location.href = "../html/noPermisos.html";
+        }
+
         tablaJoyas.innerHTML = "";
         cabeceraTablaJoyas(data);
         tablaJoyas.innerHTML += filaTablaJoyas(data);

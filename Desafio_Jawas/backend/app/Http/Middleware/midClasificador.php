@@ -22,7 +22,8 @@ class midClasificador
         } else {
             return response()->json([
                 "success" => false,
-                "message" => "No tienes permisos para realizar esta acción"
+                "message" => "No tienes permisos para realizar esta acción",
+                "status" => 401
             ], 401);
         }
     }

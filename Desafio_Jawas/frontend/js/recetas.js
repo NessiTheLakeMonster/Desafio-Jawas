@@ -151,6 +151,11 @@ export function _Init() {
 
     getRecetas()
         .then(data => {
+
+            if (data.status === 401) {
+                window.location.href = "../html/noPermisos.html";
+            }
+            
             tablaRecetas.innerHTML = "";
             cabeceraTablaRecetas(data);
             tablaRecetas.innerHTML += filaTablaRecetas(data);
