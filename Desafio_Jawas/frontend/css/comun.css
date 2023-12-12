@@ -45,6 +45,10 @@ body {
   background-color: rgba(56, 99, 253, 0.76);
 }
 
+.custom-modal .modal-dialog {
+  max-width: 90%; 
+}
+
 #nombreComponente{
   border-radius: 25px;
   background-color: rgba(56, 99, 253, 0.76);
@@ -78,11 +82,23 @@ body {
   background-color:rgba(178, 218, 148, 0.802);
 }
 
+element.style {
+  margin-left: 0px;
+}
+
 #navbarComponentes {
-  background-color: rgba(91, 148, 255, 0.76);
-  border-radius: 50px;
-  text-align: center;
-  display: inline-block;
+
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 2em 2em 2em 2em;
+  border-right: 4px solid rgb(184, 255, 91);
+  border-top: 4px solid rgb(184, 255, 91);
+  border-bottom: 4px solid rgb(184, 255, 91);
+  border-left: 4px solid rgb(184, 255, 91);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  margin-left: 0px;
+
 
 }
 
@@ -93,7 +109,7 @@ body {
 }
 
 
-button#btnUser {
+button#btnUser, button {
   background-color: rgb(178, 218, 148);
   border-radius: 50px;
   border: none;
@@ -220,7 +236,7 @@ input {
   padding: 1em;
   display: flex;
   justify-content: center;
-  width: 80%;
+  width: 60%;
   margin: auto;
 }
 
@@ -273,3 +289,93 @@ button.increase-button:hover {
   background-color: rgb(51, 90, 180);
   box-shadow: 0 15px 20px rgba(134, 141, 215, 0.4);
 }
+
+.tabla-centro-despiece {
+  color: rgb(15, 16, 19);
+  font-size: 19px;
+  border-radius: 0 3em 3em 0;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+}
+
+.tabla-centro-despiece td,
+.tabla-centro-despiece th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color:  rgb(178, 218, 148);
+}
+
+.tabla-centro-despiece tbody td {
+  background-color:  rgba(178, 218, 148, 0.802);
+}
+
+.tabla-centro-despiece-lote {
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 0 2em 2em 0;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin: auto;
+}
+
+.tabla-centro-despiece-lote td,
+.tabla-centro-despiece-lote th {
+  border: 4px solid rgba(10, 40, 5, 0.391);
+  padding: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgb(178, 218, 148);
+}
+
+.tabla-centro-despiece-lote tbody td {
+  background-color: rgba(178, 218, 148, 0.802);
+}
+
+#introducirComponentes{
+  color: rgb(15, 16, 19);
+  font-size: 2em;
+  border-radius: 2em 2em 2em 2em;
+  border-right: 4px solid rgb(91, 148, 255);
+  border-top: 4px solid rgb(91, 148, 255);
+  border-bottom: 4px solid rgb(91, 148, 255);
+  border-left: 4px solid rgb(91, 148, 255);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  gap: 15px;
+}
+
+
+#descripcionComponente, #cantidadComponente, select{
+background-color: rgba(0, 3, 192, 0.689);
+border-radius: 50px;
+border: none;
+padding: 10px 20px;
+color: white;
+font-size: 16px;
+box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+transition: all 0.3s ease 0s;
+cursor: pointer;
+outline: none;
+text-align: center;
+}
+

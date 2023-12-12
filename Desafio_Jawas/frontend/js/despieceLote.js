@@ -98,6 +98,7 @@ btnBuscar.addEventListener('click', async function () {
         tablaLoteClasificador.innerHTML = "";
         cabeceraTablaLotes(data);
         tablaLoteClasificador.innerHTML += filaTablaLotes(data);
+        msgErrorBuscar.textContent = "";
     } else {
         let data = await getLote(id);
         tablaLoteClasificador.innerHTML = "";
@@ -106,6 +107,7 @@ btnBuscar.addEventListener('click', async function () {
             data = Array.isArray(data) ? data : [data];
             cabeceraTablaLotes(data);
             tablaLoteClasificador.innerHTML += filaTablaLotes(data);
+            msgErrorBuscar.textContent = "";
         } else {
             msgErrorBuscar.textContent = "El lote que buscas no existe, selecciona un lote de la lista";
             msgErrorBuscar.style.color = "red";
