@@ -9,7 +9,8 @@ export async function loginUsuario(datos) {
     var options = {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         },
         body: body
         
