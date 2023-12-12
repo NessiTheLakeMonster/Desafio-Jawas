@@ -100,6 +100,8 @@ Route::middleware(['auth:sanctum', 'midAdmin'])->group(function () {
         Route::get('/mostrar', [InventarioController::class, 'mostrar']);
         //MODIFICAR INVENTARIO (solo cantidades)
         Route::put('/modificar/{id}', [InventarioController::class, 'modificarCantidad']);
+        //ELIMINAR COMPONENTE DEL INVENTARIO
+        Route::delete('/eliminar/{id}', [InventarioController::class, 'eliminar']);
     });
 });
 

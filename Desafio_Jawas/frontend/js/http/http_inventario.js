@@ -35,3 +35,17 @@ export async function modificarInventario(id, data) {
     return result;
 }
 
+export async function eliminarInventario(idInventario) {
+    var options = {
+        method: 'DELETE',
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    };
+
+    let response = await fetch(`http://localhost:8000/api/inventario/eliminar/${idInventario}`, options);
+    let result = await response.json();
+    return result;
+}
