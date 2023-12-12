@@ -148,6 +148,8 @@ Route::prefix('info_lote')->group(function () {
     Route::get('/listar', [LoteController::class, 'listar']);
     //MOSTRAR LOTE ENTREGADO BUSCADO POR ID
     Route::get('/mostrar/{id}', [LoteController::class, 'buscar']);
+    //MOSTRAR TODOS LOS LOTES A DESPIEZAR
+    Route::get('/lotes/{id}', [LoteController::class, 'mostrarLotesTotales']);
     //CREAR COMPONENTE
     Route::post('/crear', [App\Http\Controllers\ComponenteController::class, 'crear']);
     //DESGUAZARÁ Y CLASIFICARÁ EL LOTE

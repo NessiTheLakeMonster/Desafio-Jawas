@@ -29,7 +29,7 @@ export async function getLote(id) {
             "Access-Control-Allow-Origin": "*"
         }
     };
-    const response = await fetch(`http://localhost:8000/api/info_lote/mostrar/${id}`, options);
+    const response = await fetch(`http://localhost:8000/api/info_lote/lotes/${id}`, options);
     const data = await response.json();
     return data;
 }
