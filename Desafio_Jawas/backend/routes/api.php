@@ -117,22 +117,43 @@ Route::middleware(['auth:sanctum', 'midColaborador'])->group(function () {
     //GESTIONAR LOTES PANTALLA JAIME
     Route::prefix('lote')->group(function () {
 
-        // MANDAR LOTE
+        // MANDAR LOTE [INSERTADA X INES Y PATRICIA]
         Route::post('/crear', [LoteController::class, 'crear']);
-        //MOSTRAR LISTA DE TODOS LOS LOTES
-        Route::get('/listar/{idUsuario}', [LoteController::class, 'mostrarLotes']);
-        //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS
+        //MOSTRAR LISTA DE TODOS LOS LOTES [INSERTADO X JAIME]
+        //Route::get('/listar/{idUsuario}', [LoteController::class, 'mostrarLotes']);
+        //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS [INSERTADA X INES Y PATRICIA]
         Route::get('/entregados/{idUsuario}', [LoteController::class, 'mostrarEntregados']);
-        //MOSTRAR LOTE ENTREGADO BUSCADO POR ID
-        Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
-        //MANDAR LOTES
-        Route::put('/mandar/{id}', [LoteController::class, 'mandarLote']);
-        //MOSTRAR LOTE ENTREGADO BUSCADO POR ID
+        //MOSTRAR LOTE ENTREGADO BUSCADO POR ID [INSERTADO X JAIME] --> es la misma funcion 'mostrar' pero le falta un parametro
+        //Route::get('/mostrar/{id}', [LoteController::class, 'mostrar']);
+        //MANDAR LOTES [INSERTADO X JAIME] --> ESTA FUNCION YA SE HACE EN /CREAR (la primera ruta)
+        //Route::put('/mandar/{id}', [LoteController::class, 'mandarLote']);
+        //MOSTRAR LOTE ENTREGADO BUSCADO POR ID [INSERTADA X INES Y PATRICIA]
         Route::get('/mostrar/{idLote}/{idUsuario}', [LoteController::class, 'mostrar']);
-        //CANCELAR LOTES
+        //CANCELAR LOTES [INSERTADA X INES Y PATRICIA]
         Route::put('/cancelar/{id}', [LoteController::class, 'cancelarLote']);
     });
 });
+
+//ANTES DEL MERGE DE JAIME DEL DIA 12 A MEDIODIA
+
+/*
+//GESTIONAR LOTES
+Route::prefix('lote')->group(function () {
+
+    // MANDAR LOTE
+    Route::post('/crear', [LoteController::class, 'crear']);
+    //MOSTRAR LISTA DE TODOS LOS LOTES ENTREGADOS
+    Route::get('/entregados/{idUsuario}', [LoteController::class, 'mostrarEntregados']);
+    //MOSTRAR LOTE ENTREGADO BUSCADO POR ID 
+    Route::get('/mostrar/{idLote}/{idUsuario}', [LoteController::class, 'mostrar']);
+    //CANCELAR LOTES
+    Route::put('/cancelar/{id}', [LoteController::class, 'cancelarLote']);
+
+    //TODO:NO SE USA
+    Route::get('/listar', [LoteController::class, 'listar']);
+    Route::put('/modificar/{id}', [LoteController::class, 'modificar']);
+    Route::delete('/eliminar/{id}', [LoteController::class, 'eliminar']);
+});*/
 
 //-------------------------RUTAS CLASIFICADOR-------------------------
 
