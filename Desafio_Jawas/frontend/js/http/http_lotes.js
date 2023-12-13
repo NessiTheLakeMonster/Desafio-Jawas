@@ -17,7 +17,7 @@ export async function mandarLote(datos) {
     var option = {
         method: 'POST',
         headers: {
-            //"Authorization": "Bearer " + sessionStorage.getItem("token"),
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
@@ -36,7 +36,7 @@ export async function getLotesEntregados(idUsuario) {
     var options = {
         method: 'GET',
         headers: {
-            /* "Authorization": "Bearer " + sessionStorage.getItem("token"), */
+            "Authorization": "Bearer " + sessionStorage.getItem("token"), 
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -51,7 +51,7 @@ export async function getLoteEntregado(id,idUsuario ) {
     var options = {
         method: 'GET',
         headers: {
-            /* "Authorization": "Bearer " + sessionStorage.getItem("token"), */
+            "Authorization": "Bearer " + sessionStorage.getItem("token"),
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
@@ -67,7 +67,7 @@ export async function cancelarLote(id) {
     var options = {
         method: 'PUT',
         headers: {
-            /* "Authorization": "Bearer " + sessionStorage.getItem("token"), */
+            "Authorization": "Bearer " + sessionStorage.getItem("token"), 
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
         }
