@@ -1,0 +1,100 @@
+#tablaLoteClasificador {
+  border-collapse: collapse;
+}
+#tablaLoteClasificador td {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+#tablaLoteClasificador th {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+
+#tablaInfoLotes {
+  border-collapse: collapse;
+}
+#tablaInfoLotes td {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+#tablaInfoLotes th {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+
+#tablaRecetas {
+  border-collapse: collapse;
+}
+#tablaRecetas td {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+#tablaRecetas th {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+
+#tablaIngredientes {
+  border-collapse: collapse;
+}
+#tablaIngredientes td {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+#tablaIngredientes th {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+
+#tablaJoyas {
+  border-collapse: collapse;
+}
+#tablaJoyas td {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+#tablaJoyas th {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+
+#tablaModificarJoya {
+  border-collapse: collapse;
+}
+#tablaModificarJoya td {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+#tablaModificarJoya th {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+
+#tablaInventario {
+  border-collapse: collapse;
+  border-collapse: collapse;
+}
+#tablaInventario td {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+#tablaInventario th {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+
+#tablaComponentes {
+  border-collapse: collapse;
+}
+#tablaComponentes td {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}
+#tablaComponentes th {
+  border: 1px solid #ffcc00;
+  padding: 10px;
+}/*# sourceMappingURL=tablasStyle.css.map */
